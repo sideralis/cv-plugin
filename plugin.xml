@@ -404,24 +404,42 @@
             supportsManagedBuild="false">
       </builder>
       <builder
+            arguments="-AXF "
+            command="makegen"
             id="com.infineon.cv.builderHadesMake"
             isAbstract="true"
             isVariableCaseSensitive="false"
-            name="Hades Make Builder">
+            name="Hades Make Builder"
+            superClass="org.eclipse.cdt.build.core.settings.default.builder"
+            supportsManagedBuild="false">
       </builder>
       <builder
+            arguments="-c -f hades.mk"
+            autoBuildTarget="run"
+            cleanBuildTarget="clean"
             command="clearmake"
+            errorParsers="com.infineon.cv.ARMErrorParser"
             id="com.infineon.cv.builderHadesRun"
+            incrementalBuildTarget="run"
             isAbstract="true"
             isVariableCaseSensitive="false"
-            name="Hades Run Builder">
+            name="Hades Run Builder"
+            superClass="org.eclipse.cdt.build.core.settings.default.builder"
+            supportsManagedBuild="false">
       </builder>
       <builder
+            arguments="-c -f hades.mk"
+            autoBuildTarget="compile"
+            cleanBuildTarget="clean"
             command="clearmake"
+            errorParsers="com.infineon.cv.ARMErrorParser"
             id="com.infineon.cv.builderHadesCompile"
+            incrementalBuildTarget="compile"
             isAbstract="true"
             isVariableCaseSensitive="false"
-            name="Hades Compile Builder">
+            name="Hades Compile Builder"
+            superClass="org.eclipse.cdt.build.core.settings.default.builder"
+            supportsManagedBuild="false">
       </builder>
       <tool
             id="com.infineon.cv.toolCVTC31"
