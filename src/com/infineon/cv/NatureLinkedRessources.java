@@ -34,56 +34,50 @@ public class NatureLinkedRessources implements IProjectNature {
 	private IProject project;
 	private static final Map<String, String[]> libsrcPaths = new HashMap() {
 		{
-			put("CVTC", new String[] { 
-					"base \\S-Gold\\S-GOLD_Family_Environment\\_base", 
-					"lib \\S-Gold\\S-GOLD_Family_Environment\\_lib\\_src",
-					"halix \\S-Gold\\S-GOLD_Family_Environment\\_halix\\_src" });
+			put("CVTC", new String[] { "base S-Gold/S-GOLD_Family_Environment/_base", 
+					"lib S-Gold/S-GOLD_Family_Environment/_lib/_src",
+					"halix S-Gold/S-GOLD_Family_Environment/_halix/_src" });
 		}
 		{
-			put("CVLib", new String[] { 
-					"lib \\S-Gold\\S-GOLD_Family_Environment\\_lib\\_src", 
-					"halix \\S-Gold\\S-GOLD_Family_Environment\\_halix\\_src" });
+			put("CVLib", new String[] { "lib S-Gold/S-GOLD_Family_Environment/_lib/_src", 
+					"halix S-Gold/S-GOLD_Family_Environment/_halix/_src" });
 		}
 		{
-			put("CVMem", new String[] { 
-					"cgu \\IFX_Tools\\MemLoader\\C_ASM\\Target\\SG\\NOR Flash\\_lld\\CGU", 
-					"ebu \\IFX_Tools\\MemLoader\\C_ASM\\Target\\SG\\NOR Flash\\_lld\\EBU",
-					"emmc \\IFX_Tools\\MemLoader\\C_ASM\\Target\\SG\\NOR Flash\\_lld\\eMMC", 
-					"pmu \\IFX_Tools\\MemLoader\\C_ASM\\Target\\SG\\NOR Flash\\_lld\\PMU",
-					"com \\IFX_Tools\\MemLoader\\C_ASM\\Target\\SG\\NOR Flash\\_lld\\SerialInterface", 
-					"lld \\IFX_Tools\\MemLoader\\C_ASM\\Target\\SG\\NOR Flash\\_lld",
-					"base \\IFX_Tools\\MemLoader\\C_ASM\\Target\\SG\\NOR Flash\\_base" });
+			put("CVMem", new String[] { "cgu IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_lld/CGU", 
+					"ebu IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_lld/EBU",
+					"emmc IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_lld/eMMC", 
+					"pmu IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_lld/PMU",
+					"com IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_lld/SerialInterface", 
+					"lld IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_lld",
+					"base IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_base" });
 		}
 		{
-			put("Bootcode", new String[] { 
-					"base \\S-Gold-Bootcode\\S-GOLD\\Target\\base", 
-					"bs \\S-Gold-Bootcode\\S-GOLD\\Target\\bs\\src", 
-					"drv_mem \\S-Gold-Bootcode\\S-GOLD\\Target\\drv_mem\\src",
-					"hal_src \\S-Gold-Bootcode\\S-GOLD\\Target\\hal\\src", 
-					"hal_inc \\S-Gold-Bootcode\\S-GOLD\\Target\\hal\\inc", 
-					"sc \\S-Gold-Bootcode\\S-GOLD\\Target\\sc\\src" });
+			put("Bootcode", new String[] { "base S-Gold-Bootcode/S-GOLD/Target/base", 
+					"bs S-Gold-Bootcode/S-GOLD/Target/bs/src", 
+					"drv_mem S-Gold-Bootcode/S-GOLD/Target/drv_mem/src",
+					"hal_src S-Gold-Bootcode/S-GOLD/Target/hal/src", 
+					"hal_inc S-Gold-Bootcode/S-GOLD/Target/hal/inc", 
+					"sc S-Gold-Bootcode/S-GOLD/Target/sc/src",
+					"brl S-Gold-Bootcode/S-GOLD/Target/brl/src"});
 		}
 		{
-			put("URFET", new String[] { 
-					"halix \\S-Gold\\S-GOLD_Family_Environment\\_halix\\_src", 
-					"lib \\S-Gold\\S-GOLD_Family_Environment\\_lib\\_src",
-					"base \\S-Gold\\S-GOLD_Family_Environment\\_base", 
-					"fmr_hld \\fmr_cv\\fmr_xg223\\FMR_HLD", 
-					"fmr_lld \\fmr_cv\\fmr_xg223\\FMR_LLD" });
+			put("URFET", new String[] { "halix S-Gold/S-GOLD_Family_Environment/_halix/_src", 
+					"lib S-Gold/S-GOLD_Family_Environment/_lib/_src",
+					"base S-Gold/S-GOLD_Family_Environment/_base", 
+					"fmr_hld fmr_cv/fmr_xg223/FMR_HLD", 
+					"fmr_lld fmr_cv/fmr_xg223/FMR_LLD" });
 		}
 		{
-			put("Crypto", new String[] { 
-					"base \\S-Gold\\S-GOLD_Family_Environment\\_base", 
-					"lib \\S-Gold\\S-GOLD_Family_Environment\\_lib\\_src",
-					"halix \\S-Gold\\S-GOLD_Family_Environment\\_halix\\_src",
-					"crypto_hal \\CRYPTO\\S-GOLD_Family_Environment\\_halix_CV\\_src",
-					"crypto_all \\CRYPTO\\S-GOLD_Family_Environment\\Testcases\\CRYPTO_test\\CRYPTO_TC_All"});
+			put("Crypto", new String[] { "base S-Gold/S-GOLD_Family_Environment/_base", 
+					"lib S-Gold/S-GOLD_Family_Environment/_lib/_src",
+					"halix S-Gold/S-GOLD_Family_Environment/_halix/_src", 
+					"crypto_hal CRYPTO/S-GOLD_Family_Environment/_halix_CV/_src",
+					"crypto_all CRYPTO/S-GOLD_Family_Environment/Testcases/CRYPTO_test/CRYPTO_TC_All" });
 		}
 		{
-			put("hades", new String[] { 
-					"base \\S-Gold\\S-GOLD_Family_Environment\\_base", 
-					"lib \\S-Gold\\S-GOLD_Family_Environment\\_lib\\_src",
-					"halix \\S-Gold\\S-GOLD_Family_Environment\\_halix\\_src" });
+			put("hades", new String[] { "base S-Gold/S-GOLD_Family_Environment/_base", 
+					"lib S-Gold/S-GOLD_Family_Environment/_lib/_src",
+					"halix S-Gold/S-GOLD_Family_Environment/_halix/_src" });
 		}
 	};
 
@@ -92,7 +86,8 @@ public class NatureLinkedRessources implements IProjectNature {
 	 */
 	@Override
 	public void configure() throws CoreException {
-		// Code example for Job is coming from: http://blog.eclipse-tips.com/2009/02/using-progress-bars.html
+		// Code example for Job is coming from:
+		// http://blog.eclipse-tips.com/2009/02/using-progress-bars.html
 		Job job = new Job("Adding links...") {
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
@@ -149,21 +144,36 @@ public class NatureLinkedRessources implements IProjectNature {
 	}
 
 	private void addLink(String linkfile, String linkPath) {
+		String projLoc, root;
+		int pos1, pos2, pos3;
+
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		IFolder link = project.getFolder(linkfile);
-		linkPath = Character.toString(project.getLocation().toString().charAt(0)).concat(":").concat(linkPath);
-		IPath location = new Path(linkPath);
 
-		if (workspace.validateLinkLocation(link, location).getSeverity() != IStatus.ERROR) {
-			try {
-				link.createLink(location, IResource.NONE, null);
-			} catch (CoreException e) {
-				e.printStackTrace();
+		projLoc = project.getLocation().toString();
+		pos1 = projLoc.indexOf("S-Gold");
+		pos2 = projLoc.indexOf("CRYPTO");
+		pos3 = projLoc.indexOf("IFX_Tools");
+		if ((pos1 != -1) || (pos2 != -1) || (pos3 != -1)) {
+			if (pos1 != -1)
+				root = projLoc.substring(0, pos1);
+			else if (pos2 != -1)
+				root = projLoc.substring(0, pos2);
+			else
+				root = projLoc.substring(0, pos3);
+
+			linkPath = root.concat(linkPath);
+			IPath location = new Path(linkPath);
+
+			if (workspace.validateLinkLocation(link, location).getSeverity() != IStatus.ERROR) {
+				try {
+					link.createLink(location, IResource.NONE, null);
+				} catch (CoreException e) {
+					e.printStackTrace();
+				}
+			} else {
+				System.out.println(workspace.validateLinkLocation(link, location).toString());
 			}
-		} else {
-			System.out.println(workspace.validateLinkLocation(link, location).toString());
 		}
-
 	}
-
 }

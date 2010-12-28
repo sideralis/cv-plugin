@@ -238,13 +238,12 @@
                <builder
                      id="com.infineon.cv.builder.hadesCompile"
                      isAbstract="false"
-                     isVariableCaseSensitive="false"
                      superClass="com.infineon.cv.builderHadesCompile">
                </builder>
                <tool
                      id="com.infineon.cv.tool.hadesCompile"
                      isAbstract="false"
-                     superClass="com.infineon.cv.tool.hades.compile">
+                     superClass="com.infineon.cv.toolHades">
                </tool>
             </toolChain>
          </configuration>
@@ -263,13 +262,12 @@
                <builder
                      id="com.infineon.cv.builder.hadesRun"
                      isAbstract="false"
-                     isVariableCaseSensitive="false"
                      superClass="com.infineon.cv.builderHadesRun">
                </builder>
                <tool
                      id="com.infineon.cv.tool.hadesRun"
                      isAbstract="false"
-                     superClass="com.infineon.cv.tool.hades.run">
+                     superClass="com.infineon.cv.toolHades">
                </tool>
             </toolChain>
          </configuration>
@@ -288,13 +286,36 @@
                <builder
                      id="com.infineon.cv.builder.hadesMake"
                      isAbstract="false"
-                     isVariableCaseSensitive="false"
                      superClass="com.infineon.cv.builderHadesMake">
                </builder>
                <tool
                      id="com.infineon.cv.tool.hadesMake"
                      isAbstract="false"
-                     superClass="com.infineon.cv.tool.hades.make">
+                     superClass="com.infineon.cv.toolHades">
+               </tool>
+            </toolChain>
+         </configuration>
+         <configuration
+               id="com.infineon.cv.configuration.hadesGnumake"
+               parent="com.infineon.cv.configurationDefault">
+            <toolChain
+                  id="com.infineon.cv.toolChain.hadesGnumake"
+                  isAbstract="false"
+                  superClass="com.infineon.cv.toolChainHades">
+               <targetPlatform
+                     id="com.infineon.cv.targetPlatform.hadesGnumake"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.targetPlatform">
+               </targetPlatform>
+               <builder
+                     id="com.infineon.cv.builder.hadesGnumake"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.builderAll">
+               </builder>
+               <tool
+                     id="com.infineon.cv.tool.hadesGnumake"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.toolHades">
                </tool>
             </toolChain>
          </configuration>
@@ -343,12 +364,16 @@
             name="Hades Makefile Converter">
       </configuration>
       <configuration
-            artifactName="axf"
+            artifactExtension="axf"
             cleanCommand="clean"
+            errorParsers="com.infineon.cv.ARMErrorParser;"
             id="com.infineon.cv.configurationHadesCompile"
             name="Hades Compile">
       </configuration>
       <configuration
+            artifactExtension="axf"
+            cleanCommand="clean"
+            errorParsers="com.infineon.cv.ARMErrorParser;"
             id="com.infineon.cv.configurationHadesRun"
             name="Hades Run">
       </configuration>
@@ -404,9 +429,11 @@
             supportsManagedBuild="false">
       </builder>
       <builder
-            arguments="-AXF "
-            command="makegen"
+            arguments="-AXF"
+            autoBuildTarget="CRYPTO_TC_Hash_XGOLD223_V10_FW_U10_REAL_RAM_DEBUG_STD_IO_USIF_GENERIC_SDRAM_AND_NO_NVM.axf"
+            command="makefile_generator.bat"
             id="com.infineon.cv.builderHadesMake"
+            incrementalBuildTarget="CRYPTO_TC_Hash_XGOLD223_V10_FW_U10_REAL_RAM_DEBUG_STD_IO_USIF_GENERIC_SDRAM_AND_NO_NVM.axf"
             isAbstract="true"
             isVariableCaseSensitive="false"
             name="Hades Make Builder"
@@ -599,6 +626,10 @@
                   builtIn="false"
                   value="${bootcodeProjectDir}/sc/inc">
             </listOptionValue>
+            <listOptionValue
+                  builtIn="false"
+                  value="${bootcodeProjectDir}/brl/inc">
+            </listOptionValue>
          </option>
       </tool>
       <tool
@@ -609,6 +640,11 @@
                id="com.infineon.cv.inputTypeHades"
                sourceContentType="org.eclipse.cdt.core.cSource">
          </inputType>
+         <envVarBuildPath
+               buildPathResolver="com.infineon.cv.misc.testBuildPath"
+               pathType="buildpathInclude"
+               variableList="ARMLIB">
+         </envVarBuildPath>
          <option
                id="com.infineon.cv.optionHades"
                isAbstract="true"
@@ -616,6 +652,26 @@
                resourceFilter="all"
                superClass="org.eclipse.cdt.build.core.settings.holder.incpaths"
                valueType="includePath">
+            <listOptionValue
+                  builtIn="false"
+                  value="${toolDir}/IFX_Tools/ARM/RVDS/RVCT/Data/2.2/349/include/windows">
+            </listOptionValue>
+            <listOptionValue
+                  builtIn="false"
+                  value="${testcaseProjectDir}/_inc">
+            </listOptionValue>
+            <listOptionValue
+                  builtIn="false"
+                  value="${testcaseProjectDir}/_lib/_inc">
+            </listOptionValue>
+            <listOptionValue
+                  builtIn="false"
+                  value="${testcaseProjectDir}/_halix/common">
+            </listOptionValue>
+            <listOptionValue
+                  builtIn="false"
+                  value="${testcaseProjectDir}/_halix/_inc">
+            </listOptionValue>
          </option>
       </tool>
       <tool
