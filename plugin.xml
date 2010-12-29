@@ -224,6 +224,54 @@
             name="CV Hades"
             projectMacroSupplier="com.infineon.cv.includes.testcaseMacro4include">
          <configuration
+               id="com.infineon.cv.configuration.hadesGnumake"
+               parent="com.infineon.cv.configurationDefault">
+            <toolChain
+                  id="com.infineon.cv.toolChain.hadesGnumake"
+                  isAbstract="false"
+                  superClass="com.infineon.cv.toolChainHades">
+               <targetPlatform
+                     id="com.infineon.cv.targetPlatform.hadesGnumake"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.targetPlatform">
+               </targetPlatform>
+               <builder
+                     id="com.infineon.cv.builder.hadesGnumake"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.builderAll">
+               </builder>
+               <tool
+                     id="com.infineon.cv.tool.hadesGnumake"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.toolHades">
+               </tool>
+            </toolChain>
+         </configuration>
+         <configuration
+               id="com.infineon.cv.configuration.hadesMake"
+               parent="com.infineon.cv.configurationIFXMake2Hades">
+            <toolChain
+                  id="com.infineon.cv.toolChain.HadesMake"
+                  isAbstract="false"
+                  superClass="com.infineon.cv.toolChainHades">
+               <targetPlatform
+                     id="com.infineon.cv.targetPlatform.HadesMake"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.targetPlatform">
+               </targetPlatform>
+               <builder
+                     id="com.infineon.cv.builder.hadesMake"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.builderHadesMake">
+               </builder>
+               <tool
+                     id="com.infineon.cv.tool.hadesMake"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.toolHades">
+               </tool>
+            </toolChain>
+         </configuration>
+         <configuration
                id="com.infineon.cv.configuration.hadesCompile"
                parent="com.infineon.cv.configurationHadesCompile">
             <toolChain
@@ -266,54 +314,6 @@
                </builder>
                <tool
                      id="com.infineon.cv.tool.hadesRun"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.toolHades">
-               </tool>
-            </toolChain>
-         </configuration>
-         <configuration
-               id="com.infineon.cv.configuration.hadesMake"
-               parent="com.infineon.cv.configurationIFXMake2Hades">
-            <toolChain
-                  id="com.infineon.cv.toolChain.HadesMake"
-                  isAbstract="false"
-                  superClass="com.infineon.cv.toolChainHades">
-               <targetPlatform
-                     id="com.infineon.cv.targetPlatform.HadesMake"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.targetPlatform">
-               </targetPlatform>
-               <builder
-                     id="com.infineon.cv.builder.hadesMake"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.builderHadesMake">
-               </builder>
-               <tool
-                     id="com.infineon.cv.tool.hadesMake"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.toolHades">
-               </tool>
-            </toolChain>
-         </configuration>
-         <configuration
-               id="com.infineon.cv.configuration.hadesGnumake"
-               parent="com.infineon.cv.configurationDefault">
-            <toolChain
-                  id="com.infineon.cv.toolChain.hadesGnumake"
-                  isAbstract="false"
-                  superClass="com.infineon.cv.toolChainHades">
-               <targetPlatform
-                     id="com.infineon.cv.targetPlatform.hadesGnumake"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.targetPlatform">
-               </targetPlatform>
-               <builder
-                     id="com.infineon.cv.builder.hadesGnumake"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.builderAll">
-               </builder>
-               <tool
-                     id="com.infineon.cv.tool.hadesGnumake"
                      isAbstract="false"
                      superClass="com.infineon.cv.toolHades">
                </tool>
@@ -429,11 +429,10 @@
             supportsManagedBuild="false">
       </builder>
       <builder
-            arguments="-AXF"
-            autoBuildTarget="CRYPTO_TC_Hash_XGOLD223_V10_FW_U10_REAL_RAM_DEBUG_STD_IO_USIF_GENERIC_SDRAM_AND_NO_NVM.axf"
-            command="makefile_generator.bat"
+            autoBuildTarget="hades_makefile"
+            command="gnumake"
             id="com.infineon.cv.builderHadesMake"
-            incrementalBuildTarget="CRYPTO_TC_Hash_XGOLD223_V10_FW_U10_REAL_RAM_DEBUG_STD_IO_USIF_GENERIC_SDRAM_AND_NO_NVM.axf"
+            incrementalBuildTarget="hades_makefile"
             isAbstract="true"
             isVariableCaseSensitive="false"
             name="Hades Make Builder"
