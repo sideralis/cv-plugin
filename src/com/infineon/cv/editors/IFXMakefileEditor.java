@@ -5,19 +5,15 @@ package com.infineon.cv.editors;
 
 import org.eclipse.swt.*;
 
-import org.eclipse.cdt.core.model.ICProject;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
-import org.eclipse.ui.IFileEditorMapping;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.ui.part.MultiPageEditorPart;
-
-import com.infineon.cv.InfineonActivator;
 
 /**
  * @author gautier
@@ -46,9 +42,9 @@ public class IFXMakefileEditor extends MultiPageEditorPart {
 		if (editorInput instanceof IFileEditorInput) {
 			IFileEditorInput fileEditorInput = (IFileEditorInput) editorInput;
 			IFile file = fileEditorInput.getFile();
-			IProject project = file.getProject();
-			System.out.println("Project name = " + project.getName());
-			System.out.println("File path = " + file.toString());
+//			IProject project = file.getProject();
+			String fileLocation = file.getLocation().toOSString();
+			System.out.println("File location = " + file.getLocation().toOSString());
 		}
 		createLinkPage();
 		createSourcePage();
