@@ -1,0 +1,20 @@
+element * CHECKEDOUT
+element /IFX_Tools /main/LATEST
+element /IFX_Tools/... T32_XGOLD626_BUILD20421    -nocheckout            #-------- Lauterbach T32 ---------  
+element /IFX_Tools/Lauterbach/...   /main/LATEST
+element /IFX_Tools/... TASKING_8.6R2 -nocheckout                         #--- Tasking Compiler and Codewright -----
+element /IFX_Tools/ARM/RVDS/... RVCT_22_BUILD576_ALL                     #---- ARM RVDS latest patches -----
+element /IFX_Tools/ARM/ADS/... ARM_PATCH_BUILD861 -nocheckout            #---- ARM ADS latest patches -----
+element /IFX_Tools/... RVCT_22_BUILD435 -nocheckout                      #-------- ARM Rule -----------
+element /IFX_Tools/... TERA_TERM_2.3 -nocheckout                         #-------- Tera Term --------------
+element /IFX_Tools/... RAMLOADER_HOST_1.0 -nocheckout                    #-------- RAM Loader Host --------
+element /IFX_Tools/... NU_1_4_10 -nocheckout                             #-------- Nucleus  ---------
+element /IFX_Tools/... DOXYGEN_1_4_3 -nocheckout                         #-------- Doxygen  ---------
+element /IFX_Tools/... SPLINT_3_1_1 -nocheckout                          #-------- Lint / Ident -----
+element /IFX_Tools/... GNUMAKE3_81 -nocheckout
+element /IFX_Tools/... GNU_180505  -nocheckout                            #-------- Lint / Ident -----
+element /IFX_Tools/... EVA_SW_ACTUAL -nocheckout                         #-------- EVA Board SW  ---------
+element /IFX_Tools/... EVA_SW_V20 -nocheckout                            #-------- EVA Board SW  ---------
+element /IFX_Tools/Audio_Transceiver_Tool/... /main/LATEST               #-------- Audio_Transceiver_Tool  ---------
+element /IFX_Tools/... .../site_sa/LATEST
+load \IFX_Tools\gnu

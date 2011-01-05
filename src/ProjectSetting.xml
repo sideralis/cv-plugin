@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : ProjectSetting.xml
+    Created on : 20 août 2010, 16:44
+    Author     : gautier
+    Description:
+        List of all accepted ARCH defines per project.
+-->
+
+<root>   
+	<project name="AGOLDRADIO">
+        <io>STD_IO_USIF</io>
+        <io>STD_IO_USIF1</io>
+        <io>STD_IO_USIF2</io>
+        <io>STD_IO_USIF3</io>
+        <io>STD_IO_DEBUGGER</io>
+        <mem_board>IFX_MEM_2MCP_56_SPANSION</mem_board>
+        <mem_board>IFX_MEM_2MCP_56_SAMSUNG</mem_board>
+        <mem_board>IFX_MEM_2MCP_AAD_56</mem_board>
+        <mem_board>IFX_MEM_2MCPI_107</mem_board>
+        <mem_board>IFX_MEM_2MCP_AAD_56_SWAP</mem_board>
+        <mem_board>NO_DAUGHTERBOARD</mem_board>
+        <configuration>DEBUG</configuration>
+        <configuration>RELEASE</configuration>
+        <mem_scatter>IRAM</mem_scatter>
+        <mem_scatter>RAM</mem_scatter>
+        <mem_scatter>FLASH</mem_scatter>
+		<mem_scatter>OWN</mem_scatter>
+    </project>
+
+    <project name="XGOLD223">
+        <io>STD_IO_USIF</io>
+        <io>STD_IO_USIF1</io>
+        <io>STD_IO_USIF2</io>
+        <io>STD_IO_DEBUGGER</io>
+        <mem_board>h3kb5164mkr_JEDEC512</mem_board>
+        <mem_board>NONVM_JEDEC512</mem_board>
+        <mem_board>samsung_k5t1g12acm</mem_board>
+        <configuration>DEBUG</configuration>
+        <configuration>RELEASE</configuration>
+        <mem_scatter>IRAM</mem_scatter>
+        <mem_scatter>RAM</mem_scatter>
+        <mem_scatter>FLASH</mem_scatter>
+        <mem_scatter>eMMC</mem_scatter>
+		<mem_scatter>OWN</mem_scatter>
+    </project>
+
+    <project name="SGOLD3HS">
+        <io>STD_IO_USIF</io>
+        <io>STD_IO_USIF1</io>
+        <io>STD_IO_USIF2</io>
+        <io>STD_IO_USIF3</io>
+        <io>STD_IO_DEBUGGER</io>
+        <mem_board>M18</mem_board>
+        <mem_board>R18</mem_board>
+        <mem_board>NO_DAUGHTERBOARD</mem_board>
+        <configuration>DEBUG</configuration>
+        <configuration>RELEASE</configuration>
+        <mem_scatter>IRAM</mem_scatter>
+        <mem_scatter>RAM</mem_scatter>
+        <mem_scatter>FLASH</mem_scatter>
+		<mem_scatter>OWN</mem_scatter>
+    </project>
+
+    <project name="XGOLD626">
+        <io>STD_IO_USIF</io>
+        <io>STD_IO_USIF1</io>
+        <io>STD_IO_USIF2</io>
+        <io>STD_IO_USIF3</io>
+        <io>STD_IO_DEBUGGER</io>
+        <mem_board>FLASH_DDR</mem_board>
+        <mem_board>NO_DAUGHTERBOARD</mem_board>
+        <configuration>DEBUG</configuration>
+        <configuration>RELEASE</configuration>
+        <mem_scatter>IRAM</mem_scatter>
+        <mem_scatter>DDR</mem_scatter>
+        <mem_scatter>FLASH</mem_scatter>
+		<mem_scatter>OWN</mem_scatter>
+    </project>
+
+
+</root>
