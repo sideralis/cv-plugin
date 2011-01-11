@@ -21,6 +21,7 @@ Bundle-ActivationPolicy: lazy
 Import-Package: org.eclipse.cdt.internal.ui.editor,
  org.eclipse.cdt.internal.ui.search.actions,
  org.eclipse.cdt.internal.ui.text,
+ org.eclipse.cdt.make.internal.ui.editor,
  org.eclipse.cdt.ui.text,
  org.eclipse.cdt.ui.text.c.hover,
  org.eclipse.core.resources

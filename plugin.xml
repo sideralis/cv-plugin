@@ -171,6 +171,12 @@
      
 				</tool>
             </toolChain>
+            <enablement
+                  type="ALL">
+               <checkOption
+                     isRegex="false">
+               </checkOption>
+            </enablement>
          </configuration>
          <configuration
                id="com.infineon.cv.configurationCVTC22"
