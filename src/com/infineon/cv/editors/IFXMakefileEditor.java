@@ -8,6 +8,7 @@ import org.eclipse.swt.*;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
@@ -26,6 +27,7 @@ public class IFXMakefileEditor extends MultiPageEditorPart {
 
 	private TextEditor textEditor;
 	private TreeViewer linkButtons;
+	private ListViewer targetList;
 	private int indexSource;
 	private ParserMakefile parserMakefile;
 
@@ -53,6 +55,7 @@ public class IFXMakefileEditor extends MultiPageEditorPart {
 			parserMakefile = new ParserMakefile(fileLocation);
 			parserMakefile.readMakefile();
 		}
+		parse();
 		createTargetPage();
 		createLinkPage();
 		createSourcePage();
@@ -80,6 +83,13 @@ public class IFXMakefileEditor extends MultiPageEditorPart {
 	}
 
 	protected void createTargetPage() {
+		targetList = new ListViewer(getContainer());
+		int index = addPage(targetList.getControl());
+		setPageText(index,"Target");
+	}
+
+	protected void parse(void) {
+		// Parse makefile
 		if (parserMakefile != null) {
 			if (parserMakefile.getSrcdir().size() != 0)
 				System.out.println("SRCDIR=" + parserMakefile.getSrcdir().toString());
@@ -95,9 +105,8 @@ public class IFXMakefileEditor extends MultiPageEditorPart {
 			System.out.println("ITCM_BASE_ADDRESS=" + parserMakefile.getItcm_base_address().toString());
 			System.out.println("FORBIDDEN_DEFINES=" + parserMakefile.getFobidden_defines().toString());
 		}
-
+		// Parse 
 	}
-
 	@Override
 	public void setFocus() {
 		super.setFocus();
