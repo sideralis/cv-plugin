@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+
+<toc label="Reference"> 
+	<topic label="How to"  href="html/reference/howto.html"> 
+	</topic>
+ <topic href="html/reference/knownissues.html" label="Known issues">
+ </topic>
+</toc>
