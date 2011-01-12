@@ -88,7 +88,7 @@ public class IFXMakefileEditor extends MultiPageEditorPart {
 		setPageText(index,"Target");
 	}
 
-	protected void parse(void) {
+	protected void parse() {
 		// Parse makefile
 		if (parserMakefile != null) {
 			if (parserMakefile.getSrcdir().size() != 0)
