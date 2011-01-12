@@ -653,7 +653,7 @@
                valueType="includePath">
             <listOptionValue
                   builtIn="false"
-                  value="${toolDir}/IFX_Tools/ARM/RVDS/RVCT/Data/2.2/349/include/windows">
+                  value="${ARMINC}">
             </listOptionValue>
             <listOptionValue
                   builtIn="false"
