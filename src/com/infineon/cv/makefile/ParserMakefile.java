@@ -268,7 +268,7 @@ public class ParserMakefile {
 		} catch (Exception e) {
 			System.err.println("Error: " + e.getMessage());
 		}
-		// Search for include ... makefile.mak
+		// Search for "include ... makefile.mak" in makefile
 		// and replace it with display of interesting variables
 		pattern = Pattern.compile("\ninclude.*Makefile.mak");
 		matcher = pattern.matcher(makefile);
@@ -285,40 +285,8 @@ public class ParserMakefile {
 			e.printStackTrace();
 		}
 
-		// Find path
-//		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-//		IProject project = root.getProject();
-
-/*		SKIPPED FOR DEBUG PURPOSE
-		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		IProject[] projects = workspace.getRoot().getProjects();
-		ICProjectDescription prjDesc;
-		IEnvironmentVariable pathToGnumake = null;
-		for (IProject project : projects) {
-			prjDesc = CoreModel.getDefault().getProjectDescription(project);
-			IEnvironmentVariableManager envManager = CCorePlugin.getDefault().getBuildEnvironmentManager();
-			//TODO the 2 commented lines below should work but does not work
-//			IEnvironmentVariable path2 = envManager.getVariable("Path", prjDesc.getActiveConfiguration(), true);
-//			System.out.println("PATH="+path2);
-			IEnvironmentVariable[] paths = envManager.getVariables(prjDesc.getActiveConfiguration(), true);
-			String envVarList = "Path";
-			for (IEnvironmentVariable path : paths) {
-				if (envVarList.contains(path.getName())) {
-					pathToGnumake = path;
-					break;
-				}
-			}
-		}
-		// Execute gnumake
-		if (pathToGnumake == null)
-			System.out.println("Error: path to gnumake was not found");
-*/
-		String cmd = "C:\\Users\\Bernard\\WorkspaceRCP\\gnumake.exe -f " + prjLoc + "\\makefile.1";
-//		String[] cmd = new String[] {"C:\\Users\\Bernard\\WorkspaceRCP\\gnumake.exe", "-f " + prjLoc + "\\makefile.1"};
-		
-//		List<String> cmd = new ArrayList<String>();
-//		cmd.add("U:\\IFX_Tools\\gnu\\bin\\gnumake.exe");
-//		cmd.add("-f " + prjLoc + "\\makefile.1");
+//		String cmd = "C:\\Users\\Bernard\\WorkspaceRCP\\gnumake.exe -f " + prjLoc + "\\makefile.1";
+		String cmd = "gnumake.exe -f " + prjLoc + "\\makefile.1";		
 		try {
 
 			System.out.println(System.getProperty("user.dir"));

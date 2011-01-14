@@ -34,9 +34,10 @@
         <io>STD_IO_USIF1</io>
         <io>STD_IO_USIF2</io>
         <io>STD_IO_DEBUGGER</io>
-        <mem_board>h3kb5164mkr_JEDEC512</mem_board>
-        <mem_board>NONVM_JEDEC512</mem_board>
-        <mem_board>samsung_k5t1g12acm</mem_board>
+        <mem_board>NO_MEMORY </mem_board>
+        <mem_board>GENERIC_SDRAM_AND_NO_NVM</mem_board>
+        <mem_board>HYNIX_SDRAM_AND_NVM_H3KB5164MKR</mem_board>
+        <mem_board>SAMSUNG_SDRAM_AND_NVM_K5T1G12ACM</mem_board>
         <configuration>DEBUG</configuration>
         <configuration>RELEASE</configuration>
         <mem_scatter>IRAM</mem_scatter>

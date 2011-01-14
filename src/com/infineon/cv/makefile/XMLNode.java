@@ -7,7 +7,7 @@ import java.util.HashMap;
  * XMLNode presents the structure of a node in ProjectSetting.xml, with the project type,
  * and all attributes attached to this project type.
  * */
-class XMLNode {
+public class XMLNode {
 	private String projectType;
 	private HashMap<String, ArrayList<String>> attributs;
 
