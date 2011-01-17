@@ -11,6 +11,7 @@ import org.eclipse.swt.*;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.ui.IEditorInput;
@@ -35,13 +36,14 @@ public class IFXMakefileEditor extends MultiPageEditorPart {
 	private ListViewer targetList;
 	private int indexSource;
 	private ParserMakefile parserMakefile;
-	private XMLParser valueMakefile;
+	private XMLParser valuesMakefile;
 
 	/**
 	 * Constructor
 	 */
 	public IFXMakefileEditor() {
 		parserMakefile = null;
+		parseMakefilePossibleValues();
 	}
 
 	/*
@@ -61,7 +63,8 @@ public class IFXMakefileEditor extends MultiPageEditorPart {
 			parserMakefile = new ParserMakefile(fileLocation);
 			parserMakefile.readMakefile();
 		}
-		parse();
+		parseMakefileValues();
+		getValuesFromProject();
 		createTargetPage();
 		createLinkPage();
 		createSourcePage();
@@ -94,7 +97,7 @@ public class IFXMakefileEditor extends MultiPageEditorPart {
 		setPageText(index,"Target");
 	}
 
-	protected void parse() {
+	protected void parseMakefileValues() {
 		// Parse makefile
 		if (parserMakefile != null) {
 			if (parserMakefile.getSrcdir().size() != 0)
@@ -111,19 +114,28 @@ public class IFXMakefileEditor extends MultiPageEditorPart {
 			System.out.println("ITCM_BASE_ADDRESS=" + parserMakefile.getItcm_base_address().toString());
 			System.out.println("FORBIDDEN_DEFINES=" + parserMakefile.getFobidden_defines().toString());
 		}
+	}
+	/**
+	 * Parse the xml file describing all possible values for the different defines of the makefile
+	 */
+	protected void parseMakefilePossibleValues() {
 		// Parse possible values
-		valueMakefile = new XMLParser("ProjectSetting.xml");
-		{
-			HashMap<String, ArrayList<String>> xml = null;
-			ArrayList<XMLNode> prjNodes = valueMakefile.getXMLNodes();
-			for (XMLNode node : prjNodes) {
-				if (parserMakefile.getArch().contains(node.getProjectType().trim())) {
-					xml = node.getAttributs();
-					break;
-				}
+		valuesMakefile = new XMLParser("ProjectSetting.xml");
+	}
+	/**
+	 * Get the possible values for the different defines of the makefile 
+	 * for a given project
+	 */
+	protected void getValuesFromProject() {
+		HashMap<String, ArrayList<String>> xml = null;
+		ArrayList<XMLNode> prjNodes = valuesMakefile.getXMLNodes();
+		for (XMLNode node : prjNodes) {
+			if (parserMakefile.getArch().contains(node.getProjectType().trim())) {
+				// Get only node for current project
+				xml = node.getAttributs();
+				break;
 			}
 		}
-		
 	}
 	@Override
 	public void setFocus() {
