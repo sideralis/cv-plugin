@@ -139,7 +139,37 @@
          </configuration>
       </projectType>
       <projectType
-            id="com.infineon.cv.projectTypeCTestcase"
+            id="com.infineon.cv.projectTypeCHadesLib"
+            isAbstract="false"
+            name="Hades Lib"
+            projectMacroSupplier="com.infineon.cv.includes.testcaseMacro4include">
+         <configuration
+               id="com.infineon.cv.configuration.hadesLibGnumake"
+               parent="com.infineon.cv.configurationDefault">
+            <toolChain
+                  id="com.infineon.cv.toolChain.hadesLibGnumake"
+                  isAbstract="false"
+                  superClass="com.infineon.cv.toolChainHades">
+               <targetPlatform
+                     id="com.infineon.cv.targetPlatform.hadesLibGnumake"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.targetPlatform">
+               </targetPlatform>
+               <builder
+                     id="com.infineon.cv.builder.hadesLibGnumake"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.builderLib">
+               </builder>
+               <tool
+                     id="com.infineon.cv.toolhadesLibGnumake"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.toolHades">
+               </tool>
+            </toolChain>
+         </configuration>
+      </projectType>
+      <projectType
+            id="com.infineon.cv.projectTypeDTestcase"
             isAbstract="false"
             isTest="false"
             name="CV TestCase"
@@ -202,7 +232,7 @@
          </configuration>
       </projectType>
       <projectType
-            id="com.infineon.cv.projectTypeDLibrary"
+            id="com.infineon.cv.projectTypeELibrary"
             isAbstract="false"
             isTest="false"
             name="CV Library"
@@ -259,7 +289,7 @@
          </configuration>
       </projectType>
       <projectType
-            id="com.infineon.cv.projectTypeEMemloader"
+            id="com.infineon.cv.projectTypeFMemloader"
             isAbstract="false"
             name="CV Memloader"
             projectMacroSupplier="com.infineon.cv.includes.testcaseMacro4include">
@@ -321,7 +351,7 @@
          </configuration>
       </projectType>
       <projectType
-            id="com.infineon.cv.projectTypeFCrypto"
+            id="com.infineon.cv.projectTypeHCrypto"
             isAbstract="false"
             name="CV Crypto"
             projectMacroSupplier="com.infineon.cv.includes.testcaseMacro4include">
@@ -381,17 +411,20 @@
             configurationEnvironmentSupplier="com.infineon.cv.env.EnvVar3_1"
             id="com.infineon.cv.toolChainRVDS31"
             isAbstract="true"
+            isToolChainSupported="com.infineon.cv.toolchainsupport.RVDSToolChainSupport"
             name="RVDS 3.1">
       </toolChain>
       <toolChain
             configurationEnvironmentSupplier="com.infineon.cv.env.EnvVar2_2"
             id="com.infineon.cv.toolChainRVDS22"
             isAbstract="true"
+            isToolChainSupported="com.infineon.cv.toolchainsupport.RVDSToolChainSupport"
             name="RVDS 2.2">
       </toolChain>
       <toolChain
             id="com.infineon.cv.toolChainHades"
             isAbstract="true"
+            isToolChainSupported="com.infineon.cv.toolchainsupport.HadesToolChainSupport"
             name="Hades tool chain">
       </toolChain>
       <targetPlatform
@@ -424,7 +457,6 @@
             isAbstract="true"
             isVariableCaseSensitive="false"
             name="Infineon Lib Builder"
-            parallelBuildCmd="--jobs=2"
             superClass="org.eclipse.cdt.build.core.settings.default.builder"
             supportsManagedBuild="false">
       </builder>
@@ -901,11 +933,14 @@
    <extension
          point="org.eclipse.cdt.core.language">
       <language
-            class="com.infineon.cv.misc.gccExtends"
-            id="com.infineon.cv.language1"
-            name="InfineonLanguage">
+            class="com.infineon.cv.misc.ARMLanguage"
+            id="arm"
+            name="ARM Extensions">
          <contentType
-               id="com.infineon.cv.contentType1">
+               id="org.eclipse.cdt.core.cSource">
+         </contentType>
+         <contentType
+               id="org.eclipse.cdt.core.cHeader">
          </contentType>
       </language>
    </extension>
