@@ -11,6 +11,9 @@ import org.eclipse.swt.*;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -53,6 +56,11 @@ public class IFXMakefileEditor extends MultiPageEditorPart {
 	 */
 	@Override
 	protected void createPages() {
+		// Job job = new Job("Parsing makefile...") {
+		// @Override
+		// protected IStatus run(IProgressMonitor monitor) {
+		// monitor.beginTask("Parsing makefile...", 100);
+
 		IEditorInput editorInput = getEditorInput();
 		if (editorInput instanceof IFileEditorInput) {
 			IFileEditorInput fileEditorInput = (IFileEditorInput) editorInput;
@@ -62,13 +70,26 @@ public class IFXMakefileEditor extends MultiPageEditorPart {
 			System.out.println("File location = " + fileLocation);
 			parserMakefile = new ParserMakefile(fileLocation);
 			parserMakefile.readMakefile();
+			// monitor.worked(40);
 		}
-		parseMakefileValues();
-		getValuesFromProject();
-		createTargetPage();
-		createLinkPage();
+		if (parserMakefile != null && parserMakefile.getValid() == true) {
+			parseMakefileValues();
+			// monitor.worked(20);
+			getValuesFromProject();
+			// monitor.worked(10);
+			createTargetPage();
+			// monitor.worked(10);
+			createLinkPage();
+			// monitor.worked(10);
+		}
 		createSourcePage();
 		setActivePage(indexSource);
+
+		// monitor.done();
+		// return Status.OK_STATUS;
+		// }
+		// };
+		// job.schedule();
 	}
 
 	/**
@@ -94,12 +115,12 @@ public class IFXMakefileEditor extends MultiPageEditorPart {
 	protected void createTargetPage() {
 		targetList = new ListViewer(getContainer());
 		int index = addPage(targetList.getControl());
-		setPageText(index,"Target");
+		setPageText(index, "Target");
 	}
 
 	protected void parseMakefileValues() {
 		// Parse makefile
-		if (parserMakefile != null) {
+		if (parserMakefile != null && parserMakefile.getValid() == true) {
 			if (parserMakefile.getSrcdir().size() != 0)
 				System.out.println("SRCDIR=" + parserMakefile.getSrcdir().toString());
 			System.out.println("OWN_INIT_S=" + parserMakefile.getOwn_init_s().toString());
@@ -115,16 +136,19 @@ public class IFXMakefileEditor extends MultiPageEditorPart {
 			System.out.println("FORBIDDEN_DEFINES=" + parserMakefile.getFobidden_defines().toString());
 		}
 	}
+
 	/**
-	 * Parse the xml file describing all possible values for the different defines of the makefile
+	 * Parse the xml file describing all possible values for the different
+	 * defines of the makefile
 	 */
 	protected void parseMakefilePossibleValues() {
 		// Parse possible values
 		valuesMakefile = new XMLParser("ProjectSetting.xml");
 	}
+
 	/**
-	 * Get the possible values for the different defines of the makefile 
-	 * for a given project
+	 * Get the possible values for the different defines of the makefile for a
+	 * given project
 	 */
 	protected void getValuesFromProject() {
 		HashMap<String, ArrayList<String>> xml = null;
@@ -137,6 +161,7 @@ public class IFXMakefileEditor extends MultiPageEditorPart {
 			}
 		}
 	}
+
 	@Override
 	public void setFocus() {
 		super.setFocus();
