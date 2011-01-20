@@ -15,16 +15,16 @@ xmlns="http://www.w3.org/TR/REC-html40">
  <o:DocumentProperties>
   <o:Author>Gautier Bernard (IFF DCSA WLS RD CV)</o:Author>
   <o:LastAuthor>Gautier Bernard (IFF DCSA WLS RD CD FWV CV)</o:LastAuthor>
-  <o:Revision>6</o:Revision>
+  <o:Revision>7</o:Revision>
   <o:Created>2010-11-04T09:14:00Z</o:Created>
-  <o:LastSaved>2011-01-20T08:42:00Z</o:LastSaved>
+  <o:LastSaved>2011-01-20T09:45:00Z</o:LastSaved>
   <o:Pages>2</o:Pages>
-  <o:Words>302</o:Words>
-  <o:Characters>1725</o:Characters>
+  <o:Words>283</o:Words>
+  <o:Characters>1617</o:Characters>
   <o:Company>Infineon Technologies</o:Company>
-  <o:Lines>14</o:Lines>
-  <o:Paragraphs>4</o:Paragraphs>
-  <o:CharactersWithSpaces>2023</o:CharactersWithSpaces>
+  <o:Lines>13</o:Lines>
+  <o:Paragraphs>3</o:Paragraphs>
+  <o:CharactersWithSpaces>1897</o:CharactersWithSpaces>
   <o:Version>12.00</o:Version>
  </o:DocumentProperties>
 </xml><![endif]-->
@@ -336,11 +336,10 @@ xmlns="http://www.w3.org/TR/REC-html40">
  @font-face
 	{font-family:"Cambria Math";
 	panose-1:2 4 5 3 5 4 6 3 2 4;
-	mso-font-charset:1;
+	mso-font-charset:0;
 	mso-generic-font-family:roman;
-	mso-font-format:other;
 	mso-font-pitch:variable;
-	mso-font-signature:0 0 0 0 0 0;}
+	mso-font-signature:-1610611985 1107304683 0 0 415 0;}
 @font-face
 	{font-family:Cambria;
 	panose-1:2 4 5 3 5 4 6 3 2 4;
@@ -564,7 +563,7 @@ div.WordSection1
 	font-family:"Times New Roman","serif";}
 </style>
 <![endif]--><!--[if gte mso 9]><xml>
- <o:shapedefaults v:ext="edit" spidmax="3074"/>
+ <o:shapedefaults v:ext="edit" spidmax="4098"/>
 </xml><![endif]--><!--[if gte mso 9]><xml>
  <o:shapelayout v:ext="edit">
   <o:idmap v:ext="edit" data="1"/>
@@ -662,12 +661,19 @@ style='mso-bidi-font-weight:normal'>OK</b>.<o:p></o:p></span></p>
 <h2><span lang=EN style='mso-ansi-language:EN'>All __<span class=SpellE>asm</span>
 {instruction} lines are reported as syntax error in Eclipse<o:p></o:p></span></h2>
 
-<p class=MsoNormal><span lang=EN style='mso-ansi-language:EN'>If eclipse is
-used through HADES or if you have mapped C source code to ARM language (<b
-style='mso-bidi-font-weight:normal'>Windows -&gt; Preferences -&gt; C/C++ -&gt;
-Language Mappings<span class=GramE>,<span style='mso-spacerun:yes'> 
-</span>Content</span> type: C source file, Language: ARM extensions</b>, if not
-you need to add it)<o:p></o:p></span></p>
+<p class=MsoNormal><span class=SpellE><span class=GramE><span lang=EN
+style='mso-ansi-language:EN'>Goto</span></span></span><span class=GramE><span
+lang=EN style='mso-ansi-language:EN'> <span style='mso-spacerun:yes'> </span><b
+style='mso-bidi-font-weight:normal'>Windows</b></span></span><b
+style='mso-bidi-font-weight:normal'><span lang=EN style='mso-ansi-language:
+EN'> -&gt; Preferences -&gt; C/C++ -&gt; Language Mappings </span></b><span
+lang=EN style='mso-ansi-language:EN'>and check that <o:p></o:p></span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN
+style='mso-ansi-language:EN'><span style='mso-spacerun:yes'> </span>Content
+type: C source file </span></b><span lang=EN style='mso-ansi-language:EN'>is
+mapped to<b style='mso-bidi-font-weight:normal'> Language: ARM extensions</b>,
+if not you need to add it.<o:p></o:p></span></p>
 
 <p class=MsoNormal><span lang=EN style='mso-ansi-language:EN'>The following
 syntaxes are supported by Eclipse and by ARM compiler.<o:p></o:p></span></p>
@@ -704,9 +710,6 @@ style='mso-ansi-language:EN'>}<o:p></o:p></span></i></p>
 <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN
 style='mso-ansi-language:EN'>__<span class=SpellE>asm</span> (“<span
 class=GramE>instruction[</span>;instruction]”);<o:p></o:p></span></i></p>
-
-<p class=MsoNormal><span lang=EN style='mso-ansi-language:EN'>This syntax is
-not supported by Eclipse but is supported by ARM compiler:<o:p></o:p></span></p>
 
 <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN
 style='mso-ansi-language:EN'>__<span class=SpellE><span class=GramE>asm</span></span><span
