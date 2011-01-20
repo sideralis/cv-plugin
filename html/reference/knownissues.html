@@ -15,16 +15,16 @@ xmlns="http://www.w3.org/TR/REC-html40">
  <o:DocumentProperties>
   <o:Author>Gautier Bernard (IFF DCSA WLS RD CV)</o:Author>
   <o:LastAuthor>Gautier Bernard (IFF DCSA WLS RD CD FWV CV)</o:LastAuthor>
-  <o:Revision>5</o:Revision>
+  <o:Revision>6</o:Revision>
   <o:Created>2010-11-04T09:14:00Z</o:Created>
-  <o:LastSaved>2011-01-03T15:30:00Z</o:LastSaved>
-  <o:Pages>1</o:Pages>
-  <o:Words>206</o:Words>
-  <o:Characters>1134</o:Characters>
+  <o:LastSaved>2011-01-20T08:42:00Z</o:LastSaved>
+  <o:Pages>2</o:Pages>
+  <o:Words>302</o:Words>
+  <o:Characters>1725</o:Characters>
   <o:Company>Infineon Technologies</o:Company>
-  <o:Lines>9</o:Lines>
-  <o:Paragraphs>2</o:Paragraphs>
-  <o:CharactersWithSpaces>1338</o:CharactersWithSpaces>
+  <o:Lines>14</o:Lines>
+  <o:Paragraphs>4</o:Paragraphs>
+  <o:CharactersWithSpaces>2023</o:CharactersWithSpaces>
   <o:Version>12.00</o:Version>
  </o:DocumentProperties>
 </xml><![endif]-->
@@ -32,7 +32,7 @@ xmlns="http://www.w3.org/TR/REC-html40">
 <link rel=colorSchemeMapping href="knownissues_files/colorschememapping.xml">
 <!--[if gte mso 9]><xml>
  <w:WordDocument>
-  <w:Zoom>140</w:Zoom>
+  <w:View>Print</w:View>
   <w:SpellingState>Clean</w:SpellingState>
   <w:GrammarState>Clean</w:GrammarState>
   <w:TrackMoves>false</w:TrackMoves>
@@ -43,7 +43,7 @@ xmlns="http://www.w3.org/TR/REC-html40">
   <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
   <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
   <w:DoNotPromoteQF/>
-  <w:LidThemeOther>FR</w:LidThemeOther>
+  <w:LidThemeOther>EN-GB</w:LidThemeOther>
   <w:LidThemeAsian>X-NONE</w:LidThemeAsian>
   <w:LidThemeComplexScript>X-NONE</w:LidThemeComplexScript>
   <w:Compatibility>
@@ -564,19 +564,18 @@ div.WordSection1
 	font-family:"Times New Roman","serif";}
 </style>
 <![endif]--><!--[if gte mso 9]><xml>
- <o:shapedefaults v:ext="edit" spidmax="2050"/>
+ <o:shapedefaults v:ext="edit" spidmax="3074"/>
 </xml><![endif]--><!--[if gte mso 9]><xml>
  <o:shapelayout v:ext="edit">
   <o:idmap v:ext="edit" data="1"/>
  </o:shapelayout></xml><![endif]-->
 </head>
 
-<body lang=FR link=blue vlink=purple style='tab-interval:35.4pt'>
+<body lang=EN-GB link=blue vlink=purple style='tab-interval:35.4pt'>
 
 <div class=WordSection1>
 
-<h1><span lang=EN-GB style='mso-fareast-font-family:"Times New Roman";
-mso-ansi-language:EN-GB'>Known Issues<o:p></o:p></span></h1>
+<h1><span style='mso-fareast-font-family:"Times New Roman"'>Known Issues<o:p></o:p></span></h1>
 
 <h2><span class=mw-headline><span lang=EN style='mso-ansi-language:EN'>Refreshing
 workspace never finishes</span></span><span lang=EN style='mso-ansi-language:
@@ -657,6 +656,61 @@ EN'><o:p></o:p></span></p>
 
 <p class=MsoNormal><span lang=EN style='mso-ansi-language:EN'>Press <b
 style='mso-bidi-font-weight:normal'>OK</b>.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN style='mso-ansi-language:EN'><o:p>&nbsp;</o:p></span></p>
+
+<h2><span lang=EN style='mso-ansi-language:EN'>All __<span class=SpellE>asm</span>
+{instruction} lines are reported as syntax error in Eclipse<o:p></o:p></span></h2>
+
+<p class=MsoNormal><span lang=EN style='mso-ansi-language:EN'>If eclipse is
+used through HADES or if you have mapped C source code to ARM language (<b
+style='mso-bidi-font-weight:normal'>Windows -&gt; Preferences -&gt; C/C++ -&gt;
+Language Mappings<span class=GramE>,<span style='mso-spacerun:yes'> 
+</span>Content</span> type: C source file, Language: ARM extensions</b>, if not
+you need to add it)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN style='mso-ansi-language:EN'>The following
+syntaxes are supported by Eclipse and by ARM compiler.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN style='mso-ansi-language:EN'>Multiples lines:<o:p></o:p></span></p>
+
+<p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN
+style='mso-ansi-language:EN'>__<span class=SpellE>asm</span> return-type
+function-<span class=GramE>name(</span>parameter-list)<o:p></o:p></span></i></p>
+
+<p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN
+style='mso-ansi-language:EN'>{<o:p></o:p></span></i></p>
+
+<p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN
+style='mso-ansi-language:EN'><span style='mso-spacerun:yes'>    </span>//
+ARM/Thumb/Thumb-2 assembler code<o:p></o:p></span></i></p>
+
+<p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN
+style='mso-ansi-language:EN'><span style='mso-spacerun:yes'>    </span><span
+class=GramE>instruction[</span>;instruction]<o:p></o:p></span></i></p>
+
+<p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN
+style='mso-ansi-language:EN'><span style='mso-spacerun:yes'>    </span>...<o:p></o:p></span></i></p>
+
+<p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN
+style='mso-ansi-language:EN'><span style='mso-spacerun:yes'>    </span><span
+class=GramE>instruction</span><o:p></o:p></span></i></p>
+
+<p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN
+style='mso-ansi-language:EN'>}<o:p></o:p></span></i></p>
+
+<p class=MsoNormal><span lang=EN style='mso-ansi-language:EN'>Or single lines:<o:p></o:p></span></p>
+
+<p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN
+style='mso-ansi-language:EN'>__<span class=SpellE>asm</span> (“<span
+class=GramE>instruction[</span>;instruction]”);<o:p></o:p></span></i></p>
+
+<p class=MsoNormal><span lang=EN style='mso-ansi-language:EN'>This syntax is
+not supported by Eclipse but is supported by ARM compiler:<o:p></o:p></span></p>
+
+<p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN
+style='mso-ansi-language:EN'>__<span class=SpellE><span class=GramE>asm</span></span><span
+class=GramE>{</span>instruction[;instruction]}<o:p></o:p></span></i></p>
 
 <p class=MsoNormal><span lang=EN style='mso-ansi-language:EN'><o:p>&nbsp;</o:p></span></p>
 

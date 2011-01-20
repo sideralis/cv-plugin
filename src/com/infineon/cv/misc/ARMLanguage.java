@@ -14,7 +14,6 @@ import org.eclipse.cdt.internal.core.pdom.dom.IPDOMLinkageFactory;
 import org.eclipse.cdt.internal.core.pdom.dom.c.PDOMCLinkageFactory;
 
 import com.infineon.cv.InfineonActivator;
-import com.infineon.cv.ARMScannerExtensionConfiguration;
 
 public class ARMLanguage extends GCCLanguage {// AbstractCLikeLanguage{
 	protected static final ARMScannerExtensionConfiguration ARM_SCANNER_EXTENSION = new ARMScannerExtensionConfiguration();
