@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Cv
 Bundle-SymbolicName: com.infineon.cv;singleton:=true
-Bundle-Version: 1.10.1.qualifier
+Bundle-Version: 1.10.2.qualifier
 Bundle-Vendor: INFINEON
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.cdt.managedbuilder.core;bundle-version="6.0.0",

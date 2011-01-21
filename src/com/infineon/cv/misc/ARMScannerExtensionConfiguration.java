@@ -1,6 +1,8 @@
 package com.infineon.cv.misc;
 
 import org.eclipse.cdt.core.dom.parser.c.GCCScannerExtensionConfiguration;
+import org.eclipse.cdt.core.parser.GCCKeywords;
+import org.eclipse.cdt.core.parser.IGCCToken;
 import org.eclipse.cdt.core.parser.IToken;
 
 /**
@@ -28,5 +30,10 @@ public class ARMScannerExtensionConfiguration extends GCCScannerExtensionConfigu
 	public ARMScannerExtensionConfiguration() {
 		super();
 		addMacro("__irq", "");
+		addMacro("__align(p)","");
+		addMacro("__int64","long long");
+		addMacro("__global_reg(p)","");
+		addMacro("__weak","");
+		addMacro("__packed","");
 	}
 }
