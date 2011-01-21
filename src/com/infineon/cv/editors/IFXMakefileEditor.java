@@ -121,19 +121,19 @@ public class IFXMakefileEditor extends MultiPageEditorPart {
 	protected void parseMakefileValues() {
 		// Parse makefile
 		if (parserMakefile != null && parserMakefile.getValid() == true) {
-			if (parserMakefile.getSrcdir().size() != 0)
-				System.out.println("SRCDIR=" + parserMakefile.getSrcdir().toString());
-			System.out.println("OWN_INIT_S=" + parserMakefile.getOwn_init_s().toString());
-			System.out.println("ARCH=" + parserMakefile.getArch().toString());
-			if (parserMakefile.getIncdir().size() != 0)
-				System.out.println("INCDIR=" + parserMakefile.getIncdir().toString());
-			if (parserMakefile.getVpath().size() != 0)
-				System.out.println("VPATH=" + parserMakefile.getVpath().toString());
-			if (parserMakefile.getSrcs().size() != 0)
-				System.out.println("SRCS=" + parserMakefile.getSrcs().toString());
-			System.out.println("EXEC=" + parserMakefile.getExec().toString());
-			System.out.println("ITCM_BASE_ADDRESS=" + parserMakefile.getItcm_base_address().toString());
-			System.out.println("FORBIDDEN_DEFINES=" + parserMakefile.getFobidden_defines().toString());
+//			if (parserMakefile.getSrcdir().size() != 0)
+//				System.out.println("SRCDIR=" + parserMakefile.getSrcdir().toString());
+//			System.out.println("OWN_INIT_S=" + parserMakefile.getOwn_init_s().toString());
+//			System.out.println("ARCH=" + parserMakefile.getArch().toString());
+//			if (parserMakefile.getIncdir().size() != 0)
+//				System.out.println("INCDIR=" + parserMakefile.getIncdir().toString());
+//			if (parserMakefile.getVpath().size() != 0)
+//				System.out.println("VPATH=" + parserMakefile.getVpath().toString());
+//			if (parserMakefile.getSrcs().size() != 0)
+//				System.out.println("SRCS=" + parserMakefile.getSrcs().toString());
+//			System.out.println("EXEC=" + parserMakefile.getExec().toString());
+//			System.out.println("ITCM_BASE_ADDRESS=" + parserMakefile.getItcm_base_address().toString());
+//			System.out.println("FORBIDDEN_DEFINES=" + parserMakefile.getFobidden_defines().toString());
 		}
 	}
 
