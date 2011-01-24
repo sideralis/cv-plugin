@@ -9,12 +9,12 @@ import org.eclipse.cdt.core.parser.IParserLogService;
 import org.eclipse.cdt.core.parser.IScanner;
 import org.eclipse.cdt.core.parser.ParserLanguage;
 import org.eclipse.cdt.core.parser.ParserMode;
-import org.eclipse.cdt.internal.core.dom.parser.c.GNUCSourceParser;
 import org.eclipse.cdt.internal.core.pdom.dom.IPDOMLinkageFactory;
 import org.eclipse.cdt.internal.core.pdom.dom.c.PDOMCLinkageFactory;
 
 import com.infineon.cv.InfineonActivator;
 
+@SuppressWarnings("restriction")
 public class ARMLanguage extends GCCLanguage {// AbstractCLikeLanguage{
 	protected static final ARMScannerExtensionConfiguration ARM_SCANNER_EXTENSION = new ARMScannerExtensionConfiguration();
 	protected static final ARMParserExtensionConfiguration ARM_PARSER_EXTENSION = ARMParserExtensionConfiguration.getInstance();

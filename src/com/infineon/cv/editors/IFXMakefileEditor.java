@@ -3,10 +3,16 @@
  */
 package com.infineon.cv.editors;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.eclipse.swt.*;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeColumn;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -14,6 +20,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.jface.layout.TreeColumnLayout;
+import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -27,6 +35,8 @@ import org.eclipse.cdt.make.internal.ui.editor.*;
 import com.infineon.cv.makefile.ParserMakefile;
 import com.infineon.cv.makefile.XMLNode;
 import com.infineon.cv.makefile.XMLParser;
+import com.infineon.cv.makefile.parser.MakefileParser;
+import com.infineon.cv.makefile.parser.VariableManager;
 
 /**
  * @author gautier
@@ -36,6 +46,10 @@ public class IFXMakefileEditor extends MultiPageEditorPart {
 
 	private TextEditor textEditor;
 	private TreeViewer linkButtons;
+	
+	private TreeViewer treeViewer;
+	private TreeColumn keyColumn, valueColumn;
+	
 	private ListViewer targetList;
 	private int indexSource;
 	private ParserMakefile parserMakefile;
@@ -56,11 +70,6 @@ public class IFXMakefileEditor extends MultiPageEditorPart {
 	 */
 	@Override
 	protected void createPages() {
-		// Job job = new Job("Parsing makefile...") {
-		// @Override
-		// protected IStatus run(IProgressMonitor monitor) {
-		// monitor.beginTask("Parsing makefile...", 100);
-
 		IEditorInput editorInput = getEditorInput();
 		if (editorInput instanceof IFileEditorInput) {
 			IFileEditorInput fileEditorInput = (IFileEditorInput) editorInput;
@@ -68,28 +77,23 @@ public class IFXMakefileEditor extends MultiPageEditorPart {
 			// IProject project = file.getProject();
 			String fileLocation = file.getLocation().toOSString();
 			System.out.println("File location = " + fileLocation);
-			parserMakefile = new ParserMakefile(fileLocation);
-			parserMakefile.readMakefile();
-			// monitor.worked(40);
+
+			VariableManager var = new VariableManager();
+			MakefileParser parMake = new MakefileParser(var);
+			try {
+				parMake.parse(new File(fileLocation));
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 		}
-		if (parserMakefile != null && parserMakefile.getValid() == true) {
-			parseMakefileValues();
-			// monitor.worked(20);
-			getValuesFromProject();
-			// monitor.worked(10);
-			createTargetPage();
-			// monitor.worked(10);
-			createLinkPage();
-			// monitor.worked(10);
-		}
+		parseMakefileValues();
+		getValuesFromProject();
+		
+		createTargetPage();
 		createSourcePage();
 		setActivePage(indexSource);
-
-		// monitor.done();
-		// return Status.OK_STATUS;
-		// }
-		// };
-		// job.schedule();
 	}
 
 	/**
@@ -106,15 +110,24 @@ public class IFXMakefileEditor extends MultiPageEditorPart {
 		}
 	}
 
-	protected void createLinkPage() {
-		linkButtons = new TreeViewer(getContainer(), SWT.MULTI | SWT.FULL_SELECTION);
-		int index = addPage(linkButtons.getControl());
-		setPageText(index, "Linked libraries");
-	}
-
 	protected void createTargetPage() {
-		targetList = new ListViewer(getContainer());
-		int index = addPage(targetList.getControl());
+		Composite treeContainer = new Composite(getContainer(), SWT.NONE);
+		TreeColumnLayout layout = new TreeColumnLayout();
+		treeContainer.setLayout(layout);
+		treeViewer = new TreeViewer(treeContainer, SWT.MULTI | SWT.FULL_SELECTION);
+		
+		Tree tree = treeViewer.getTree();
+		tree.setHeaderVisible(true);
+		
+		keyColumn = new TreeColumn(tree, SWT.NONE);
+		keyColumn.setText("Define");
+		layout.setColumnData(keyColumn, new ColumnWeightData(2));
+		
+		valueColumn = new TreeColumn(tree, SWT.NONE);
+		valueColumn.setText("Value");
+		layout.setColumnData(valueColumn, new ColumnWeightData(2));
+			
+		int index = addPage(treeContainer);
 		setPageText(index, "Target");
 	}
 
