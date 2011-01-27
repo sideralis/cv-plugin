@@ -1,8 +1,14 @@
 package com.infineon.cv;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectNature;
@@ -18,88 +24,100 @@ import org.eclipse.core.runtime.Status;
 
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.jface.dialogs.ErrorDialog;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.IWorkbench;
+import com.infineon.cv.makefile.parser.MakefileParser;
+import com.infineon.cv.makefile.parser.VariableManager;
 
 /**
  * NatureLinkedRessources implements IProjectNature, it adds linked files
  * according to the project type.
- * */
+ **/
 @SuppressWarnings( { "unchecked", "serial" })
 public class NatureLinkedRessources implements IProjectNature {
 	/** The ID of this project nature */
-	public static final String NATURE_ID = "com.infineon.cv.NatureLinkedRessources";
+	public static final String NATURE_ID = InfineonActivator.PLUGIN_ID + ".NatureLinkedRessources";
+
 	private IProject project;
+	private Set<String> sourceDir;
+
 	private static final Map<String, String[]> libsrcPaths = new HashMap() {
 		{
-			put("CVTC", new String[] { "base S-Gold/S-GOLD_Family_Environment/_base", 
-					"lib S-Gold/S-GOLD_Family_Environment/_lib/_src",
-					"halix S-Gold/S-GOLD_Family_Environment/_halix/_src" });
+			put("CVTC", new String[] { "base S-Gold/S-GOLD_Family_Environment/_base", "lib S-Gold/S-GOLD_Family_Environment/_lib/_src", "halix S-Gold/S-GOLD_Family_Environment/_halix/_src" });
 		}
 		{
-			put("CVLib", new String[] { "lib S-Gold/S-GOLD_Family_Environment/_lib/_src", 
-					"halix S-Gold/S-GOLD_Family_Environment/_halix/_src" });
+			put("CVLib", new String[] { "lib S-Gold/S-GOLD_Family_Environment/_lib/_src", "halix S-Gold/S-GOLD_Family_Environment/_halix/_src" });
 		}
 		{
-			put("CVMem", new String[] { "cgu IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_lld/CGU", 
-					"ebu IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_lld/EBU",
-					"emmc IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_lld/eMMC", 
-					"pmu IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_lld/PMU",
-					"com IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_lld/SerialInterface", 
-					"lld IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_lld",
+			put("CVMem", new String[] { "cgu IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_lld/CGU", "ebu IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_lld/EBU",
+					"emmc IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_lld/eMMC", "pmu IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_lld/PMU",
+					"com IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_lld/SerialInterface", "lld IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_lld",
 					"base IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_base" });
 		}
 		{
-			put("Bootcode", new String[] { "base S-Gold-Bootcode/S-GOLD/Target/base", 
-					"bs S-Gold-Bootcode/S-GOLD/Target/bs/src", 
-					"drv_mem S-Gold-Bootcode/S-GOLD/Target/drv_mem/src",
-					"hal_src S-Gold-Bootcode/S-GOLD/Target/hal/src", 
-					"hal_inc S-Gold-Bootcode/S-GOLD/Target/hal/inc", 
-					"sc S-Gold-Bootcode/S-GOLD/Target/sc/src",
-					"brl S-Gold-Bootcode/S-GOLD/Target/brl/src"});
+			put("Bootcode", new String[] { "base S-Gold-Bootcode/S-GOLD/Target/base", "bs S-Gold-Bootcode/S-GOLD/Target/bs/src", "drv_mem S-Gold-Bootcode/S-GOLD/Target/drv_mem/src",
+					"hal_src S-Gold-Bootcode/S-GOLD/Target/hal/src", "hal_inc S-Gold-Bootcode/S-GOLD/Target/hal/inc", "sc S-Gold-Bootcode/S-GOLD/Target/sc/src",
+					"brl S-Gold-Bootcode/S-GOLD/Target/brl/src" });
 		}
 		{
-			put("URFET", new String[] { "halix S-Gold/S-GOLD_Family_Environment/_halix/_src", 
-					"lib S-Gold/S-GOLD_Family_Environment/_lib/_src",
-					"base S-Gold/S-GOLD_Family_Environment/_base", 
-					"fmr_hld fmr_cv/fmr_xg223/FMR_HLD", 
-					"fmr_lld fmr_cv/fmr_xg223/FMR_LLD" });
+			put("URFET", new String[] { "halix S-Gold/S-GOLD_Family_Environment/_halix/_src", "lib S-Gold/S-GOLD_Family_Environment/_lib/_src", "base S-Gold/S-GOLD_Family_Environment/_base",
+					"fmr_hld fmr_cv/fmr_xg223/FMR_HLD", "fmr_lld fmr_cv/fmr_xg223/FMR_LLD" });
 		}
 		{
-			put("Crypto", new String[] { "base S-Gold/S-GOLD_Family_Environment/_base", 
-					"lib S-Gold/S-GOLD_Family_Environment/_lib/_src",
-					"halix S-Gold/S-GOLD_Family_Environment/_halix/_src", 
-					"crypto_hal CRYPTO/S-GOLD_Family_Environment/_halix_CV/_src",
-					"crypto_all CRYPTO/S-GOLD_Family_Environment/Testcases/CRYPTO_test/CRYPTO_TC_All" });
+			put("Crypto", new String[] { "base S-Gold/S-GOLD_Family_Environment/_base", "lib S-Gold/S-GOLD_Family_Environment/_lib/_src", "halix S-Gold/S-GOLD_Family_Environment/_halix/_src",
+					"crypto_hal CRYPTO/S-GOLD_Family_Environment/_halix_CV/_src", "crypto_all CRYPTO/S-GOLD_Family_Environment/Testcases/CRYPTO_test/CRYPTO_TC_All" });
 		}
 		{
-			put("hades", new String[] { "base S-Gold/S-GOLD_Family_Environment/_base", 
-					"lib S-Gold/S-GOLD_Family_Environment/_lib/_src",
-					"halix S-Gold/S-GOLD_Family_Environment/_halix/_src" });
+			put("hades", new String[] { "base S-Gold/S-GOLD_Family_Environment/_base", "lib S-Gold/S-GOLD_Family_Environment/_lib/_src", "halix S-Gold/S-GOLD_Family_Environment/_halix/_src" });
 		}
 	};
 
 	/**
-	 * 
+	 * Called when a nature is added to a project (by using
+	 * project.setDescription)
 	 */
 	@Override
 	public void configure() throws CoreException {
+		System.out.println("I am adding a project nature (BG)");
 		// Code example for Job is coming from:
 		// http://blog.eclipse-tips.com/2009/02/using-progress-bars.html
 		Job job = new Job("Adding links...") {
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
 				monitor.beginTask("Adding libraries and include links...", 100);
+
+				// Parse makefile
+				sourceDir = new HashSet<String>();
+				getPathFromMakefile(sourceDir);
+
+				// Add default links depending on project type
 				try {
 					java.util.Map<QualifiedName, String> properties = project.getPersistentProperties();
 					String conf = properties.get(new QualifiedName("org.eclipse.cdt.core", "activeConfiguration"));
 					if (conf != null)
 						addLinks(conf, monitor);
-
 				} catch (CoreException e1) {
 					e1.printStackTrace();
+				}
+				// Add links extracted from makefile
+				for (String s : sourceDir) {
+					String name;
+					IPath linkLocation;
+					IPath projectLocation = getProject().getLocation();
+					linkLocation = projectLocation.append(s);
+
+					if (!linkLocation.toString().equals(projectLocation.toString())) {
+						name = linkLocation.lastSegment();
+						IWorkspace workspace = ResourcesPlugin.getWorkspace();
+						IFolder folder = project.getFolder(name);
+						if (workspace.validateLinkLocation(folder, linkLocation).getSeverity() != IStatus.ERROR) {
+							try {
+								folder.createLink(linkLocation, IResource.NONE, null);
+							} catch (CoreException e) {
+								e.printStackTrace();
+							}
+						} else {
+							System.out.println(workspace.validateLinkLocation(folder, linkLocation).toString());
+						}
+					}
 				}
 				monitor.done();
 				return Status.OK_STATUS;
@@ -109,8 +127,12 @@ public class NatureLinkedRessources implements IProjectNature {
 	}
 
 	/**
+	 * Add links to the project
 	 * 
 	 * @param conf
+	 *            The configuration which is used
+	 * @param monitor
+	 *            A reference to the monitor object to gauge progress
 	 */
 	private void addLinks(String conf, IProgressMonitor monitor) {
 		for (String key : libsrcPaths.keySet()) {
@@ -127,8 +149,12 @@ public class NatureLinkedRessources implements IProjectNature {
 
 	}
 
+	/**
+	 * TODO: to be completed.
+	 */
 	@Override
 	public void deconfigure() throws CoreException {
+		System.out.println("I am removing a project nature (BG)");
 
 	}
 
@@ -143,13 +169,23 @@ public class NatureLinkedRessources implements IProjectNature {
 
 	}
 
+	/**
+	 * Add a linked folder to the project
+	 * 
+	 * @param linkfile
+	 *            name of the link
+	 * @param linkPath
+	 *            path of the link
+	 */
 	private void addLink(String linkfile, String linkPath) {
 		String projLoc, root;
 		int pos1, pos2, pos3;
 
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		IFolder link = project.getFolder(linkfile);
+		IFolder folder = project.getFolder(linkfile);
 
+		// Search for root path of project location (mainly the name of the
+		// drive or of the view)
 		projLoc = project.getLocation().toString();
 		pos1 = projLoc.indexOf("S-Gold");
 		pos2 = projLoc.indexOf("CRYPTO");
@@ -161,19 +197,38 @@ public class NatureLinkedRessources implements IProjectNature {
 				root = projLoc.substring(0, pos2);
 			else
 				root = projLoc.substring(0, pos3);
-
+			// Create the full path of the link
 			linkPath = root.concat(linkPath);
 			IPath location = new Path(linkPath);
-
-			if (workspace.validateLinkLocation(link, location).getSeverity() != IStatus.ERROR) {
+			// Add this full path
+			if (workspace.validateLinkLocation(folder, location).getSeverity() != IStatus.ERROR) {
 				try {
-					link.createLink(location, IResource.NONE, null);
+					folder.createLink(location, IResource.NONE, null);
 				} catch (CoreException e) {
 					e.printStackTrace();
 				}
 			} else {
-				System.out.println(workspace.validateLinkLocation(link, location).toString());
+				System.out.println(workspace.validateLinkLocation(folder, location).toString());
 			}
 		}
+	}
+
+	void getPathFromMakefile(Set<String> s) {
+		IFile file = getProject().getFile(new Path("makefile"));
+		String fileLocation = file.getLocation().toOSString();
+		System.out.println("File location = " + fileLocation);
+
+		VariableManager var = new VariableManager();
+		MakefileParser parMake = new MakefileParser(var);
+		try {
+			parMake.parse(new File(fileLocation));
+			System.out.println(parMake);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		parMake.getSourceDir(s);
 	}
 }

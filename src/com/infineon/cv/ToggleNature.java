@@ -20,7 +20,9 @@ public class ToggleNature extends Thread {
 	public ToggleNature(IProject project) {
 		this.project = project;
 	}
-
+	/**
+	 * TODO: When remove the nature is done, the NatureLinkedRessources.deconfigure is called but currently this function is empty.
+	 */
 	public void run() {
 		try {
 			IProjectDescription description = project.getDescription();

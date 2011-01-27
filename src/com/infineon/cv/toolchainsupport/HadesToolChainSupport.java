@@ -8,6 +8,7 @@ import org.eclipse.core.runtime.PluginVersionIdentifier;
  * @author gautier
  *
  */
+@SuppressWarnings("deprecation")
 public class HadesToolChainSupport implements IManagedIsToolChainSupported {
 
 	@Override

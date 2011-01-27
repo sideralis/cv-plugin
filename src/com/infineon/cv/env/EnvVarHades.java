@@ -3,21 +3,11 @@ package com.infineon.cv.env;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.cdt.core.model.ICProject;
 import org.eclipse.cdt.managedbuilder.core.IConfiguration;
-import org.eclipse.cdt.managedbuilder.core.IManagedProject;
 import org.eclipse.cdt.managedbuilder.envvar.IBuildEnvironmentVariable;
 import org.eclipse.cdt.managedbuilder.envvar.IConfigurationEnvironmentVariableSupplier;
 import org.eclipse.cdt.managedbuilder.envvar.IEnvironmentVariableProvider;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.ui.IViewReference;
-import org.eclipse.ui.navigator.CommonNavigator;
 
-import com.infineon.cv.InfineonActivator;
 import com.infineon.cv.InfineonPreferencePage;
 import com.infineon.cv.PreferenceConstants;
 

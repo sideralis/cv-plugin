@@ -10,7 +10,6 @@ import org.eclipse.cdt.core.parser.IToken;
 import org.eclipse.cdt.core.parser.ParserMode;
 import org.eclipse.cdt.internal.core.dom.parser.BacktrackException;
 import org.eclipse.cdt.internal.core.dom.parser.c.GNUCSourceParser;
-import org.eclipse.cdt.ui.text.ITokenStoreFactory;
 
 @SuppressWarnings("restriction")
 public class ARMCSourcParser extends GNUCSourceParser {
