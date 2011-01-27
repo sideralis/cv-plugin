@@ -868,9 +868,12 @@
       </errorparser>
    </extension>
    <extension
-         id="com.infineon.cv.NatureLinkedRessources"
-         name="NatureLinkedRessources"
+         id="NatureLinkedRessources"
+         name="Nature Linked Ressources"
          point="org.eclipse.core.resources.natures">
+      <requires-nature
+            id="org.eclipse.cdt.core.cnature">
+      </requires-nature>
       <runtime>
          <run
                class="com.infineon.cv.NatureLinkedRessources">
@@ -887,12 +890,21 @@
             objectClass="org.eclipse.core.resources.IProject"
             nameFilter="*"
             id="com.infineon.cv.Naturecontribution">
+         <menu
+               icon="IFX_16x16.ico"
+               id="com.infineon.cv.menuInfineon"
+               label="Infineon"
+               path="additions">
+            <separator
+                  name="infineonMenuseparator">
+            </separator>
+         </menu>
          <action
-               label="Add libraries and include links"
                class="com.infineon.cv.ToggleNatureAction"
-               menubarPath="additions"
                enablesFor="+"
-               id="com.infineon.cv.addRemoveNatureAction">
+               id="com.infineon.cv.addRemoveNatureAction"
+               label="Add libraries and include links"
+               menubarPath="com.infineon.cv.menuInfineon/infineonMenuseparator">
          </action>
       </objectContribution>
       <objectContribution
@@ -907,6 +919,14 @@
                label="add Symbols from makefile"
                menubarPath="additions">
          </action>
+         <visibility>
+            <not>
+               <pluginState
+                     id="com.infineon.cv"
+                     value="installed">
+               </pluginState>
+            </not>
+         </visibility>
       </objectContribution>
    </extension>
    <extension
@@ -919,16 +939,6 @@
             name="Makefile Editor"
             nameFilter="*">
       </page>
-   </extension>
-   <extension
-         point="org.eclipse.core.contenttype.contentTypes">
-      <content-type
-            base-type="org.eclipse.cdt.core.cSource"
-            file-extensions="cn"
-            id="com.infineon.cv.contentType1"
-            name="InfineonContentTypeC"
-            priority="normal">
-      </content-type>
    </extension>
    <extension
          point="org.eclipse.cdt.core.language">
@@ -1010,7 +1020,7 @@
             class="com.infineon.cv.editors.IFXMakefileEditor"
             default="true"
             filenames="makefile"
-            id="com.infineon.cv.cvmakefileeditor"
+            id="cvmakefileeditor"
             name="IFX CV Makefile Editor">
       </editor>
    </extension>

@@ -10,6 +10,7 @@ import org.eclipse.core.runtime.PluginVersionIdentifier;
  * @author gautier
  * 
  */
+@SuppressWarnings("deprecation")
 public class RVDSToolChainSupport implements IManagedIsToolChainSupported {
 	/**
 	 * Return true if tool chain is supported or false

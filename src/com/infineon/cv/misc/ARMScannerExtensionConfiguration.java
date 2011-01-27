@@ -1,9 +1,6 @@
 package com.infineon.cv.misc;
 
 import org.eclipse.cdt.core.dom.parser.c.GCCScannerExtensionConfiguration;
-import org.eclipse.cdt.core.parser.GCCKeywords;
-import org.eclipse.cdt.core.parser.IGCCToken;
-import org.eclipse.cdt.core.parser.IToken;
 
 /**
  * recognize specific ARM keywords

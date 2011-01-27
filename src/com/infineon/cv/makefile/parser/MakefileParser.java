@@ -20,10 +20,14 @@ import java.io.Reader;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import java.util.Stack;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * The Makefile parser
@@ -859,5 +863,75 @@ public class MakefileParser implements Cloneable {
 
 		}
 	}
-
+	/**
+	 * 
+	 * @param sourceDir
+	 */
+	public void getSourceDir(Set<String> sourceDir) {
+		Pattern pattern;
+		Matcher matcher;
+		String pat = "([/\\.\\\\\\w]+)[\\s$]*";
+//		sourceDir = new HashSet<String>();
+		
+		Iterator<String> varNames = varManager.nonExternalKeys();
+		while (varNames.hasNext()) {
+			String varName = varNames.next();
+			String value = varManager.getValue(varName);
+			if (varName.equals("SRC")) {
+				pattern = Pattern.compile(pat);
+				matcher = pattern.matcher(value);
+				while (matcher.find()) {
+					String s = matcher.group(1);
+					int pos = s.lastIndexOf("\\");
+					if (pos != -1) {
+						sourceDir.add((s.substring(0,pos-1)).trim());
+					} else {
+						pos = s.lastIndexOf("/");
+						if (pos != -1) {
+							sourceDir.add((s.substring(0,pos-1)).trim());
+						} 
+					}
+				}
+			} else if (varName.equals("SRCDIR")) {
+				pattern = Pattern.compile(pat);
+				matcher = pattern.matcher(value);
+				while (matcher.find()) {
+					String s = matcher.group(1);
+					sourceDir.add(s.trim());
+				}
+			} else if (varName.equals("VPATH")) {
+				pattern = Pattern.compile(pat);
+				matcher = pattern.matcher(value);
+				while (matcher.find()) {
+					String s = matcher.group(1);
+					sourceDir.add(s.trim());
+				}
+			} else if (varName.equals("INCDIR")) {
+				pattern = Pattern.compile(pat);
+				matcher = pattern.matcher(value);
+				while (matcher.find()) {
+					String s = matcher.group(1);
+					sourceDir.add(s.trim());
+				}
+			}
+		}
+		System.out.println("Source dir to be added: "+sourceDir);
+	}
+	
+	public static void main(String args[]) {
+//		String fileLocation = "M:\\dev_ets_xg223_gautier\\CRYPTO\\S-GOLD_Family_Environment\\Testcases\\CRYPTO_test\\CRYPTO_TC_CiphAES\\makefile";
+		String fileLocation = "M:\\dev_ets_xg223_gautier\\S-Gold\\S-GOLD_Family_Environment\\Testcases\\DMA_test\\DMA_test\\makefile";		
+		VariableManager var = new VariableManager();
+		MakefileParser parMake = new MakefileParser(var);
+		try {
+			parMake.parse(new File(fileLocation));
+			System.out.println(parMake);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		Set<String> s = new HashSet<String>();
+		parMake.getSourceDir(s);	
+	}
 }

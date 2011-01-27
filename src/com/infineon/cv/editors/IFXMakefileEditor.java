@@ -9,28 +9,22 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.eclipse.swt.*;
+import org.eclipse.cdt.make.internal.ui.editor.MakefileEditor;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.layout.TreeColumnLayout;
+import org.eclipse.jface.viewers.ColumnWeightData;
+import org.eclipse.jface.viewers.ListViewer;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
-
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.jface.layout.TreeColumnLayout;
-import org.eclipse.jface.viewers.ColumnWeightData;
-import org.eclipse.jface.viewers.ComboBoxCellEditor;
-import org.eclipse.jface.viewers.ListViewer;
-import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.ui.part.MultiPageEditorPart;
-import org.eclipse.cdt.make.internal.ui.editor.*;
 
 import com.infineon.cv.makefile.ParserMakefile;
 import com.infineon.cv.makefile.XMLNode;
@@ -42,6 +36,7 @@ import com.infineon.cv.makefile.parser.VariableManager;
  * @author gautier
  * 
  */
+@SuppressWarnings("restriction")
 public class IFXMakefileEditor extends MultiPageEditorPart {
 
 	private TextEditor textEditor;
@@ -82,6 +77,7 @@ public class IFXMakefileEditor extends MultiPageEditorPart {
 			MakefileParser parMake = new MakefileParser(var);
 			try {
 				parMake.parse(new File(fileLocation));
+				System.out.println(parMake);
 			} catch (IOException e) {
 				e.printStackTrace();
 			} catch (ParseException e) {
@@ -89,7 +85,7 @@ public class IFXMakefileEditor extends MultiPageEditorPart {
 			}
 		}
 		parseMakefileValues();
-		getValuesFromProject();
+//		getValuesFromProject();
 		
 		createTargetPage();
 		createSourcePage();
