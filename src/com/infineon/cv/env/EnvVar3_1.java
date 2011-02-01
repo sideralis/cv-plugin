@@ -8,10 +8,10 @@ import org.eclipse.cdt.managedbuilder.core.IConfiguration;
 import org.eclipse.cdt.managedbuilder.envvar.IBuildEnvironmentVariable;
 import org.eclipse.cdt.managedbuilder.envvar.IConfigurationEnvironmentVariableSupplier;
 import org.eclipse.cdt.managedbuilder.envvar.IEnvironmentVariableProvider;
+import org.eclipse.jface.dialogs.MessageDialog;
 
 import com.infineon.cv.InfineonPreferencePage;
 import com.infineon.cv.PreferenceConstants;
-import com.infineon.cv.ToolViewAlert;
 
 /**
  * EnvVar3_1 implements IConfigurationEnvironmentVariableSupplier interface
@@ -62,8 +62,7 @@ public class EnvVar3_1 implements IConfigurationEnvironmentVariableSupplier {
 			if (!gnumake.canExecute()) {// 2nd option: lsview
 				// -long 'tool_view', // check the tool view list of user.
 				// ProgressBarToolView.create("test");
-				ToolViewAlert alert = new ToolViewAlert();
-				alert.showAlert();
+				MessageDialog.openInformation(null, "Warning", "Attention! No available tool view on your machine!");
 			}
 
 			addvar(envvars, new ARMBuildEnvironmentVariable("Path", 

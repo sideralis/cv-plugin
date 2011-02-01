@@ -19,11 +19,11 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.core.runtime.Status;
-
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.jobs.Job;
+
 import com.infineon.cv.makefile.parser.MakefileParser;
 import com.infineon.cv.makefile.parser.VariableManager;
 
@@ -37,7 +37,7 @@ public class NatureLinkedRessources implements IProjectNature {
 	public static final String NATURE_ID = InfineonActivator.PLUGIN_ID + ".NatureLinkedRessources";
 
 	private IProject project;
-	private Set<String> sourceDir;
+	private Set<String> sourceDir, includeDir;
 
 	private static final Map<String, String[]> libsrcPaths = new HashMap() {
 		{
@@ -79,15 +79,16 @@ public class NatureLinkedRessources implements IProjectNature {
 		System.out.println("I am adding a project nature (BG)");
 		// Code example for Job is coming from:
 		// http://blog.eclipse-tips.com/2009/02/using-progress-bars.html
-		Job job = new Job("Adding links...") {
+		Job jobLinks = new Job("Adding links and includes...") {
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
 				monitor.beginTask("Adding libraries and include links...", 100);
 
 				// Parse makefile
 				sourceDir = new HashSet<String>();
-				getPathFromMakefile(sourceDir);
-
+				includeDir = new HashSet<String>();
+				getPathsFromMakefile(sourceDir,includeDir);
+				
 				// Add default links depending on project type
 				try {
 					java.util.Map<QualifiedName, String> properties = project.getPersistentProperties();
@@ -97,7 +98,7 @@ public class NatureLinkedRessources implements IProjectNature {
 				} catch (CoreException e1) {
 					e1.printStackTrace();
 				}
-				// Add links extracted from makefile
+				// Add source folder links extracted from makefile
 				for (String s : sourceDir) {
 					String name;
 					IPath linkLocation;
@@ -119,11 +120,69 @@ public class NatureLinkedRessources implements IProjectNature {
 						}
 					}
 				}
+				// Add include folder links extracted from makefile
+				for (String s : includeDir) {
+					String name;
+					IPath linkLocation;
+					IPath projectLocation = getProject().getLocation();
+					linkLocation = projectLocation.append(s);
+
+					if (!linkLocation.toString().equals(projectLocation.toString())) {
+						name = linkLocation.lastSegment();
+						IWorkspace workspace = ResourcesPlugin.getWorkspace();
+						IFolder folder = project.getFolder(name);
+						if (workspace.validateLinkLocation(folder, linkLocation).getSeverity() != IStatus.ERROR) {
+							try {
+								folder.createLink(linkLocation, IResource.NONE, null);
+							} catch (CoreException e) {
+								e.printStackTrace();
+							}
+						} else {
+							System.out.println(workspace.validateLinkLocation(folder, linkLocation).toString());
+						}
+					}
+				}
+				
+				// Adding includes extracted from makefile
+				// TODO: this code below is not working
+				/*
+				ICProjectDescription prjDesc = CoreModel.getDefault().getProjectDescription(project);
+				ICConfigurationDescription desc = prjDesc.getActiveConfiguration();
+
+				ICFolderDescription filedes = desc.getRootFolderDescription(); 
+				for (ICLanguageSetting lang : filedes.getLanguageSettings())// ;//.getLanguageSettings();
+				{
+					int nbDefaultEntries = 0;
+					ICLanguageSettingEntry[] entries = lang.getSettingEntries(ICSettingEntry.INCLUDE_PATH);
+					// Count how many default entries
+					for (ICLanguageSettingEntry entry : entries) {
+						if (entry.getName().indexOf("${") != -1)
+							nbDefaultEntries++;
+					}
+					ICLanguageSettingEntry[] newEntries = new ICLanguageSettingEntry[includeDir.size()+nbDefaultEntries];
+					// Create new entries by copying default entry
+					int nbNewEntries = 0;
+					for (ICLanguageSettingEntry entry : entries) {
+						if (entry.getName().indexOf("${") != -1) {
+							newEntries[nbNewEntries++] = entry;
+						}
+					}
+					// Create new entries by adding new entries found in makefile
+					for (String s : includeDir) {
+						ICIncludePathEntry entry = (ICIncludePathEntry)CDataUtil.createEntry(ICLanguageSettingEntry.INCLUDE_PATH, s, s, null, 0);
+						newEntries[nbNewEntries++] = entry;
+					}
+					
+					lang.setSettingEntries(ICSettingEntry.INCLUDE_PATH, newEntries);
+				}
+				*/
+
 				monitor.done();
 				return Status.OK_STATUS;
 			}
 		};
-		job.schedule();
+		
+		jobLinks.schedule();
 	}
 
 	/**
@@ -155,7 +214,6 @@ public class NatureLinkedRessources implements IProjectNature {
 	@Override
 	public void deconfigure() throws CoreException {
 		System.out.println("I am removing a project nature (BG)");
-
 	}
 
 	@Override
@@ -213,7 +271,12 @@ public class NatureLinkedRessources implements IProjectNature {
 		}
 	}
 
-	void getPathFromMakefile(Set<String> s) {
+	/**
+	 * 
+	 * @param sourceDir
+	 * @param includeDir
+	 */
+	void getPathsFromMakefile(Set<String> sourceDir, Set<String> includeDir) {
 		IFile file = getProject().getFile(new Path("makefile"));
 		String fileLocation = file.getLocation().toOSString();
 		System.out.println("File location = " + fileLocation);
@@ -229,6 +292,7 @@ public class NatureLinkedRessources implements IProjectNature {
 			e.printStackTrace();
 		}
 
-		parMake.getSourceDir(s);
+		parMake.getSourceDir(sourceDir);
+		parMake.getIncludeDir(includeDir);
 	}
 }

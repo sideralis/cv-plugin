@@ -95,7 +95,6 @@ public class IFXMakefileEditor extends MultiPageEditorPart {
 	/**
 	 * 
 	 */
-	@SuppressWarnings("restriction")
 	protected void createSourcePage() {
 		try {
 			textEditor = new MakefileEditor();

@@ -1024,5 +1024,52 @@
             name="IFX CV Makefile Editor">
       </editor>
    </extension>
+   <extension
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType
+            delegate="com.infineon.cv.LaunchIntel"
+            id="com.infineon.cv.launchConfigurationType"
+            modes="run, debug"
+            name="Intel Testcase">
+      </launchConfigurationType>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+      <launchConfigurationTypeImage
+            configTypeID="com.infineon.cv.launchConfigurationType"
+            icon="IFX_16x16.ico"
+            id="com.infineon.cv.launchConfigurationTypeImage">
+      </launchConfigurationTypeImage>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchShortcuts">
+      <shortcut
+            class="com.infineon.cv.LaunchShortcut2"
+            icon="IFX_16x16.ico"
+            id="com.infineon.cv.shortcut"
+            label="Intel Tescase"
+            modes="run, debug">
+         <configurationType
+               id="com.infineon.cv.launchConfigurationType">
+         </configurationType>
+      </shortcut>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+      <launchConfigurationTabGroup
+            class="com.infineon.cv.IntelLaunchConfigurationTabGroup"
+            id="com.infineon.cv.launchConfigurationTabGroup"
+            type="com.infineon.cv.launchConfigurationType">
+      </launchConfigurationTabGroup>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTabs">
+      <tab
+            class="com.infineon.cv.IntelMainTab"
+            group="com.infineon.cv.launchConfigurationTabGroup"
+            id="com.infineon.cv.tab"
+            name="Testcase">
+      </tab>
+   </extension>
 </plugin>
 

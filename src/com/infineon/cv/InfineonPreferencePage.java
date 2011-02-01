@@ -37,8 +37,7 @@ public class InfineonPreferencePage extends FieldEditorPreferencePage implements
 	protected DirectoryFieldEditor toolDir;
 
 	/**
-	 * The constructor
-	 * Creates a preference store
+	 * The constructor Creates a preference store
 	 */
 	public InfineonPreferencePage() {
 		super(FieldEditorPreferencePage.GRID);
