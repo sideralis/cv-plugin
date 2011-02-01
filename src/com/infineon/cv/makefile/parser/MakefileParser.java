@@ -804,30 +804,30 @@ public class MakefileParser implements Cloneable {
 	}
 
 	/** Used internally for debugging purposes */
-	private String state(int state) {
-		switch (state) {
-		case STATE_COMMENT:
-			return "COMMENT";
-		case STATE_COMMENT_STACKED:
-			return "COMMENT_STACKED";
-		case STATE_ALPHANUM:
-			return "ALPHANUM";
-		case STATE_VARIABLE:
-			return "VARIABLE";
-		case STATE_VARIABLE_APPEND:
-			return "VARIABLE_APPEND";
-		case STATE_VARIABLE_DEFINE:
-			return "VARIABLE_DEFINE";
-		case STATE_TARGET:
-			return "TARGET";
-		case STATE_AFTER_TARGET:
-			return "AFTER_TARGET";
-		case STATE_COMMAND:
-			return "COMMAND";
-		default:
-			return "NONE";
-		}
-	}
+//	private String state(int state) {
+//		switch (state) {
+//		case STATE_COMMENT:
+//			return "COMMENT";
+//		case STATE_COMMENT_STACKED:
+//			return "COMMENT_STACKED";
+//		case STATE_ALPHANUM:
+//			return "ALPHANUM";
+//		case STATE_VARIABLE:
+//			return "VARIABLE";
+//		case STATE_VARIABLE_APPEND:
+//			return "VARIABLE_APPEND";
+//		case STATE_VARIABLE_DEFINE:
+//			return "VARIABLE_DEFINE";
+//		case STATE_TARGET:
+//			return "TARGET";
+//		case STATE_AFTER_TARGET:
+//			return "AFTER_TARGET";
+//		case STATE_COMMAND:
+//			return "COMMAND";
+//		default:
+//			return "NONE";
+//		}
+//	}
 
 	public String toString() {
 		StringBuffer res = new StringBuffer(300);
@@ -864,14 +864,13 @@ public class MakefileParser implements Cloneable {
 		}
 	}
 	/**
-	 * 
-	 * @param sourceDir
+	 * Retrieve all source directories from SRC, SRCDIR and VPATH define
+	 * @param sourceDir An HashSet of String containing all source directories
 	 */
 	public void getSourceDir(Set<String> sourceDir) {
 		Pattern pattern;
 		Matcher matcher;
 		String pat = "([/\\.\\\\\\w]+)[\\s$]*";
-//		sourceDir = new HashSet<String>();
 		
 		Iterator<String> varNames = varManager.nonExternalKeys();
 		while (varNames.hasNext()) {
@@ -906,16 +905,33 @@ public class MakefileParser implements Cloneable {
 					String s = matcher.group(1);
 					sourceDir.add(s.trim());
 				}
-			} else if (varName.equals("INCDIR")) {
+			}
+		}
+		System.out.println("Source dir to be added: "+sourceDir);
+	}
+	/**
+	 * Retrieve all include directories from INCDIR define
+	 * @param includeDir An HashSet of String containing all include directories
+	 */
+	public void getIncludeDir(Set<String> includeDir) {
+		Pattern pattern;
+		Matcher matcher;
+		String pat = "([/\\.\\\\\\w]+)[\\s$]*";
+		
+		Iterator<String> varNames = varManager.nonExternalKeys();
+		while (varNames.hasNext()) {
+			String varName = varNames.next();
+			String value = varManager.getValue(varName);
+			if (varName.equals("INCDIR")) {
 				pattern = Pattern.compile(pat);
 				matcher = pattern.matcher(value);
 				while (matcher.find()) {
 					String s = matcher.group(1);
-					sourceDir.add(s.trim());
+					includeDir.add(s.trim());
 				}
 			}
 		}
-		System.out.println("Source dir to be added: "+sourceDir);
+		System.out.println("Include dir to be added: "+includeDir);
 	}
 	
 	public static void main(String args[]) {
@@ -932,6 +948,8 @@ public class MakefileParser implements Cloneable {
 			e.printStackTrace();
 		}
 		Set<String> s = new HashSet<String>();
+		Set<String> i = new HashSet<String>();
 		parMake.getSourceDir(s);	
+		parMake.getIncludeDir(i);	
 	}
 }

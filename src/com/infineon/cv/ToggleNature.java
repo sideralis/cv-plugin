@@ -36,7 +36,7 @@ public class ToggleNature extends Thread {
 					System.arraycopy(natures, i + 1, newNatures, i, natures.length - i - 1);
 					description.setNatureIds(newNatures);
 					project.setDescription(description, null);
-					return;
+//					return;
 				}
 			}
 

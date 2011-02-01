@@ -39,7 +39,7 @@ public class ToggleNatureAction implements IObjectActionDelegate {
 				if (project != null) {
 					new ToggleNature(project).start();
 					// toggleNature(project);
-					System.out.print("Add Nature Project");
+					System.out.println("Add Nature Project");
 				}
 			}
 		}
