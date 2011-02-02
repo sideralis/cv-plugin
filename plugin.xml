@@ -1049,9 +1049,17 @@
             id="com.infineon.cv.shortcut"
             label="Intel Tescase"
             modes="run, debug">
-         <perspective
-               id="org.eclipse.cdt.ui.CPerspective">
-         </perspective>
+         <description
+               description="Launch a Intel CV testcase"
+               mode="com.infineon.cv.intelDescription">
+         </description>
+         <contextualLaunch>
+            <enablement>
+               <equals
+                     value="1">
+               </equals>
+            </enablement>
+         </contextualLaunch>
       </shortcut>
    </extension>
    <extension
@@ -1061,15 +1069,6 @@
             id="com.infineon.cv.launchConfigurationTabGroup"
             type="com.infineon.cv.launchConfigurationType">
       </launchConfigurationTabGroup>
-   </extension>
-   <extension
-         point="org.eclipse.debug.ui.launchConfigurationTabs">
-      <tab
-            class="com.infineon.cv.launcher.IntelMainTab"
-            group="com.infineon.cv.launchConfigurationTabGroup"
-            id="com.infineon.cv.tab"
-            name="Testcase">
-      </tab>
    </extension>
 </plugin>
 

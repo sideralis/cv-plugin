@@ -77,7 +77,7 @@ class IntelMainTab extends AbstractLaunchConfigurationTab {
 
     	repRepButton = new Button(group, SWT.RADIO);
 		repRepButton.setFont(compParent.getFont());
-		repRepButton.setText("Replay and/or Record");
+		repRepButton.setText("Report with/without replay");
 		gd = new GridData();
 		gd.horizontalSpan = 3;
 		repRepButton.setLayoutData(gd);	
@@ -90,11 +90,12 @@ class IntelMainTab extends AbstractLaunchConfigurationTab {
 		gd.horizontalSpan = 3;
 		group1.setLayoutData(gd);
 
-		reportButton = new Button(group1, SWT.CHECK);
-		reportButton.setFont(compParent.getFont());
-		reportButton.setText("Report");
-		gd = new GridData();
-		reportButton.setLayoutData(gd);	
+		Text text1 = new Text(group1, SWT.SINGLE | SWT.READ_ONLY | SWT.RIGHT);
+		text1.setFont(compParent.getFont());
+		text1.setText("Report");
+    	gd = new GridData(GridData.FILL_HORIZONTAL);
+    	gd.horizontalSpan = 1;
+    	recordFileName.setLayoutData(gd);
 
 		recordFileName = new Text(group1, SWT.SINGLE | SWT.BORDER);
     	recordFileName.setFont(compParent.getFont());
@@ -133,7 +134,7 @@ class IntelMainTab extends AbstractLaunchConfigurationTab {
     	    	    	
 		repRepButton = new Button(group, SWT.RADIO);
 		repRepButton.setFont(compParent.getFont());
-		repRepButton.setText("Report");
+		repRepButton.setText("Record");
 		gd = new GridData();
 		gd.horizontalSpan = 3;
 		repRepButton.setLayoutData(gd);	
