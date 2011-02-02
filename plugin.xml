@@ -891,9 +891,9 @@
             nameFilter="*"
             id="com.infineon.cv.Naturecontribution">
          <menu
-               icon="IFX_16x16.ico"
+               icon="icons/intel.gif"
                id="com.infineon.cv.menuInfineon"
-               label="Infineon"
+               label="Intel"
                path="additions">
             <separator
                   name="infineonMenuseparator">
@@ -1027,7 +1027,7 @@
    <extension
          point="org.eclipse.debug.core.launchConfigurationTypes">
       <launchConfigurationType
-            delegate="com.infineon.cv.LaunchIntel"
+            delegate="com.infineon.cv.launcher.LaunchIntel"
             id="com.infineon.cv.launchConfigurationType"
             modes="run, debug"
             name="Intel Testcase">
@@ -1037,27 +1037,27 @@
          point="org.eclipse.debug.ui.launchConfigurationTypeImages">
       <launchConfigurationTypeImage
             configTypeID="com.infineon.cv.launchConfigurationType"
-            icon="IFX_16x16.ico"
+            icon="icons/intel.gif"
             id="com.infineon.cv.launchConfigurationTypeImage">
       </launchConfigurationTypeImage>
    </extension>
    <extension
          point="org.eclipse.debug.ui.launchShortcuts">
       <shortcut
-            class="com.infineon.cv.LaunchShortcut2"
-            icon="IFX_16x16.ico"
+            class="com.infineon.cv.launcher.IntelLaunchShortcut"
+            icon="icons/intel.gif"
             id="com.infineon.cv.shortcut"
             label="Intel Tescase"
             modes="run, debug">
-         <configurationType
-               id="com.infineon.cv.launchConfigurationType">
-         </configurationType>
+         <perspective
+               id="org.eclipse.cdt.ui.CPerspective">
+         </perspective>
       </shortcut>
    </extension>
    <extension
          point="org.eclipse.debug.ui.launchConfigurationTabGroups">
       <launchConfigurationTabGroup
-            class="com.infineon.cv.IntelLaunchConfigurationTabGroup"
+            class="com.infineon.cv.launcher.IntelLaunchConfigurationTabGroup"
             id="com.infineon.cv.launchConfigurationTabGroup"
             type="com.infineon.cv.launchConfigurationType">
       </launchConfigurationTabGroup>
@@ -1065,7 +1065,7 @@
    <extension
          point="org.eclipse.debug.ui.launchConfigurationTabs">
       <tab
-            class="com.infineon.cv.IntelMainTab"
+            class="com.infineon.cv.launcher.IntelMainTab"
             group="com.infineon.cv.launchConfigurationTabGroup"
             id="com.infineon.cv.tab"
             name="Testcase">
