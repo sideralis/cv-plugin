@@ -39,7 +39,7 @@
       <projectType
             id="com.infineon.cv.projectTypeBHades"
             isAbstract="false"
-            name="Hades"
+            name="Testcase"
             projectMacroSupplier="com.infineon.cv.includes.testcaseMacro4include">
          <configuration
                id="com.infineon.cv.configuration.hadesGnumake"
@@ -141,7 +141,7 @@
       <projectType
             id="com.infineon.cv.projectTypeCHadesLib"
             isAbstract="false"
-            name="Hades Lib"
+            name="Library"
             projectMacroSupplier="com.infineon.cv.includes.testcaseMacro4include">
          <configuration
                id="com.infineon.cv.configuration.hadesLibGnumake"
@@ -292,7 +292,7 @@
             id="com.infineon.cv.projectTypeFMemloader"
             isAbstract="false"
             name="CV Memloader"
-            projectMacroSupplier="com.infineon.cv.includes.testcaseMacro4include">
+            projectMacroSupplier="com.infineon.cv.includes.memloaderMacro4include">
          <configuration
                id="com.infineon.cv.configurationCVMem31"
                parent="com.infineon.cv.configurationDefault">
