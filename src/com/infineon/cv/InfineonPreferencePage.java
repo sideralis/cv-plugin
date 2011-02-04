@@ -67,11 +67,16 @@ public class InfineonPreferencePage extends FieldEditorPreferencePage implements
 	}
 
 	public boolean performOk() { // set environment variables' tool drive to be
-		// // "toolDir.getStringValue()"
-		System.out.println(toolDir.getStringValue());
+		String var;
+		
+		// If Hades/Sysway is running then prevent applying new setting.
+		var = System.getenv("HADES_PERL");
+		if (var != null)
+			return false;
+		// Hades/Sysway is not running so let's modify the tool drive.
 		redefineToolDrive(new ProcessBuilder());
-		// ToolViewDrive.set(toolDir.getStringValue().charAt(0));
 		toolDir.store();
+		
 		return super.performOk();
 	}
 
