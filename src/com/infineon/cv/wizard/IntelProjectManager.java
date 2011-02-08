@@ -11,7 +11,12 @@ import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
 
 public class IntelProjectManager {
-
+	/**
+	 * See http://cdt-devel-faq.wikidot.com/#toc25
+	 * @param name
+	 * @param path
+	 * @param monitor
+	 */
 	public void createIntelProject(String name, String path, IProgressMonitor monitor) {
 		IWorkspaceRoot wrkSpaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 		IProject newProjectHandle = wrkSpaceRoot.getProject(name);
