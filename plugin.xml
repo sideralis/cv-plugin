@@ -1102,5 +1102,34 @@
             type="com.infineon.cv.launchConfigurationType">
       </launchConfigurationTabGroup>
    </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="com.infineon.cv.category"
+            name="Intel">
+      </category>
+      <wizard
+            canFinishEarly="false"
+            category="com.infineon.cv.category"
+            class="com.infineon.cv.wizard.IntelWizard"
+            finalPerspective="org.eclipse.cdt.ui.CPerspective"
+            hasPages="true"
+            icon="icons/intel.gif"
+            id="com.infineon.cv.wizard"
+            name="Intel CV Testcase"
+            project="true">
+         <description>
+            To create an Intel IMC CV Testcase
+         </description>
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.ui.navigator.navigatorContent">
+      <commonWizard
+            type="new"
+            wizardId="com.infineon.cv.wizard">
+         <enablement></enablement>
+      </commonWizard>
+   </extension>
 </plugin>
 
