@@ -77,6 +77,7 @@ public class IntelWizardPage extends WizardPage {
 			public void mouseDown(MouseEvent e) {
 				DirectoryDialog dirDialog = new DirectoryDialog(browse.getShell());
 				dirDialog.setText("Select the directory where is/will be located the makefile");
+				dirDialog.setFilterPath("c:\\S-Gold");
 				String path = dirDialog.open();
 				locText.setText(path);
 				IPath iPath = new Path(path);
