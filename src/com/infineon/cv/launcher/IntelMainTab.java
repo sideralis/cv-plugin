@@ -1,5 +1,7 @@
 package com.infineon.cv.launcher;
 
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.internal.ui.IDebugHelpContextIds;
@@ -12,6 +14,8 @@ import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.accessibility.AccessibleAdapter;
 import org.eclipse.swt.accessibility.AccessibleEvent;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -19,10 +23,17 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 
+/**
+ * 
+ * @author Bernard
+ *
+ */
 class IntelMainTab extends AbstractLaunchConfigurationTab {
 	private String mode;
 	private Composite compParent,compRecord,compRepRep;
@@ -60,6 +71,37 @@ class IntelMainTab extends AbstractLaunchConfigurationTab {
 		createGroupRecord(groupButtons);
 		createGroupReplayReport(groupButtons);	
 		createGroupNone(groupButtons);
+		// 
+		noneButton.setSelection(true);
+		
+		addListeners(getShell());
+	}
+
+	private void addListeners(final Shell shell) {
+		
+		MouseListener listener;
+		listener = new MouseListener() {
+			
+			@Override
+			public void mouseUp(MouseEvent e) {		
+			}
+			
+			@Override
+			public void mouseDown(MouseEvent e) {
+				DirectoryDialog dirDialog = new DirectoryDialog(shell);
+				dirDialog.setText("Select your file");
+				dirDialog.setFilterPath("c:\\S-Gold");
+				String path = dirDialog.open();
+				System.out.println(e);
+			}
+			
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+			}
+		};
+		reportButtonBrowse.addMouseListener(listener);
+		replayButtonBrowse.addMouseListener(listener);
+		recordButtonBrowse.addMouseListener(listener);
 	}
 
 	private void createGroupNone(Group group) {
@@ -97,17 +139,17 @@ class IntelMainTab extends AbstractLaunchConfigurationTab {
     	gd.horizontalSpan = 1;
     	recordFileName.setLayoutData(gd);
 
-		recordFileName = new Text(group1, SWT.SINGLE | SWT.BORDER);
-    	recordFileName.setFont(compParent.getFont());
+		reportFileName = new Text(group1, SWT.SINGLE | SWT.BORDER);
+    	reportFileName.setFont(compParent.getFont());
     	gd = new GridData(GridData.FILL_HORIZONTAL);
     	gd.horizontalSpan = 1;
-    	recordFileName.setLayoutData(gd);
+    	reportFileName.setLayoutData(gd);
 
-		recordButtonBrowse = new Button(group1, SWT.PUSH);
-		recordButtonBrowse.setFont(compParent.getFont());
-		recordButtonBrowse.setText("Browse");
+		reportButtonBrowse = new Button(group1, SWT.PUSH);
+		reportButtonBrowse.setFont(compParent.getFont());
+		reportButtonBrowse.setText("Browse");
 		gd = new GridData();
-		recordButtonBrowse.setLayoutData(gd);	
+		reportButtonBrowse.setLayoutData(gd);	
 
 		replayButton = new Button(group1, SWT.CHECK);
 		replayButton.setFont(compParent.getFont());
