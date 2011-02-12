@@ -19,7 +19,6 @@ public class ARMCSourcParser extends GNUCSourceParser {
 	}
 
 	public ARMCSourcParser(IScanner scanner, ParserMode parserMode, IParserLogService logService, ICParserExtensionConfiguration parserExtensionConfiguration, IIndex index) {
-		// TODO Auto-generated constructor stub
 		super(scanner, parserMode, logService, parserExtensionConfiguration, index);
 	}
 
