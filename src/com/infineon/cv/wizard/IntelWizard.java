@@ -23,10 +23,8 @@ public class IntelWizard extends Wizard implements INewWizard, IRunnableWithProg
 		try {
 			getContainer().run(false, true, this);
 		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return true;
@@ -34,7 +32,6 @@ public class IntelWizard extends Wizard implements INewWizard, IRunnableWithProg
 
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
-		// TODO Auto-generated method stub
 
 	}
 

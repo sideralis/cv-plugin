@@ -69,8 +69,6 @@ public class IntelWizardPage extends WizardPage {
 			
 			@Override
 			public void mouseUp(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
 			}
 			
 			@Override
@@ -86,8 +84,6 @@ public class IntelWizardPage extends WizardPage {
 			
 			@Override
 			public void mouseDoubleClick(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
 			}
 		});	
 	}

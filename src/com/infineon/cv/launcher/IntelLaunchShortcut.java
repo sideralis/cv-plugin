@@ -89,7 +89,6 @@ public class IntelLaunchShortcut implements ILaunchShortcut {
 			// myProj.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, null);
 			myProj.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, "org.eclipse.cdt.managedbuilder.core.genmakebuilder", arg, null);
 		} catch (CoreException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

@@ -216,14 +216,12 @@ class IntelMainTab extends AbstractLaunchConfigurationTab {
 
 	@Override
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
-		// TODO Auto-generated method stub
 		System.out.println("Tabs: performApply");
 		
 	}
 
 	@Override
 	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
-		// TODO Auto-generated method stub
 		System.out.println("Tabs: set defaults");
 		
 	}

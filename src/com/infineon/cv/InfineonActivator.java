@@ -11,6 +11,9 @@ import org.osgi.service.prefs.BackingStoreException;
  * 
  * @author gautier
  * Activator class
+ * 
+ * TODO: Add define parsing
+ * 
  */
 public class InfineonActivator extends AbstractUIPlugin {
 	/** The plugin id */
