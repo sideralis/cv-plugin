@@ -16,6 +16,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.QualifiedName;
+import org.eclipse.debug.core.DebugPlugin;
+import org.eclipse.debug.core.ILaunchConfiguration;
+import org.eclipse.debug.core.ILaunchConfigurationType;
 import org.eclipse.debug.ui.ILaunchShortcut;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -47,6 +50,8 @@ public class IntelLaunchShortcut implements ILaunchShortcut {
 	private void launch(String mode, CProject project) {
 		HashMap<String, String> arg = new HashMap<String, String>();
 
+		ILaunchConfiguration config = findLaunchConfiguration(mode);
+		
 		IProject myProj = project.getProject();
 		arg.put("REPORTFILE", "my.rpt");
 		try {
@@ -92,5 +97,17 @@ public class IntelLaunchShortcut implements ILaunchShortcut {
 			e.printStackTrace();
 		}
 
+	}
+
+	private ILaunchConfiguration findLaunchConfiguration(String mode) {
+		ILaunchConfiguration configuration = null;
+		ILaunchConfigurationType configurationType = getIntelLaunchConfigType();
+		
+		
+		return null;
+	}
+
+	private ILaunchConfigurationType getIntelLaunchConfigType() {
+		return DebugPlugin.getDefault().getLaunchManager().getLaunchConfigurationType("");
 	}
 }
