@@ -864,6 +864,53 @@ public class MakefileParser implements Cloneable {
 		}
 	}
 	/**
+	 * 
+	 */
+	public void getDefines(Set<String> defines, Set<String> values) {
+		Pattern pattern;
+		Matcher matcher1,matcher2,matcher3;
+		String pat1 = "[ ](.*?)";
+		String pat2 = ".*='(.)'*";
+		String pat3 = ".*-D(.*?) ";
+		String def,val;
+		
+		Iterator<String> varNames = varManager.nonExternalKeys();
+		while (varNames.hasNext()) {
+			String varName = varNames.next();
+			String value = varManager.getValue(varName);
+			if (varName.equals("DEFINES")) {
+				pattern = Pattern.compile(pat1);
+				matcher1 = pattern.matcher(value);
+				while(matcher1.find()) {
+					def = matcher1.group(1);
+					pattern = Pattern.compile(pat2);
+					matcher2 = pattern.matcher(def);
+					if (matcher2.find()) {
+						val = matcher2.group(1);
+						defines.add(def);
+						values.add(val);
+					}
+				}
+			}
+			if (varName.equals("OWN_CFLAGS")) {
+				pattern = Pattern.compile(pat3);
+				matcher3 = pattern.matcher(value);
+				while(matcher3.find()) {
+					def = matcher3.group(1);
+					pattern = Pattern.compile(pat2);
+					matcher2 = pattern.matcher(def);
+					if (matcher2.find()) {
+						val = matcher2.group(1);
+					} else {
+						val = "1";
+					}
+					defines.add(def);
+					values.add(val);
+				}				
+			}
+		}		
+	}
+	/**
 	 * Retrieve all source directories from SRC, SRCDIR and VPATH define
 	 * @param sourceDir An HashSet of String containing all source directories
 	 */
