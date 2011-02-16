@@ -14,13 +14,19 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Text;
 
 public class IntelWizardPage extends WizardPage {
 
+	public static final int TESTCASE = 0;
+	public static final int LIBRARY = 1;
+	private static final String[] PROJECT_TYPE = new String[] {"Testcase", "Library"};
+
 	private Button browse;
 	private Text testcaseName;
 	private Text locText;
+	private List projectType;
 	
 	protected IntelWizardPage(String pageName) {
 		super(pageName);
@@ -58,6 +64,19 @@ public class IntelWizardPage extends WizardPage {
 		browse.setText("Browse");
 		gd = new GridData();
 		browse.setLayoutData(gd);
+		
+		Label prjTypeLabel = new Label(container, SWT.NONE);
+		prjTypeLabel.setText("Select the project type");
+		gd = new GridData();
+		prjTypeLabel.setLayoutData(gd);
+		
+		projectType = new List(container, SWT.SINGLE | SWT.BOLD | SWT.BORDER);
+		projectType.add(PROJECT_TYPE[TESTCASE]);
+		projectType.add(PROJECT_TYPE[LIBRARY]);
+		projectType.setSelection(0);
+		gd = new GridData(GridData.FILL_HORIZONTAL);
+		gd.horizontalSpan = 2;
+		projectType.setLayoutData(gd);
 
 		addListeners();
 
@@ -102,6 +121,10 @@ public class IntelWizardPage extends WizardPage {
 
 	public String getTestcaseName() {
 		return testcaseName.getText();
+	}
+	
+	public int getProjectType() {
+		return projectType.getSelectionIndex();
 	}
 	
 

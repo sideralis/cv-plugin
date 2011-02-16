@@ -38,30 +38,32 @@ import com.infineon.cv.ToggleNature;
 
 @SuppressWarnings("restriction")
 public class IntelProjectManager {
+
 	String make = new String(
 			  "#------------------------------------------------------------------------------\n" 
 			+ "# Specify the name of your project.\n"
 			+ "#------------------------------------------------------------------------------\n" 
 			+ "PROJECT_NAME := TESTCASE_NAME\n"
+			+ "\n"
 			+ "#------------------------------------------------------------------------------\n" 
 			+ "# Specify the short name of your project. If empty, PROJECT_NAME will be used\n"
-			+ "# Else, it will be used as name for the object files (.bin,.hex,.axf,.ibi)\n"
-			+ "#------------------------------------------------------------------------------\n" 
-			+ "PROJECT_SHORT_NAME :=\n"
-			+ "\n"
-			+ "#------------------------------------------------------------------------------\n" 
-			+ "# Specify the default architecture (type gnumake list in the cmd line for help)\n"
-			+ "#------------------------------------------------------------------------------\n" 
-			+ "ARCH := REAL+IRAM+STD_IO_USIF+DEBUG+GENERIC_SDRAM_AND_NO_NVM\n"
-			+ "\n"
+			+ "# Else, it will be used as name for the object files (.bin,.hex,.axf,.ibi)\n" 
+			+ "#------------------------------------------------------------------------------\n"
+			+ "PROJECT_SHORT_NAME :=\n" 
+			+ "\n" 
+			+ "#------------------------------------------------------------------------------\n"
+			+ "# Specify the default architecture (type gnumake list in the cmd line for help)\n" 
+			+ "#------------------------------------------------------------------------------\n"
+			+ "ARCH := REAL+IRAM+STD_IO_USIF+DEBUG+GENERIC_SDRAM_AND_NO_NVM\n" 
+			+ "\n" 
 			+ "#------------------------------------------------------------------------------\n"
 			+ "# Specify the location of your S-Gold_sofware_environment folder\n" 
 			+ "#------------------------------------------------------------------------------\n" 
 			+ "ROOTDIR := ../..\n" 
 			+ "\n"
-			+ "#------------------------------------------------------------------------------\n"
+			+ "#------------------------------------------------------------------------------\n" 
 			+ "# Specify the folder where object files (.bin,.hex,.axf,.ibi) should be stored\n"
-			+ "# If empty, default folder is makefile location folder\n"
+			+ "# If empty, default folder is makefile location folder\n" 
 			+ "#------------------------------------------------------------------------------\n" 
 			+ "EXEC_PATH :=\n" 
 			+ "\n"
@@ -70,43 +72,42 @@ public class IntelProjectManager {
 			+ "#------------------------------------------------------------------------------\n" 
 			+ "MY_SCF :=\n" 
 			+ "\n"
-			+ "#------------------------------------------------------------------------------\n"
-			+ "# Specify below your own initialization file if needed\n" 
 			+ "#------------------------------------------------------------------------------\n" 
-			+ "OWN_INIT_S :=\n"
+			+ "# Specify below your own initialization file if needed\n"
+			+ "#------------------------------------------------------------------------------\n" 
+			+ "OWN_INIT_S :=\n" 
 			+ "\n"
 			+ "#------------------------------------------------------------------------------\n" 
 			+ "# Specify below your own assembler flags if needed\n"
 			+ "# WARNING : Keep in mind to get out compilation flags which have to be replaced\n" 
 			+ "# by your own flags... by instance use $(filter-out OLD_FLAGS,$(ASFLAGS))\n"
-			+ "# OWN_ASFLAGS 	-> Assembler flags\n" 
-			+ "# OWN_CFLAGS	-> C compiler flags\n" 
-			+ "# OWN_LKFLAGS	-> Linker flags\n" 
+			+ "# OWN_ASFLAGS 	-> Assembler flags\n" + "# OWN_CFLAGS	-> C compiler flags\n" 
+			+ "# OWN_LKFLAGS	-> Linker flags\n"
 			+ "#------------------------------------------------------------------------------\n" 
 			+ "OWN_ASFLAGS  :=\n" 
-			+ "OWN_CFLAGS   :=\n"
+			+ "OWN_CFLAGS   :=\n" 
 			+ "OWN_LKFLAGS  :=\n" 
 			+ "\n"
-			+ "#------------------------------------------------------------------------------\n"
+			+ "#------------------------------------------------------------------------------\n" 
 			+ "# All C and assembler defines can be defined in this variable\n"
 			+ "# ! Use always NAME='VALUE' pattern\n" 
-			+ "#------------------------------------------------------------------------------\n"
-			+ "DEFINES := #TOTO='1' ADDRESS='0x8000'\n"
-			+ "\n"
-			+ "#------------------------------------------------------------------------------\n"
-			+ "# By default, the TCM is not used.\n" 
-			+ "# In case of it has to be used :\n" 
-			+ "#			- Hard code the address value of ITCM,DTCM in the current makefile\n"
-			+ "#			- Set theirs variable values in the command line\n" 
 			+ "#------------------------------------------------------------------------------\n" 
-			+ "ITCM_BASE_ADDRESS =\n"
+			+ "DEFINES := #TOTO='1' ADDRESS='0x8000'\n" 
+			+ "\n"
+			+ "#------------------------------------------------------------------------------\n" 
+			+ "# By default, the TCM is not used.\n" 
+			+ "# In case of it has to be used :\n"
+			+ "#			- Hard code the address value of ITCM,DTCM in the current makefile\n" 
+			+ "#			- Set theirs variable values in the command line\n"
+			+ "#------------------------------------------------------------------------------\n" 
+			+ "ITCM_BASE_ADDRESS =\n" 
 			+ "DTCM_BASE_ADDRESS =\n" 
-			+ "\n" 
+			+ "\n"
 			+ "#------------------------------------------------------------------------------\n" 
 			+ "# List the files to compile for your testcase\n"
 			+ "# Either by specifying them one by one (use SRCS) or\n"
-			+ "# by specifying directories (use SRCDIR). In this case all source files (.c,.s) located in the folder are automatically compiled\n" 
-			+ "# VPATH is used to specify which folders will be searched in case the source name file\n"
+			+ "# by specifying directories (use SRCDIR). In this case all source files (.c,.s) located in the folder are automatically compiled\n"
+			+ "# VPATH is used to specify which folders will be searched in case the source name file\n" 
 			+ "# does not include a full path\n"
 			+ "#------------------------------------------------------------------------------\n" 
 			+ "SRCS += TESTCASE_NAME.c\n" 
@@ -115,74 +116,39 @@ public class IntelProjectManager {
 			+ "\n"
 			+ "#------------------------------------------------------------------------------\n" 
 			+ "# You can add one or more folders in the include path\n"
-			+ "# There are the paths needed by the compiler to resolve all include instructions"
+			+ "# There are the paths needed by the compiler to resolve all include instructions" 
 			+ "#------------------------------------------------------------------------------\n" 
-			+ "#INCDIR +=\n" 
-			+ "\n"
+			+ "#INCDIR +=\n"
+			+ "\n" 
 			+ "#------------------------------------------------------------------------------\n" 
-			+ "# You can exclude one or more lib from the project\n" 
+			+ "# You can exclude one or more lib from the project\n"
 			+ "#------------------------------------------------------------------------------\n" 
-			+ "#LIBUNWANTED += USIF.lib\n" 
+			+ "#LIBUNWANTED += USIF.lib\n"
 			+ "\n"
 			+ "#------------------------------------------------------------------------------\n" 
 			+ "# Call the main makefile\n"
 			+ "#------------------------------------------------------------------------------\n" 
-			+ "include $(ROOTDIR)/../../CV_Foundation/_makefile/Makefile.mak\n" 
-			+ "");
-	String test = new String(
-			"/*\n" + 
-			" * TESTCASE_NAME.c\n" + 
-			" *\n" + 
-			" *  Created on: DD MM YYYY\n" + 
-			" *      Author: USERNAME\n" + 
-			" */\n" + "\n" + 
-			"#include <stdio.h>\n" + 
-			"#include <STD_stdio.h>\n" + 
-			"\n" + 
-			"#include <REG_SGOLD.h>\n" + 
-			"\n" + 
-			"#include <CGU_lib.h>\n" + 
-			"#include <TEST_lib.h>\n" + 
-			"#include <HADES_lib.h>\n" + 
-			"\n" + 
-			"/**\n" + 
-			" * Main function\n" + 
-			" * @return always 0.\n" + 
-			" */\n" +
-			"int main(void) {\n" + 
-			"	int ret = 0;\n" + 
-			"\n" + 
-			"	// Configure clock to fast clock settings\n" + 
-			"	CGU_ConfAllClocks(FAST_CLOCKS_SETTINGS);\n" + 
-			"\n" + 
-			"	// Initialise USIF port\n" +
-			"	STD_IO_Init(STD_IO_115200);\n" + 
-			"\n" + 
-			"	// Fill the Hades data used for report\n" + 
-			"	HADES_QCBlock(\"Block name in QC\");\n" + 
-			"	HADES_QCName(\"Test name in QC\");\n" +
-			"	HADES_TestDescription(\"Description of your test\");\n" + 
-			"\n" + 
-			"	// TODO Add the code of your test\n" + 
-			"	// ...\n" + 
-			"\n" + 
-			"	// Send the pass or fail status of your test.\n" +
-			"	TEST_sendTcVerdict(TEST_PASS);\n" + 
-			"\n" + 
-			"	// Return 0\n" + 
-			"	return 0;\n" + 
-			"}\n" + 
-			"");
+			+ "include $(ROOTDIR)/../../CV_Foundation/_makefile/Makefile.mak\n" + "");
+	String test = new String("/*\n" + " * TESTCASE_NAME.c\n" + " *\n" + " *  Created on: DD MM YYYY\n" + " *      Author: USERNAME\n" + " */\n" + "\n" + "#include <stdio.h>\n"
+			+ "#include <STD_stdio.h>\n" + "\n" + "#include <REG_SGOLD.h>\n" + "\n" + "#include <CGU_lib.h>\n" + "#include <TEST_lib.h>\n" + "#include <HADES_lib.h>\n" + "\n" + "/**\n"
+			+ " * Main function\n" + " * @return always 0.\n" + " */\n" + "int main(void) {\n" + "	int ret = 0;\n" + "\n" + "	// Configure clock to fast clock settings\n"
+			+ "	CGU_ConfAllClocks(FAST_CLOCKS_SETTINGS);\n" + "\n" + "	// Initialise USIF port\n" + "	STD_IO_Init(STD_IO_115200);\n" + "\n" + "	// Fill the Hades data used for report\n"
+			+ "	HADES_QCBlock(\"Block name in QC\");\n" + "	HADES_QCName(\"Test name in QC\");\n" + "	HADES_TestDescription(\"Description of your test\");\n" + "\n"
+			+ "	// TODO Add the code of your test\n" + "	// ...\n" + "\n" + "	// Send the pass or fail status of your test.\n" + "	TEST_sendTcVerdict(TEST_PASS);\n" + "\n" + "	// Return 0\n"
+			+ "	return 0;\n" + "}\n" + "");
 
 	/**
 	 * See http://cdt-devel-faq.wikidot.com/#toc25
 	 * 
 	 * @param name
 	 * @param path
+	 * @param projectType
 	 * @param monitor
 	 */
-	@SuppressWarnings("restriction")
-	public void createIntelProject(String name, String path, IProgressMonitor monitor) {
+	public void createIntelProject(String name, String path, int projectType, IProgressMonitor monitor) {
+		IProjectType projType = null;
+		IToolChain toolChain = null;
+
 		// First check if makefile exist
 		File makefile = new File(path + "\\makefile");
 		if (!makefile.exists()) {
@@ -190,6 +156,7 @@ public class IntelProjectManager {
 			createMakefile(makefile, path);
 			createCfile(name, path);
 		}
+		// Get workspace in order to create a project
 		IWorkspaceRoot wrkSpaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 		IProject newProjectHandle = wrkSpaceRoot.getProject(name);
 		monitor.beginTask("Creating Intel project", 0);
@@ -198,6 +165,7 @@ public class IntelProjectManager {
 			Path myPath = new Path(path);
 			projDesc.setLocation(myPath);
 		}
+
 		try {
 			IProject cdtProj = CCorePlugin.getDefault().createCDTProject(projDesc, newProjectHandle, monitor);
 
@@ -209,42 +177,49 @@ public class IntelProjectManager {
 			des = mgr.createProjectDescription(cdtProj, true);
 
 			ManagedBuildInfo info = ManagedBuildManager.createBuildInfo(cdtProj);
-			IProjectType projType = ManagedBuildManager.getExtensionProjectType("com.infineon.cv.projectTypeBHades");
-			IToolChain toolChain = ManagedBuildManager.getExtensionToolChain("com.infineon.cv.toolChain.hadesCompile");
 
-			ManagedProject mProj = new ManagedProject(cdtProj, projType);
-			info.setManagedProject(mProj);
-
-			// IConfiguration[] configs = projType.getConfigurations(); // ***
-			// BG
-			IConfiguration[] configs = ManagedBuildManager.getExtensionConfigurations(toolChain, projType);
-
-			for (IConfiguration icf : configs) {
-				if (!(icf instanceof Configuration)) {
-					continue;
-				}
-				Configuration cf = (Configuration) icf;
-
-				String id = ManagedBuildManager.calculateChildId(cf.getId(), null);
-				Configuration config = new Configuration(mProj, cf, id, false, true);
-
-				ICConfigurationDescription cfgDes = des.createConfiguration(ManagedBuildManager.CFG_DATA_PROVIDER_ID, config.getConfigurationData());
-				config.setConfigurationDescription(cfgDes);
-				config.exportArtifactInfo();
-
-				IBuilder bld = config.getEditableBuilder();
-				if (bld != null) {
-					bld.setManagedBuildOn(true);
-				}
-
-				config.setName(config.getName());
-				config.setArtifactName(cdtProj.getName());
-
+			if (projectType == IntelWizardPage.TESTCASE) {
+				projType = ManagedBuildManager.getExtensionProjectType("com.infineon.cv.projectTypeBHades");
+				toolChain = ManagedBuildManager.getExtensionToolChain("com.infineon.cv.toolChain.hadesCompile");
+			} else if (projectType == IntelWizardPage.LIBRARY) {
+				projType = ManagedBuildManager.getExtensionProjectType("com.infineon.cv.projectTypeCHadesLib");
+				toolChain = ManagedBuildManager.getExtensionToolChain("com.infineon.cv.toolChain.hadesLibGnumake");
 			}
-			mgr.setProjectDescription(cdtProj, des);
+			if (projType != null && toolChain != null) {
+				ManagedProject mProj = new ManagedProject(cdtProj, projType);
+				info.setManagedProject(mProj);
 
-			// Add Intel project nature
-			new ToggleNature(cdtProj).start();
+				IConfiguration[] configs = ManagedBuildManager.getExtensionConfigurations(toolChain, projType);
+
+				for (IConfiguration icf : configs) {
+					if (!(icf instanceof Configuration)) {
+						continue;
+					}
+					Configuration cf = (Configuration) icf;
+
+					String id = ManagedBuildManager.calculateChildId(cf.getId(), null);
+					Configuration config = new Configuration(mProj, cf, id, false, true);
+
+					ICConfigurationDescription cfgDes = des.createConfiguration(ManagedBuildManager.CFG_DATA_PROVIDER_ID, config.getConfigurationData());
+					config.setConfigurationDescription(cfgDes);
+					config.exportArtifactInfo();
+
+					IBuilder bld = config.getEditableBuilder();
+					if (bld != null) {
+						bld.setManagedBuildOn(true);
+					}
+
+					config.setName(config.getName());
+					config.setArtifactName(cdtProj.getName());
+
+				}
+				mgr.setProjectDescription(cdtProj, des);
+				
+				// Add symbol (define)
+
+				// Add Intel project nature
+				new ToggleNature(cdtProj).start();
+			}
 
 		} catch (OperationCanceledException e) {
 			e.printStackTrace();
@@ -265,26 +240,26 @@ public class IntelProjectManager {
 		myPath = new Path(path);
 		String nameOfFile = myPath.lastSegment();
 		res = m.replaceAll(nameOfFile);
-		
+
 		p = Pattern.compile("USERNAME");
 		m = p.matcher(res);
 		res = m.replaceAll(System.getProperty("user.name"));
-		
+
 		p = Pattern.compile("DD MM YYYY");
 		m = p.matcher(res);
 		Calendar cal = Calendar.getInstance();
 		Date date = cal.getTime();
 		String df = DateFormat.getDateInstance().format(date);
 		res = m.replaceAll(df);
-		
+
 		try {
-			output = new BufferedWriter(new FileWriter(path+"\\"+name+".c"));
+			output = new BufferedWriter(new FileWriter(path + "\\" + name + ".c"));
 			output.write(res);
 			output.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
+		}
 	}
 
 	private void createMakefile(File makefile, String path) {

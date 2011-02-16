@@ -23,10 +23,12 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
+
 /**
- * AddSymbolAction sets defined symbols according to makefile 
+ * AddSymbolAction sets defined symbols according to makefile
+ * 
  * @author zhaoxi
- *
+ * 
  */
 public class AddSymbolAction implements IObjectActionDelegate {
 	private ISelection selection;
@@ -39,15 +41,13 @@ public class AddSymbolAction implements IObjectActionDelegate {
 	@Override
 	public void run(IAction action) {
 		if (selection instanceof IStructuredSelection) {
-			for (Iterator<?> it = (Iterator<?>)((IStructuredSelection) selection).iterator(); it
-					.hasNext();) {
+			for (Iterator<?> it = (Iterator<?>) ((IStructuredSelection) selection).iterator(); it.hasNext();) {
 				Object element = it.next();
 				IFile makefile = null;
 				if (element instanceof IFile) {
 					makefile = (IFile) element;
 				} else if (element instanceof IAdaptable) {
-					makefile = (IFile) ((IAdaptable) element)
-							.getAdapter(IFile.class);
+					makefile = (IFile) ((IAdaptable) element).getAdapter(IFile.class);
 				}
 				if (makefile != null) {
 					// String symbols[] =getSymbolsFromMF(makefile);
@@ -64,10 +64,8 @@ public class AddSymbolAction implements IObjectActionDelegate {
 		String strLine = null;
 		ArrayList<String> symbols = new ArrayList<String>();
 		try {
-			File fstreamreader = new File(makefile.getRawLocationURI()
-					.getPath().toString());
-			BufferedReader in = new BufferedReader(
-					new FileReader(fstreamreader));
+			File fstreamreader = new File(makefile.getRawLocationURI().getPath().toString());
+			BufferedReader in = new BufferedReader(new FileReader(fstreamreader));
 
 			while ((strLine = in.readLine()) != null) {
 				if (strLine.startsWith("OWN_CFLAGS")) {
