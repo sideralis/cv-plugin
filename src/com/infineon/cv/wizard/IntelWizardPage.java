@@ -1,5 +1,7 @@
 package com.infineon.cv.wizard;
 
+import java.io.File;
+
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.wizard.WizardPage;
@@ -31,7 +33,6 @@ public class IntelWizardPage extends WizardPage {
 		GridData gd;
 		
 		Composite container = new Composite(parent, SWT.NULL);
-//		container.setBounds(15, 25, 300, 400);
 		container.setLayout(new GridLayout(3, false));
 		
 		Label name = new Label(container, SWT.NONE);
@@ -75,7 +76,13 @@ public class IntelWizardPage extends WizardPage {
 			public void mouseDown(MouseEvent e) {
 				DirectoryDialog dirDialog = new DirectoryDialog(browse.getShell());
 				dirDialog.setText("Select the directory where is/will be located the makefile");
-				dirDialog.setFilterPath("c:\\S-Gold");
+				String startPath = System.getenv("VIEW_TAG");
+				if (startPath != null) {
+					startPath = "M:\\"+startPath+"\\S-Gold\\S-GOLD_Family_Environment\\Testcases";
+					File f = new File(startPath);
+					if (f.exists())
+						dirDialog.setFilterPath(startPath);
+				}
 				String path = dirDialog.open();
 				locText.setText(path);
 				IPath iPath = new Path(path);

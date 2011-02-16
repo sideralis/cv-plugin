@@ -32,5 +32,6 @@ public class ARMScannerExtensionConfiguration extends GCCScannerExtensionConfigu
 		addMacro("__global_reg(p)","");
 		addMacro("__weak","");
 		addMacro("__packed","");
+		addMacro("__value_in_regs","");
 	}
 }
