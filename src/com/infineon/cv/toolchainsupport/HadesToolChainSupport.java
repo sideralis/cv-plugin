@@ -19,9 +19,9 @@ public class HadesToolChainSupport implements IManagedIsToolChainSupported {
 		String var;
 		
 		var = System.getenv("HADES_PERL");
-//		if (var == null)
-//			return false;
-//		else
+		if (var == null)
+			return false;
+		else
 			return true;
 	}
 

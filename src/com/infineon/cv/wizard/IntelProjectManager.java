@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -13,9 +14,14 @@ import java.util.regex.Pattern;
 import org.eclipse.cdt.core.CCorePlugin;
 import org.eclipse.cdt.core.CProjectNature;
 import org.eclipse.cdt.core.model.CoreModel;
+import org.eclipse.cdt.core.settings.model.CMacroEntry;
 import org.eclipse.cdt.core.settings.model.ICConfigurationDescription;
+import org.eclipse.cdt.core.settings.model.ICFolderDescription;
+import org.eclipse.cdt.core.settings.model.ICLanguageSetting;
+import org.eclipse.cdt.core.settings.model.ICLanguageSettingEntry;
 import org.eclipse.cdt.core.settings.model.ICProjectDescription;
 import org.eclipse.cdt.core.settings.model.ICProjectDescriptionManager;
+import org.eclipse.cdt.core.settings.model.ICSettingEntry;
 import org.eclipse.cdt.managedbuilder.core.IBuilder;
 import org.eclipse.cdt.managedbuilder.core.IConfiguration;
 import org.eclipse.cdt.managedbuilder.core.IProjectType;
@@ -201,6 +207,27 @@ public class IntelProjectManager {
 					Configuration config = new Configuration(mProj, cf, id, false, true);
 
 					ICConfigurationDescription cfgDes = des.createConfiguration(ManagedBuildManager.CFG_DATA_PROVIDER_ID, config.getConfigurationData());
+					// Add define
+					{
+						ArrayList<String> symbols = new ArrayList<String>();
+//						ArrayList<String> values = new ArrayList<String>();
+						symbols.add("XGOLD223");
+						symbols.add("DEBUG");
+						symbols.add("STD_IO_USIF");
+						Object[] symbolsAdd = symbols.toArray();
+						for (ICFolderDescription fileDesc : cfgDes.getFolderDescriptions()) {
+							for (ICLanguageSetting lang : fileDesc.getLanguageSettings())// ;//.getLanguageSettings();
+							{
+								ICLanguageSettingEntry[] newEntries = new ICLanguageSettingEntry[symbolsAdd.length];
+								int i = 0;
+								for (String symbol : symbols) {
+									newEntries[i++] = new CMacroEntry(symbol, "1", 0);
+								}
+								lang.setSettingEntries(ICSettingEntry.MACRO, newEntries);
+							}
+						}
+					}
+					
 					config.setConfigurationDescription(cfgDes);
 					config.exportArtifactInfo();
 
@@ -216,7 +243,7 @@ public class IntelProjectManager {
 				mgr.setProjectDescription(cdtProj, des);
 				
 				// Add symbol (define)
-
+				
 				// Add Intel project nature
 				new ToggleNature(cdtProj).start();
 			}

@@ -386,7 +386,8 @@
             cleanCommand="cleanall"
             errorParsers="com.infineon.cv.ARMErrorParser;"
             id="com.infineon.cv.configurationDefault"
-            name="Default">
+            name="Default"
+            parent="org.eclipse.cdt.build.core.prefbase.cfg">
       </configuration>
       <configuration
             artifactExtension="mk"
@@ -502,10 +503,12 @@
       <tool
             id="com.infineon.cv.toolCVTC31"
             isAbstract="true"
-            name="CV Testcase 3.1">
+            name="CV Testcase 3.1"
+            superClass="org.eclipse.cdt.build.core.settings.holder">
          <inputType
                id="com.infineon.cv.inputTypeCVTC31"
-               sourceContentType="org.eclipse.cdt.core.cSource">
+               sourceContentType="org.eclipse.cdt.core.cSource"
+               superClass="org.eclipse.cdt.build.core.settings.holder.inType">
          </inputType>
          <envVarBuildPath
                buildPathResolver="com.infineon.cv.misc.testBuildPath"
@@ -544,10 +547,12 @@
       <tool
             id="com.infineon.cv.toolCVTC22"
             isAbstract="true"
-            name="CV Testcase 2.2">
+            name="CV Testcase 2.2"
+            superClass="org.eclipse.cdt.build.core.settings.holder">
          <inputType
                id="com.infineon.cv.inputTypeCVTC22"
-               sourceContentType="org.eclipse.cdt.core.cSource">
+               sourceContentType="org.eclipse.cdt.core.cSource"
+               superClass="org.eclipse.cdt.build.core.settings.holder.inType">
          </inputType>
          <envVarBuildPath
                buildPathResolver="com.infineon.cv.misc.testBuildPath"
@@ -586,10 +591,12 @@
       <tool
             id="com.infineon.cv.toolCVMem31"
             isAbstract="true"
-            name="CV Memloader 3.1">
+            name="CV Memloader 3.1"
+            superClass="org.eclipse.cdt.build.core.settings.holder">
          <inputType
                id="com.infineon.cv.inputTypeCVMem31"
-               sourceContentType="org.eclipse.cdt.core.cSource">
+               sourceContentType="org.eclipse.cdt.core.cSource"
+               superClass="org.eclipse.cdt.build.core.settings.holder.inType">
          </inputType>
          <envVarBuildPath
                buildPathResolver="com.infineon.cv.misc.testBuildPath"
@@ -616,10 +623,12 @@
       <tool
             id="com.infineon.cv.toolBootcode31"
             isAbstract="true"
-            name="Bootcode 3.1">
+            name="Bootcode 3.1"
+            superClass="org.eclipse.cdt.build.core.settings.holder">
          <inputType
                id="com.infineon.cv.inputTypeBootcode31"
-               sourceContentType="org.eclipse.cdt.core.cSource">
+               sourceContentType="org.eclipse.cdt.core.cSource"
+               superClass="org.eclipse.cdt.build.core.settings.holder.inType">
          </inputType>
          <envVarBuildPath
                buildPathResolver="com.infineon.cv.misc.testBuildPath"
@@ -666,10 +675,12 @@
       <tool
             id="com.infineon.cv.toolHades"
             isAbstract="true"
-            name="Hades tool">
+            name="Hades tool"
+            superClass="org.eclipse.cdt.build.core.settings.holder">
          <inputType
                id="com.infineon.cv.inputTypeHades"
-               sourceContentType="org.eclipse.cdt.core.cSource">
+               sourceContentType="org.eclipse.cdt.core.cSource"
+               superClass="org.eclipse.cdt.build.core.settings.holder.inType">
          </inputType>
          <envVarBuildPath
                buildPathResolver="com.infineon.cv.misc.testBuildPath"
@@ -708,10 +719,12 @@
       <tool
             id="com.infineon.cv.toolURFET22"
             isAbstract="true"
-            name="URFET 2.2">
+            name="URFET 2.2"
+            superClass="org.eclipse.cdt.build.core.settings.holder">
          <inputType
                id="com.infineon.cv.inputTypeURFET22"
-               sourceContentType="org.eclipse.cdt.core.cSource">
+               sourceContentType="org.eclipse.cdt.core.cSource"
+               superClass="org.eclipse.cdt.build.core.settings.holder.inType">
          </inputType>
          <option
                id="com.infineon.cv.optionURFET22"
@@ -761,10 +774,12 @@
       <tool
             id="com.infineon.cv.toolCrypto22"
             isAbstract="true"
-            name="Crypto 2.2">
+            name="Crypto 2.2"
+            superClass="org.eclipse.cdt.build.core.settings.holder">
          <inputType
                id="com.infineon.cv.inputTypeCrypto22"
-               sourceContentType="org.eclipse.cdt.core.cSource">
+               sourceContentType="org.eclipse.cdt.core.cSource"
+               superClass="org.eclipse.cdt.build.core.settings.holder.inType">
          </inputType>
          <option
                id="com.infineon.cv.optionCrypto22"
@@ -810,10 +825,12 @@
       <tool
             id="com.infineon.cv.tool.hades.make"
             isAbstract="true"
-            name="Hades Makefile Converter">
+            name="Hades Makefile Converter"
+            superClass="org.eclipse.cdt.build.core.settings.holder">
          <inputType
                id="com.infineon.cv.inputType.hades.make"
-               sourceContentType="org.eclipse.cdt.core.cSource">
+               sourceContentType="org.eclipse.cdt.core.cSource"
+               superClass="org.eclipse.cdt.build.core.settings.holder.inType">
          </inputType>
          <option
                id="com.infineon.cv.option.hades.make"
@@ -827,10 +844,12 @@
       <tool
             id="com.infineon.cv.tool.hades.run"
             isAbstract="true"
-            name="Hades Run">
+            name="Hades Run"
+            superClass="org.eclipse.cdt.build.core.settings.holder">
          <inputType
                id="com.infineon.cv.inputType.hades.run"
-               sourceContentType="org.eclipse.cdt.core.cSource">
+               sourceContentType="org.eclipse.cdt.core.cSource"
+               superClass="org.eclipse.cdt.build.core.settings.holder.inType">
          </inputType>
          <option
                id="com.infineon.cv.option.hades.run"
@@ -844,10 +863,12 @@
       <tool
             id="com.infineon.cv.tool.hades.compile"
             isAbstract="true"
-            name="Hades Compile">
+            name="Hades Compile"
+            superClass="org.eclipse.cdt.build.core.settings.holder">
          <inputType
                id="com.infineon.cv.inputType.hades.compile"
-               sourceContentType="org.eclipse.cdt.core.cSource">
+               sourceContentType="org.eclipse.cdt.core.cSource"
+               superClass="org.eclipse.cdt.build.core.settings.holder.inType">
          </inputType>
          <option
                id="com.infineon.cv.option.hades.compile"
