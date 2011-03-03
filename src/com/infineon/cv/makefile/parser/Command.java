@@ -87,8 +87,6 @@ public class Command implements Serializable {
 					if (index + 1 < len) remaind = getValue().substring(index+1);
 					
 					int initialLen = eval.length() + 2;
-					int diff = eval.length() - initialLen;
-					//index += diff;
 					
 					eval = manager.getValue(eval);
 					

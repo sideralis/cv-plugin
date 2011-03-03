@@ -24,6 +24,7 @@ import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 
+import com.infineon.cv.makefile.parser.MakefileData;
 import com.infineon.cv.makefile.parser.MakefileParser;
 import com.infineon.cv.makefile.parser.VariableManager;
 
@@ -37,7 +38,6 @@ public class NatureLinkedRessources implements IProjectNature {
 	public static final String NATURE_ID = InfineonActivator.PLUGIN_ID + ".NatureLinkedRessources";
 
 	private IProject project;
-	private Set<String> sourceDir, includeDir;
 
 	private static final Map<String, String[]> libsrcPaths = new HashMap() {
 		{
@@ -83,11 +83,6 @@ public class NatureLinkedRessources implements IProjectNature {
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
 				monitor.beginTask("Adding libraries and include links...", 100);
-
-				// Parse makefile
-				sourceDir = new HashSet<String>();
-				includeDir = new HashSet<String>();
-				getPathsFromMakefile(sourceDir,includeDir);
 				
 				// Add default links depending on project type
 				try {
@@ -99,7 +94,7 @@ public class NatureLinkedRessources implements IProjectNature {
 					e1.printStackTrace();
 				}
 				// Add source folder links extracted from makefile
-				for (String s : sourceDir) {
+				for (String s : MakefileData.getSourceDir()) {
 					String name;
 					IPath linkLocation;
 					IPath projectLocation = getProject().getLocation();
@@ -121,7 +116,7 @@ public class NatureLinkedRessources implements IProjectNature {
 					}
 				}
 				// Add include folder links extracted from makefile
-				for (String s : includeDir) {
+				for (String s : MakefileData.getIncludeDir()) {
 					String name;
 					IPath linkLocation;
 					IPath projectLocation = getProject().getLocation();
@@ -269,30 +264,5 @@ public class NatureLinkedRessources implements IProjectNature {
 				System.out.println(workspace.validateLinkLocation(folder, location).toString());
 			}
 		}
-	}
-
-	/**
-	 * 
-	 * @param sourceDir
-	 * @param includeDir
-	 */
-	void getPathsFromMakefile(Set<String> sourceDir, Set<String> includeDir) {
-		IFile file = getProject().getFile(new Path("makefile"));
-		String fileLocation = file.getLocation().toOSString();
-		System.out.println("File location = " + fileLocation);
-
-		VariableManager var = new VariableManager();
-		MakefileParser parMake = new MakefileParser(var);
-		try {
-			parMake.parse(new File(fileLocation));
-			System.out.println(parMake);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-
-		parMake.getSourceDir(sourceDir);
-		parMake.getIncludeDir(includeDir);
 	}
 }
