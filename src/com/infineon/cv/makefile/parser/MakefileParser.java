@@ -20,6 +20,7 @@ import java.io.Reader;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -866,49 +867,62 @@ public class MakefileParser implements Cloneable {
 	/**
 	 * 
 	 */
-	public void getDefines(Set<String> defines, Set<String> values) {
+	public void getDefines(HashMap<String,String> defines) {
 		Pattern pattern;
 		Matcher matcher1,matcher2,matcher3;
-		String pat1 = "[ ](.*?)";
-		String pat2 = ".*='(.)'*";
-		String pat3 = ".*-D(.*?) ";
+		String patNameValue = "([\\S]*?='.*?')";
+		String papValue = ".*='(.)*'+";
+		String patName = "(.+)='.+'";
+		String patCFlags = "-D([\\S]*)(\\s)*";
 		String def,val;
-		
+		// Search for defines in makefile
 		Iterator<String> varNames = varManager.nonExternalKeys();
 		while (varNames.hasNext()) {
 			String varName = varNames.next();
 			String value = varManager.getValue(varName);
+			// Search for name define
 			if (varName.equals("DEFINES")) {
-				pattern = Pattern.compile(pat1);
+				pattern = Pattern.compile(patNameValue);
 				matcher1 = pattern.matcher(value);
 				while(matcher1.find()) {
 					def = matcher1.group(1);
-					pattern = Pattern.compile(pat2);
+					// Find value
+					pattern = Pattern.compile(papValue);
 					matcher2 = pattern.matcher(def);
 					if (matcher2.find()) {
 						val = matcher2.group(1);
-						defines.add(def);
-						values.add(val);
+						// Find name
+						pattern = Pattern.compile(patName);
+						matcher2 = pattern.matcher(def);
+						if (matcher2.find()) {
+							def = matcher2.group(1);
+							defines.put(def,val);
+						}
 					}
 				}
 			}
+			// Search for OWN_C_FLAGS
 			if (varName.equals("OWN_CFLAGS")) {
-				pattern = Pattern.compile(pat3);
+				pattern = Pattern.compile(patCFlags);
 				matcher3 = pattern.matcher(value);
 				while(matcher3.find()) {
 					def = matcher3.group(1);
-					pattern = Pattern.compile(pat2);
+					pattern = Pattern.compile(papValue);
 					matcher2 = pattern.matcher(def);
 					if (matcher2.find()) {
 						val = matcher2.group(1);
 					} else {
 						val = "1";
 					}
-					defines.add(def);
-					values.add(val);
+					defines.put(def,val);
 				}				
 			}
+			// Search for ARCH (and DEBUG,RELEASE, STD_IO_USIF, ...)
+			if (varName.equals("ARCH")) {
+				
+			}
 		}		
+		// Add default define
 	}
 	/**
 	 * Retrieve all source directories from SRC, SRCDIR and VPATH define
@@ -983,7 +997,8 @@ public class MakefileParser implements Cloneable {
 	
 	public static void main(String args[]) {
 //		String fileLocation = "M:\\dev_ets_xg223_gautier\\CRYPTO\\S-GOLD_Family_Environment\\Testcases\\CRYPTO_test\\CRYPTO_TC_CiphAES\\makefile";
-		String fileLocation = "M:\\dev_ets_xg223_gautier\\S-Gold\\S-GOLD_Family_Environment\\Testcases\\DMA_test\\DMA_test\\makefile";		
+//		String fileLocation = "M:\\dev_ets_xg223_gautier\\S-Gold\\S-GOLD_Family_Environment\\Testcases\\DMA_test\\DMA_test\\makefile";		
+		String fileLocation = "C:\\Tmp\\TC2\\makefile";		
 		VariableManager var = new VariableManager();
 		MakefileParser parMake = new MakefileParser(var);
 		try {
@@ -996,7 +1011,9 @@ public class MakefileParser implements Cloneable {
 		}
 		Set<String> s = new HashSet<String>();
 		Set<String> i = new HashSet<String>();
+		HashMap<String,String> defines = new HashMap<String, String>();
 		parMake.getSourceDir(s);	
 		parMake.getIncludeDir(i);	
+		parMake.getDefines(defines);
 	}
 }

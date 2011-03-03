@@ -922,7 +922,7 @@
          </menu>
          <action
                class="com.infineon.cv.ToggleNatureAction"
-               enablesFor="+"
+               enablesFor="10"
                id="com.infineon.cv.addRemoveNatureAction"
                label="Add libraries and include links"
                menubarPath="com.infineon.cv.menuInfineon/infineonMenuseparator">
@@ -951,17 +951,6 @@
       </objectContribution>
    </extension>
    <extension
-         id="com.infineon.cv.testPropertyPage"
-         name="testPropertyPage"
-         point="org.eclipse.ui.propertyPages">
-      <page
-            class="com.infineon.cv.makefile.NewMakefilePropertyPage"
-            id="com.infineon.cv.propertypage1"
-            name="Makefile Editor"
-            nameFilter="*">
-      </page>
-   </extension>
-   <extension
          point="org.eclipse.cdt.core.language">
       <language
             class="com.infineon.cv.misc.ARMLanguage"
@@ -982,7 +971,7 @@
       <page
             class="com.infineon.cv.InfineonPreferencePage"
             id="com.infineon.cv.page1"
-            name="Infineon Preference">
+            name="Intel Preference">
       </page>
    </extension>
    <extension
@@ -1041,8 +1030,9 @@
             class="com.infineon.cv.editors.IFXMakefileEditor"
             default="true"
             filenames="makefile"
+            icon="icons/makefile_icon.png"
             id="cvmakefileeditor"
-            name="IFX CV Makefile Editor">
+            name="Makefile">
       </editor>
    </extension>
    <extension
@@ -1151,6 +1141,19 @@
             wizardId="com.infineon.cv.wizard">
          <enablement></enablement>
       </commonWizard>
+   </extension>
+   <extension
+         id="product"
+         name="toto"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="com.infineon.cv.product"
+            name="Toto">
+         <property
+               name="appName"
+               value="Bernard Toto">
+         </property>
+      </product>
    </extension>
 </plugin>
 

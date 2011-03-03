@@ -3,7 +3,6 @@ package com.infineon.cv.launcher;
 import java.util.HashMap;
 
 import org.eclipse.cdt.core.model.CoreModel;
-import org.eclipse.cdt.core.settings.model.ICBuildSetting;
 import org.eclipse.cdt.core.settings.model.ICConfigurationDescription;
 import org.eclipse.cdt.core.settings.model.ICProjectDescription;
 import org.eclipse.cdt.internal.core.model.CProject;
@@ -27,7 +26,6 @@ import org.eclipse.ui.IEditorPart;
 @SuppressWarnings("restriction")
 public class IntelLaunchShortcut implements ILaunchShortcut {
 
-	@SuppressWarnings("restriction")
 	@Override
 	public void launch(ISelection selection, String mode) {
 		System.out.println("Launching shortcut (selection)");
@@ -46,7 +44,7 @@ public class IntelLaunchShortcut implements ILaunchShortcut {
 		// launch(mode);
 	}
 
-	@SuppressWarnings("restriction")
+	@SuppressWarnings("deprecation")
 	private void launch(String mode, CProject project) {
 		HashMap<String, String> arg = new HashMap<String, String>();
 

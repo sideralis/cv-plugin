@@ -2,7 +2,11 @@
 <?NLS TYPE="org.eclipse.help.toc"?>
 
 <toc label="Intel CV Testcase Development Guide" topic="html/toc.html">
-   <topic href="html/gettingstarted/createproject.html" label="Getting Started">
+   <topic label="Getting Started">
+      <topic href="html/gettingstarted/sysway/createprojectSysway.html" label="With Sysway/Hades">
+      </topic>
+      <topic href="html/gettingstarted/manual/createprojectManual.html" label="Manual - Without Sysway/Hades">
+      </topic>
    </topic>
    <topic label="Reference">
       <topic href="html/reference/howto.html" label="How To">
