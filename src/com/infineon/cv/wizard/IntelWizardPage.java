@@ -21,7 +21,8 @@ public class IntelWizardPage extends WizardPage {
 
 	public static final int TESTCASE = 0;
 	public static final int LIBRARY = 1;
-	private static final String[] PROJECT_TYPE = new String[] {"Testcase", "Library"};
+	public static final int BCO_TESTCASE = 2;
+	private static final String[] PROJECT_TYPE = new String[] {"CV Testcase", "CV Library","BCO Testcase"};
 
 	private Button browse;
 	private Text testcaseName;
@@ -71,8 +72,8 @@ public class IntelWizardPage extends WizardPage {
 		prjTypeLabel.setLayoutData(gd);
 		
 		projectType = new List(container, SWT.SINGLE | SWT.BOLD | SWT.BORDER);
-		projectType.add(PROJECT_TYPE[TESTCASE]);
-		projectType.add(PROJECT_TYPE[LIBRARY]);
+		for (String e:PROJECT_TYPE)
+			projectType.add(e);
 		projectType.setSelection(0);
 		gd = new GridData(GridData.FILL_HORIZONTAL);
 		gd.horizontalSpan = 2;

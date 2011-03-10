@@ -74,7 +74,7 @@ public class MakefileParser implements Cloneable {
 		int index = 0, start = 0, n = -1, wordCount = 0;
 		boolean finished = false, add = false, override = false, skipRead = false, leadSpace = true;
 		boolean cannotBeCommand = false, orderOnly = false, uniqueName = true, expandNow = false;
-		boolean define = false, include = false, ifdef = false, ifdefCond = false, ifdefInProcess = false;
+		boolean define = false, include = false, ifdef = false, ifdefCond = false, ifdefInProcess = false, ifdefCondValue = false;
 		StringBuffer strbuf = new StringBuffer();
 		Stack<String> stack = new Stack<String>();
 		Stack<String> targetNames = new Stack<String>();
@@ -82,9 +82,9 @@ public class MakefileParser implements Cloneable {
 		LinkedList<String> normalPrereqs = new LinkedList<String>(), orderOnlyPrereqs = new LinkedList<String>();
 
 		while (!finished) {
-			// System.out.println("ch = '" + ch + "' (byte = " + (int)ch +
-			// "), wordcount = " + wordCount + ", state = " + state(state) +
-			// ", strbuf = " + strbuf.toString());
+//			 System.out.println("ch = '" + ch + "' (byte = " + (int)ch +
+//			 "), wordcount = " + wordCount + ", state = " + state(state) +
+//			 ", strbuf = " + strbuf.toString());
 			if (!skipRead) {
 				n = in.read();
 			}
@@ -162,6 +162,11 @@ public class MakefileParser implements Cloneable {
 									include = true;
 								} else if (word.equals("ifdef")) {
 									ifdef = true;
+									ifdefCondValue = true;
+									keywordCounts.ifdef_count++;
+								} else if (word.equals("ifndef")) {
+									ifdef = true;
+									ifdefCondValue = false;
 									keywordCounts.ifdef_count++;
 								}
 							}
@@ -335,20 +340,28 @@ public class MakefileParser implements Cloneable {
 							}
 							stack.pop(); // Pop the ifdef word
 							strbuf = new StringBuffer(); // Clear the buffer
-							if ("".equals(varManager.getUnexpandedValue(varToBeChecked))) {
+							if ("".equals(varManager.getUnexpandedValue(varToBeChecked)) == ifdefCondValue) {
 								// ifdef condition is false. Hence read and
 								// discard until you reach the else part
 								ifdefCond = false;
-								handleIfdefCondFalse(in);
+								if (handleIfdefCondFalse(in) == true) {
+									// Endif found first
+									ifdefInProcess = false;
+									
+								} else {
+									// Else found first
+									ifdefCond = true;
+									ifdefInProcess = true;
+								}
 								state = STATE_NONE;
 
 							} else {
 								// ifdef condition is true
 								ifdefCond = true;
 								state = STATE_NONE;
+								ifdefInProcess = true;
 							}
 							ifdef = false;// resetting
-							ifdefInProcess = true;
 						} // End of handling of ifdef
 
 						else if (ifdefInProcess) {
@@ -376,6 +389,9 @@ public class MakefileParser implements Cloneable {
 									discardRestOfIfdefBlock(in);
 									ifdefDone = true;
 								}
+								if (currWord.equals("endif")) {
+									ifdefDone = true;
+								}
 							} else {
 								// ifdefcondition is false , else block should
 								// have been evaluated by now.
@@ -390,7 +406,6 @@ public class MakefileParser implements Cloneable {
 										discardRestOfIfdefBlock(in);
 										ifdefDone = true;
 									}
-
 								}
 							}
 
@@ -709,26 +724,35 @@ public class MakefileParser implements Cloneable {
 		in.close();
 	}
 
-	private void handleIfdefCondFalse(final Reader in) throws IOException {
+	/**
+	 * 
+	 * @param in The data to read
+	 * @return true if endif was found, false otherwise
+	 * @throws IOException
+	 */
+	private boolean handleIfdefCondFalse(final Reader in) throws IOException {
 		boolean elseReached = false;
+		boolean endifReached = false;
 		int n = 0;
 		char ch = '\0';
 		StringBuffer strbuf = new StringBuffer();
 		int currIfdefCount = keywordCounts.ifdef_count;
-		while (!elseReached) {
+		while (!elseReached && !endifReached) {
 			while (ch != '\n' && ch != ' ') {
 				n = in.read();
 				if (n == -1) {
-					return;
+					return false;
 				}
 				ch = (char) n;
 				strbuf.append(ch);
 			}
-			if (strbuf.toString().startsWith("ifdef")) {
+			if (strbuf.toString().startsWith("ifdef") || strbuf.toString().startsWith("ifndef")) {
 				keywordCounts.ifdef_count++;
 			}
 
 			else if (strbuf.toString().startsWith("endif")) {
+				if (keywordCounts.ifdef_count == currIfdefCount)
+					endifReached = true;
 				keywordCounts.ifdef_count--;
 			} else if (strbuf.toString().startsWith("else") && keywordCounts.ifdef_count == currIfdefCount) {
 
@@ -737,7 +761,7 @@ public class MakefileParser implements Cloneable {
 			strbuf = new StringBuffer();
 			ch = '\0';
 		}
-
+		return endifReached;
 	}
 
 	private void discardRestOfIfdefBlock(final Reader in) throws IOException {
@@ -869,11 +893,13 @@ public class MakefileParser implements Cloneable {
 	 */
 	public void getDefines(HashMap<String,String> defines) {
 		Pattern pattern;
-		Matcher matcher1,matcher2,matcher3;
+		Matcher matcher1,matcher2,matcher3,matcher4;
 		String patNameValue = "([\\S]*?='.*?')";
 		String papValue = ".*='(.)*'+";
 		String patName = "(.+)='.+'";
 		String patCFlags = "-D([\\S]*)(\\s)*";
+		String patArch;
+		
 		String def,val;
 		// Search for defines in makefile
 		Iterator<String> varNames = varManager.nonExternalKeys();
@@ -919,7 +945,20 @@ public class MakefileParser implements Cloneable {
 			}
 			// Search for ARCH (and DEBUG,RELEASE, STD_IO_USIF, ...)
 			if (varName.equals("ARCH")) {
-				
+				// Project TODO could be missing from ARCH define
+				patArch = "(XGOLD[0-9]+)";
+				pattern = Pattern.compile(patArch);
+				matcher4 = pattern.matcher(value);
+				if (matcher4.find()) {
+					defines.put(matcher4.group(1),"1");
+				}
+				// USIF
+				patArch = "(STD[_A-Z]+)";
+				pattern = Pattern.compile(patArch);
+				matcher4 = pattern.matcher(value);
+				if (matcher4.find()) {
+					defines.put(matcher4.group(1),"1");
+				}
 			}
 		}		
 		// Add default define
@@ -996,9 +1035,9 @@ public class MakefileParser implements Cloneable {
 	}
 	
 	public static void main(String args[]) {
-//		String fileLocation = "M:\\dev_ets_xg223_gautier\\CRYPTO\\S-GOLD_Family_Environment\\Testcases\\CRYPTO_test\\CRYPTO_TC_CiphAES\\makefile";
+		String fileLocation = "M:\\dev_xg223_es1_gautier\\CRYPTO\\S-GOLD_Family_Environment\\Testcases\\CRYPTO_test\\CRYPTO_TC_Ciph3DES\\makefile";
 //		String fileLocation = "M:\\dev_ets_xg223_gautier\\S-Gold\\S-GOLD_Family_Environment\\Testcases\\DMA_test\\DMA_test\\makefile";		
-		String fileLocation = "C:\\Tmp\\TC2\\makefile";		
+//		String fileLocation = "C:\\Tmp\\TC2\\makefile";		
 		VariableManager var = new VariableManager();
 		MakefileParser parMake = new MakefileParser(var);
 		try {

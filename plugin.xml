@@ -43,6 +43,7 @@
             projectMacroSupplier="com.infineon.cv.includes.testcaseMacro4include">
          <configuration
                id="com.infineon.cv.configuration.hadesGnumake"
+               name="gnumake all"
                parent="com.infineon.cv.configurationDefault">
             <toolChain
                   id="com.infineon.cv.toolChain.hadesGnumake"
@@ -66,31 +67,8 @@
             </toolChain>
          </configuration>
          <configuration
-               id="com.infineon.cv.configuration.hadesMake"
-               parent="com.infineon.cv.configurationIFXMake2Hades">
-            <toolChain
-                  id="com.infineon.cv.toolChain.HadesMake"
-                  isAbstract="false"
-                  superClass="com.infineon.cv.toolChainHades">
-               <targetPlatform
-                     id="com.infineon.cv.targetPlatform.HadesMake"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.targetPlatform">
-               </targetPlatform>
-               <builder
-                     id="com.infineon.cv.builder.hadesMake"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.builderHadesMake">
-               </builder>
-               <tool
-                     id="com.infineon.cv.tool.hadesMake"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.toolHades">
-               </tool>
-            </toolChain>
-         </configuration>
-         <configuration
                id="com.infineon.cv.configuration.hadesCompile"
+               name="clearmake compile"
                parent="com.infineon.cv.configurationHadesCompile">
             <toolChain
                   id="com.infineon.cv.toolChain.hadesCompile"
@@ -115,6 +93,7 @@
          </configuration>
          <configuration
                id="com.infineon.cv.configuration.hadesRun"
+               name="clearmake run"
                parent="com.infineon.cv.configurationHadesRun">
             <toolChain
                   id="com.infineon.cv.toolChain.HadesRun"
@@ -145,6 +124,7 @@
             projectMacroSupplier="com.infineon.cv.includes.testcaseMacro4include">
          <configuration
                id="com.infineon.cv.configuration.hadesLibGnumake"
+               name="gnuamake lib"
                parent="com.infineon.cv.configurationDefault">
             <toolChain
                   id="com.infineon.cv.toolChain.hadesLibGnumake"
@@ -162,6 +142,36 @@
                </builder>
                <tool
                      id="com.infineon.cv.toolhadesLibGnumake"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.toolHades">
+               </tool>
+            </toolChain>
+         </configuration>
+      </projectType>
+      <projectType
+            id="com.infineon.cv.projectTypeDHadesBCOTC"
+            isAbstract="false"
+            name="Testcase Bootcode"
+            projectMacroSupplier="com.infineon.cv.includes.bootcodeMacro4include">
+         <configuration
+               id="com.infineon.cv.configuration.hadesBCOGnumake"
+               parent="com.infineon.cv.configurationDefault">
+            <toolChain
+                  id="com.infineon.cv.toolChain.hadesBCOGnumake"
+                  isAbstract="false"
+                  superClass="com.infineon.cv.toolChainHades">
+               <targetPlatform
+                     id="com.infineon.cv.targetPlatform.hadesBCOGnumake"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.targetPlatform">
+               </targetPlatform>
+               <builder
+                     id="com.infineon.cv.builder.hadesBCOGnumake"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.builderAll">
+               </builder>
+               <tool
+                     id="com.infineon.cv.tool.hadesBCOGnumake"
                      isAbstract="false"
                      superClass="com.infineon.cv.toolHades">
                </tool>
@@ -473,9 +483,9 @@
             supportsManagedBuild="false">
       </builder>
       <builder
-            arguments="-c -f hades.mk"
+            arguments="-c"
             autoBuildTarget="run"
-            cleanBuildTarget="clean"
+            cleanBuildTarget="cleanall"
             command="clearmake"
             errorParsers="com.infineon.cv.ARMErrorParser"
             id="com.infineon.cv.builderHadesRun"
@@ -487,9 +497,9 @@
             supportsManagedBuild="false">
       </builder>
       <builder
-            arguments="-c -f hades.mk"
+            arguments="-c"
             autoBuildTarget="compile"
-            cleanBuildTarget="clean"
+            cleanBuildTarget="cleanall"
             command="clearmake"
             errorParsers="com.infineon.cv.ARMErrorParser"
             id="com.infineon.cv.builderHadesCompile"
@@ -715,6 +725,39 @@
                   value="${testcaseProjectDir}/_halix/_inc">
             </listOptionValue>
          </option>
+      </tool>
+      <tool
+            id="com.infineon.cv.toolHadesBCO"
+            isAbstract="false"
+            name="Hades BCO tool"
+            superClass="org.eclipse.cdt.build.core.settings.holder">
+         <inputType
+               id="com.infineon.cv.inputTypeHadesBCO"
+               sourceContentType="org.eclipse.cdt.core.cSource"
+               superClass="org.eclipse.cdt.build.core.settings.holder.inType">
+         </inputType>
+         <envVarBuildPath
+               buildPathResolver="com.infineon.cv.misc.testBuildPath"
+               pathType="buildpathInclude"
+               variableList="ARMLIB">
+         </envVarBuildPath>
+         <option
+               id="com.infineon.cv.optionHadesBCO"
+               isAbstract="false"
+               name="Include paths Hades BCO"
+               resourceFilter="all"
+               superClass="org.eclipse.cdt.build.core.settings.holder.incpaths"
+               valueType="string">
+            <listOptionValue
+                  builtIn="false"
+                  value="${ARMINC}">
+            </listOptionValue>
+         </option>
+         <envVarBuildPath
+               buildPathResolver="com.infineon.cv.misc.testBuildPath"
+               pathType="buildpathInclude"
+               variableList="ARMLIB">
+         </envVarBuildPath>
       </tool>
       <tool
             id="com.infineon.cv.toolURFET22"
