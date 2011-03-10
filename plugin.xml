@@ -6,66 +6,10 @@
          name="CV projects"
          point="org.eclipse.cdt.managedbuilder.core.buildDefinitions">
       <projectType
-            id="com.infineon.cv.projectTypeABootcode"
-            isAbstract="false"
-            name="Bootcode"
-            projectMacroSupplier="com.infineon.cv.includes.bootcodeMacro4include">
-         <configuration
-               id="com.infineon.cv.configurationBootcode"
-               parent="com.infineon.cv.configurationDefault">
-            <toolChain
-                  id="com.infineon.cv.toolChainBootcode31"
-                  isAbstract="false"
-                  superClass="com.infineon.cv.toolChainRVDS31">
-               <targetPlatform
-                     id="com.infineon.cv.targetPlatformBootcode31"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.targetPlatform">
-               </targetPlatform>
-               <builder
-                     id="com.infineon.cv.builderBootcode31"
-                     isAbstract="false"
-                     isVariableCaseSensitive="false"
-                     superClass="com.infineon.cv.builderAll">
-               </builder>
-               <tool
-                     id="com.infineon.cv.tool_Bootcode31"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.toolBootcode31">
-               </tool>
-            </toolChain>
-         </configuration>
-      </projectType>
-      <projectType
             id="com.infineon.cv.projectTypeBHades"
             isAbstract="false"
             name="Testcase"
             projectMacroSupplier="com.infineon.cv.includes.testcaseMacro4include">
-         <configuration
-               id="com.infineon.cv.configuration.hadesGnumake"
-               name="gnumake all"
-               parent="com.infineon.cv.configurationDefault">
-            <toolChain
-                  id="com.infineon.cv.toolChain.hadesGnumake"
-                  isAbstract="false"
-                  superClass="com.infineon.cv.toolChainHades">
-               <targetPlatform
-                     id="com.infineon.cv.targetPlatform.hadesGnumake"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.targetPlatform">
-               </targetPlatform>
-               <builder
-                     id="com.infineon.cv.builder.hadesGnumake"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.builderAll">
-               </builder>
-               <tool
-                     id="com.infineon.cv.tool.hadesGnumake"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.toolHades">
-               </tool>
-            </toolChain>
-         </configuration>
          <configuration
                id="com.infineon.cv.configuration.hadesCompile"
                name="clearmake compile"
@@ -111,6 +55,31 @@
                </builder>
                <tool
                      id="com.infineon.cv.tool.hadesRun"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.toolHades">
+               </tool>
+            </toolChain>
+         </configuration>
+         <configuration
+               id="com.infineon.cv.configuration.hadesGnumake"
+               name="gnumake all"
+               parent="com.infineon.cv.configurationDefault">
+            <toolChain
+                  id="com.infineon.cv.toolChain.hadesGnumake"
+                  isAbstract="false"
+                  superClass="com.infineon.cv.toolChainHades">
+               <targetPlatform
+                     id="com.infineon.cv.targetPlatform.hadesGnumake"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.targetPlatform">
+               </targetPlatform>
+               <builder
+                     id="com.infineon.cv.builder.hadesGnumake"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.builderAll">
+               </builder>
+               <tool
+                     id="com.infineon.cv.tool.hadesGnumake"
                      isAbstract="false"
                      superClass="com.infineon.cv.toolHades">
                </tool>
@@ -174,6 +143,37 @@
                      id="com.infineon.cv.tool.hadesBCOGnumake"
                      isAbstract="false"
                      superClass="com.infineon.cv.toolHades">
+               </tool>
+            </toolChain>
+         </configuration>
+      </projectType>
+      <projectType
+            id="com.infineon.cv.projectTypeABootcode"
+            isAbstract="false"
+            name="Bootcode"
+            projectMacroSupplier="com.infineon.cv.includes.bootcodeMacro4include">
+         <configuration
+               id="com.infineon.cv.configurationBootcode"
+               parent="com.infineon.cv.configurationDefault">
+            <toolChain
+                  id="com.infineon.cv.toolChainBootcode31"
+                  isAbstract="false"
+                  superClass="com.infineon.cv.toolChainRVDS31">
+               <targetPlatform
+                     id="com.infineon.cv.targetPlatformBootcode31"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.targetPlatform">
+               </targetPlatform>
+               <builder
+                     id="com.infineon.cv.builderBootcode31"
+                     isAbstract="false"
+                     isVariableCaseSensitive="false"
+                     superClass="com.infineon.cv.builderAll">
+               </builder>
+               <tool
+                     id="com.infineon.cv.tool_Bootcode31"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.toolBootcode31">
                </tool>
             </toolChain>
          </configuration>
