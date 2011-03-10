@@ -22,7 +22,7 @@ public class MakefileData {
 	 */
 	public static void parse(File makefilePath) {
 		sourceDir = new HashSet<String>();
-		sourceDir = new HashSet<String>();
+		includeDir = new HashSet<String>();
 		defines = new HashMap<String, String>();
 		
 		VariableManager var = new VariableManager();
@@ -54,4 +54,12 @@ public class MakefileData {
 	public static HashSet<String> getIncludeDir() {
 		return includeDir;
 	}
+	/** 
+	 * Return all the defines from makefile reading
+	 * @return A list of defines and their values
+	 */
+	public static HashMap<String, String> getDefines() {
+		return defines;
+	}
+	
 }

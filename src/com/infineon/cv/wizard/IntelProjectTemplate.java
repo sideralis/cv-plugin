@@ -78,7 +78,7 @@ public class IntelProjectTemplate {
 			+ "\n"
 			+ "#------------------------------------------------------------------------------\n" 
 			+ "# You can add one or more folders in the include path\n"
-			+ "# There are the paths needed by the compiler to resolve all include instructions\n" 
+			+ "# These are the paths needed by the compiler to resolve all include instructions\n" 
 			+ "#------------------------------------------------------------------------------\n" 
 			+ "#INCDIR +=\n"
 			+ "\n" 

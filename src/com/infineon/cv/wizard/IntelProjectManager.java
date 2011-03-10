@@ -8,6 +8,9 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -39,6 +42,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jface.dialogs.MessageDialog;
 
 import com.infineon.cv.ToggleNature;
 import com.infineon.cv.makefile.parser.MakefileData;
@@ -64,6 +68,18 @@ public class IntelProjectManager {
 			createMakefile(makefile, path);
 			createCfile(name, path);
 		}
+		
+		// Secondly check if eclipse project exist already
+		File eclipse = new File (path + "\\.cproject");
+		if (eclipse.exists()) {
+			// The project has been created already, let's ask the user if he wants to overwrite it!
+			boolean answer = MessageDialog.openQuestion(null, "Eclipse project already exists", 
+					"Do you want to overwrite the existing eclipse project?\n" +
+					"If not, press no and use the File\\Import... menu, then General\\Existing projects into Workspace to open the existing project");
+			if (answer == false)
+				return;
+		}
+		
 		// Parse makefile
 		MakefileData.parse(makefile);
 		
@@ -95,6 +111,9 @@ public class IntelProjectManager {
 			} else if (projectType == IntelWizardPage.LIBRARY) {
 				projType = ManagedBuildManager.getExtensionProjectType("com.infineon.cv.projectTypeCHadesLib");
 				toolChain = ManagedBuildManager.getExtensionToolChain("com.infineon.cv.toolChain.hadesLibGnumake");
+			} else if (projectType == IntelWizardPage.BCO_TESTCASE) {
+				projType = ManagedBuildManager.getExtensionProjectType("com.infineon.cv.projectTypeDHadesBCOTC");
+				toolChain = ManagedBuildManager.getExtensionToolChain("com.infineon.cv.toolChain.hadesBCOGnumake");				
 			}
 			if (projType != null && toolChain != null) {
 				ManagedProject mProj = new ManagedProject(cdtProj, projType);
@@ -114,19 +133,19 @@ public class IntelProjectManager {
 					ICConfigurationDescription cfgDes = des.createConfiguration(ManagedBuildManager.CFG_DATA_PROVIDER_ID, config.getConfigurationData());
 					// Add define
 					{
-						ArrayList<String> symbols = new ArrayList<String>();
-//						ArrayList<String> values = new ArrayList<String>();
-						symbols.add("XGOLD223");
-						symbols.add("DEBUG");
-						symbols.add("STD_IO_USIF");
-						Object[] symbolsAdd = symbols.toArray();
+						int size = MakefileData.getDefines().size();
+						HashMap<String,String> defines = MakefileData.getDefines();
+						Set<String> keys = defines.keySet();
+						
 						for (ICFolderDescription fileDesc : cfgDes.getFolderDescriptions()) {
 							for (ICLanguageSetting lang : fileDesc.getLanguageSettings())// ;//.getLanguageSettings();
 							{
-								ICLanguageSettingEntry[] newEntries = new ICLanguageSettingEntry[symbolsAdd.length];
+								ICLanguageSettingEntry[] newEntries = new ICLanguageSettingEntry[size];
 								int i = 0;
-								for (String symbol : symbols) {
-									newEntries[i++] = new CMacroEntry(symbol, "1", 0);
+								Iterator<String> ite = keys.iterator();
+								while (ite.hasNext()) {
+									String key = ite.next();
+									newEntries[i++] = new CMacroEntry(key, defines.get(key), 0);
 								}
 								lang.setSettingEntries(ICSettingEntry.MACRO, newEntries);
 							}
