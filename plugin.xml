@@ -1079,21 +1079,29 @@
       </editor>
    </extension>
    <extension
-         point="org.eclipse.debug.core.launchConfigurationTypes">
-      <launchConfigurationType
-            delegate="com.infineon.cv.launcher.LaunchIntel"
-            id="com.infineon.cv.launchConfigurationType"
-            modes="run, debug"
-            name="Intel Testcase">
-      </launchConfigurationType>
-   </extension>
-   <extension
          point="org.eclipse.debug.ui.launchConfigurationTypeImages">
       <launchConfigurationTypeImage
             configTypeID="com.infineon.cv.launchConfigurationType"
             icon="icons/intel.gif"
             id="com.infineon.cv.launchConfigurationTypeImage">
       </launchConfigurationTypeImage>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType
+            delegate="com.infineon.cv.launcher.LaunchIntel"
+            id="com.infineon.cv.launchConfigurationType"
+            modes="run,debug"
+            name="Intel Testcase">
+      </launchConfigurationType>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+      <launchConfigurationTabGroup
+            class="com.infineon.cv.launcher.IntelLaunchConfigurationTabGroup"
+            id="com.infineon.cv.launchConfigurationTabGroup"
+            type="com.infineon.cv.launchConfigurationType">
+      </launchConfigurationTabGroup>
    </extension>
    <extension
          point="org.eclipse.debug.ui.launchShortcuts">
@@ -1147,14 +1155,6 @@
             </enablement>
          </contextualLaunch>
       </shortcut>
-   </extension>
-   <extension
-         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
-      <launchConfigurationTabGroup
-            class="com.infineon.cv.launcher.IntelLaunchConfigurationTabGroup"
-            id="com.infineon.cv.launchConfigurationTabGroup"
-            type="com.infineon.cv.launchConfigurationType">
-      </launchConfigurationTabGroup>
    </extension>
    <extension
          point="org.eclipse.ui.newWizards">

@@ -1,8 +1,12 @@
 package com.infineon.cv.launcher;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 import org.eclipse.cdt.core.model.CoreModel;
+import org.eclipse.cdt.core.model.IBinary;
 import org.eclipse.cdt.core.settings.model.ICConfigurationDescription;
 import org.eclipse.cdt.core.settings.model.ICProjectDescription;
 import org.eclipse.cdt.internal.core.model.CProject;
@@ -56,9 +60,9 @@ public class IntelLaunchShortcut implements ILaunchShortcut {
 			System.out.println("---");
 			ICommand[] cmd = myProj.getDescription().getBuildSpec();
 			for (ICommand element : cmd) {
-				System.out.println(element.getBuilderName());
-				System.out.println(element.getArguments());
-				System.out.println(element);
+//				System.out.println(element.getBuilderName());
+//				System.out.println(element.getArguments());
+//				System.out.println(element);
 			}
 			System.out.println("---");
 			IManagedBuildInfo buildInfo = ManagedBuildManager.getBuildInfo(myProj);
@@ -99,13 +103,71 @@ public class IntelLaunchShortcut implements ILaunchShortcut {
 
 	private ILaunchConfiguration findLaunchConfiguration(String mode) {
 		ILaunchConfiguration configuration = null;
-		ILaunchConfigurationType configurationType = getIntelLaunchConfigType();
-		
+		ILaunchConfigurationType configType = getIntelLaunchConfigType();
+
+		List candidateConfigs = Collections.EMPTY_LIST;
+		try {
+			ILaunchConfiguration[] configs = DebugPlugin.getDefault().getLaunchManager().getLaunchConfigurations(configType);
+			candidateConfigs = new ArrayList(configs.length);
+			for (int i = 0; i < configs.length; i++) {
+				System.out.println("Configuration: "+configs[i]);
+			}
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
+
 		
 		return null;
 	}
 
+	private ILaunchConfiguration createConfiguration(IBinary bin, /*ICDebugConfiguration debugConfig,*/ String mode) {
+		ILaunchConfiguration config = null;
+//		try {
+//			String projectName = bin.getResource().getProjectRelativePath().toString();
+//			ILaunchConfigurationType configType = getCLaunchConfigType();
+//			ILaunchConfigurationWorkingCopy wc =
+//				configType.newInstance(null, getLaunchManager().generateUniqueLaunchConfigurationNameFrom(bin.getElementName()));
+//			wc.setAttribute(ICDTLaunchConfigurationConstants.ATTR_PROGRAM_NAME, projectName);
+//			wc.setAttribute(ICDTLaunchConfigurationConstants.ATTR_PROJECT_NAME, bin.getCProject().getElementName());
+//			wc.setMappedResources(new IResource[] {bin.getResource().getProject()});
+//			wc.setAttribute(ICDTLaunchConfigurationConstants.ATTR_WORKING_DIRECTORY, (String) null);
+//			wc.setAttribute(ICDTLaunchConfigurationConstants.ATTR_DEBUGGER_STOP_AT_MAIN, true);
+//			wc.setAttribute(
+//				ICDTLaunchConfigurationConstants.ATTR_DEBUGGER_START_MODE,
+//				ICDTLaunchConfigurationConstants.DEBUGGER_MODE_RUN);
+//			wc.setAttribute(ICDTLaunchConfigurationConstants.ATTR_DEBUGGER_ID, debugConfig.getID());
+//
+//	        // Workaround for bug 262840: select the standard CDT launcher by default.
+//	        HashSet<String> set = new HashSet<String>();
+//	        set.add(mode);
+//	        try {
+//	            ILaunchDelegate preferredDelegate = wc.getPreferredDelegate(set);
+//	            if (preferredDelegate == null) {
+//                    wc.setPreferredLaunchDelegate(set, "org.eclipse.cdt.cdi.launch.localCLaunch");
+//	            }
+//	        } catch (CoreException e) {}
+//			// End workaround for bug 262840
+//	        
+//			ICProjectDescription projDes = CCorePlugin.getDefault().getProjectDescription(bin.getCProject().getProject());
+//			if (projDes != null)
+//			{
+//				String buildConfigID = projDes.getActiveConfiguration().getId();
+//				wc.setAttribute(ICDTLaunchConfigurationConstants.ATTR_PROJECT_BUILD_CONFIG_ID, buildConfigID);				
+//			}
+//
+//			// Load up the debugger page to set the defaults. There should probably be a separate
+//			// extension point for this.
+//			ICDebuggerPage page = CDebugUIPlugin.getDefault().getDebuggerPage(debugConfig.getID());
+//			page.setDefaults(wc);
+//			
+//			config = wc.doSave();
+//		} catch (CoreException ce) {
+//			CDebugUIPlugin.log(ce);
+//		}
+		return config;
+	}
+	
 	private ILaunchConfigurationType getIntelLaunchConfigType() {
-		return DebugPlugin.getDefault().getLaunchManager().getLaunchConfigurationType("");
+		return DebugPlugin.getDefault().getLaunchManager().getLaunchConfigurationType("com.infineon.cv.launchConfigurationType");
 	}
 }
