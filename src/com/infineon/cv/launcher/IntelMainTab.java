@@ -1,5 +1,6 @@
 package com.infineon.cv.launcher;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
@@ -11,7 +12,10 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DirectoryDialog;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
@@ -74,10 +78,10 @@ class IntelMainTab extends AbstractLaunchConfigurationTab {
 			
 			@Override
 			public void mouseDown(MouseEvent e) {
-				DirectoryDialog dirDialog = new DirectoryDialog(shell);
-				dirDialog.setText("Select your file");
-				dirDialog.setFilterPath("c:\\S-Gold");
-				String path = dirDialog.open();
+				FileDialog fileDialog = new FileDialog(shell);
+				fileDialog.setText("Select your file");
+				fileDialog.setFilterPath("c:\\S-Gold");
+				String path = fileDialog.open();
 				System.out.println(e);
 			}
 			
@@ -180,6 +184,14 @@ class IntelMainTab extends AbstractLaunchConfigurationTab {
     	gd = new GridData(GridData.FILL_HORIZONTAL);
     	gd.horizontalSpan = 2;
     	recordFileName.setLayoutData(gd);
+    	recordFileName.addListener(SWT.SELECTED, new Listener()  {
+			
+			@Override
+			public void handleEvent(Event event) {
+				System.out.println("Selection");
+				setDirty(true);
+			}
+		});
 
 		recordButtonBrowse = new Button(group1, SWT.PUSH);
 		recordButtonBrowse.setFont(compParent.getFont());
@@ -195,13 +207,37 @@ class IntelMainTab extends AbstractLaunchConfigurationTab {
 
 	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
-		repRepButton.setEnabled(true);
-		recordFileName.setText(mode);
+		int mode;
+		try {
+			mode = configuration.getAttribute(IntelLaunchConfigurationConstants.MODES, 0);
+			if (mode == 0)
+				noneButton.setSelection(true);
+			else if (mode == 1)
+				replayButton.setSelection(true);
+			else if (mode == 2 || mode == 3) {
+				repRepButton.setSelection(true);
+				if (mode == 3)
+					reportButton.setSelection(true);
+			}
+		} catch (CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println("Tabs: initialize");
 	}
 
 	@Override
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
+		if (noneButton.getSelection() == true)
+			configuration.setAttribute(IntelLaunchConfigurationConstants.MODES, 0);
+		else if (replayButton.getSelection() == true)
+			configuration.setAttribute(IntelLaunchConfigurationConstants.MODES, 1);
+		else if (repRepButton.getSelection() == true) {
+			if (replayButton.getSelection() == true)
+				configuration.setAttribute(IntelLaunchConfigurationConstants.MODES,3);
+			else
+				configuration.setAttribute(IntelLaunchConfigurationConstants.MODES,2);
+		}
 		System.out.println("Tabs: performApply");
 		
 	}
@@ -209,7 +245,21 @@ class IntelMainTab extends AbstractLaunchConfigurationTab {
 	@Override
 	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
 		System.out.println("Tabs: set defaults");
-		
+//		noneButton.setSelection(true);
+//		reportFileName.setText("report\\my.rpt");
+//		replayFileName.setText("replay\\my.rec");
+//		recordFileName.setText("replay\\my.rec");	
+	}
+
+	@Override
+	public boolean isValid(ILaunchConfiguration launchConfig) {
+		return true;
+	}
+
+	@Override
+	public boolean canSave() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 	
 }

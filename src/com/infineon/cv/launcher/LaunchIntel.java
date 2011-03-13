@@ -11,6 +11,9 @@ public class LaunchIntel implements ILaunchConfigurationDelegate {
 	@Override
 	public void launch(ILaunchConfiguration configuration, String mode, ILaunch launch, IProgressMonitor monitor) throws CoreException {
 		System.out.println("Launch called, mode = "+mode);
+		System.out.println("Configuration: "+configuration);
+		
+
 	}
 
 }
