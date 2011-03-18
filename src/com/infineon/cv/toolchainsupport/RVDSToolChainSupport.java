@@ -20,9 +20,10 @@ public class RVDSToolChainSupport implements IManagedIsToolChainSupported {
 		String var;
 
 		var = System.getenv("HADES_PERL");
-		if (var == null)
-			return true;
-		else
-			return false;
+//		if (var == null)
+//			return true;
+//		else
+//			return false;
+		return true;
 	}
 }

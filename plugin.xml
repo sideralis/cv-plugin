@@ -444,7 +444,7 @@
             name="TP">
       </targetPlatform>
       <builder
-            arguments="--jobs=2"
+            arguments="-R --jobs=2"
             autoBuildTarget="all"
             cleanBuildTarget="cleanall"
             command="gnumake"
@@ -458,7 +458,7 @@
             supportsManagedBuild="false">
       </builder>
       <builder
-            arguments="--jobs=2"
+            arguments="-R --jobs=2"
             autoBuildTarget="lib"
             cleanBuildTarget="cleanall"
             command="gnumake"
@@ -483,7 +483,7 @@
             supportsManagedBuild="false">
       </builder>
       <builder
-            arguments="-c"
+            arguments="-c -r"
             autoBuildTarget="run"
             cleanBuildTarget="cleanall"
             command="clearmake"
@@ -497,7 +497,7 @@
             supportsManagedBuild="false">
       </builder>
       <builder
-            arguments="-c"
+            arguments="-c -r"
             autoBuildTarget="compile"
             cleanBuildTarget="cleanall"
             command="clearmake"
@@ -1073,7 +1073,7 @@
             class="com.infineon.cv.editors.IFXMakefileEditor"
             default="true"
             filenames="makefile"
-            icon="icons/makefile_icon.png"
+            icon="icons/makefile.gif"
             id="cvmakefileeditor"
             name="Makefile">
       </editor>
