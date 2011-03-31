@@ -61,7 +61,7 @@ class IntelMainTab extends AbstractLaunchConfigurationTab {
 		createGroupRecord(groupButtons);
 		createGroupReplayReport(groupButtons);	
 		createGroupNone(groupButtons);
-		// 
+		//
 		noneButton.setSelection(true);
 		
 		addListeners(getShell());
