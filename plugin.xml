@@ -12,7 +12,7 @@
             projectMacroSupplier="com.infineon.cv.includes.testcaseMacro4include">
          <configuration
                id="com.infineon.cv.configuration.hadesCompile"
-               name="clearmake compile"
+               name="clearmake all"
                parent="com.infineon.cv.configurationHadesCompile">
             <toolChain
                   id="com.infineon.cv.toolChain.hadesCompile"
@@ -409,7 +409,7 @@
             cleanCommand="clean"
             errorParsers="com.infineon.cv.ARMErrorParser;"
             id="com.infineon.cv.configurationHadesCompile"
-            name="Hades Compile">
+            name="Hades all">
       </configuration>
       <configuration
             artifactExtension="axf"
@@ -483,7 +483,7 @@
             supportsManagedBuild="false">
       </builder>
       <builder
-            arguments="-c -r"
+            arguments="-V -r"
             autoBuildTarget="run"
             cleanBuildTarget="cleanall"
             command="clearmake"
@@ -497,16 +497,16 @@
             supportsManagedBuild="false">
       </builder>
       <builder
-            arguments="-c -r"
-            autoBuildTarget="compile"
+            arguments="-V -r"
+            autoBuildTarget="all"
             cleanBuildTarget="cleanall"
             command="clearmake"
             errorParsers="com.infineon.cv.ARMErrorParser"
             id="com.infineon.cv.builderHadesCompile"
-            incrementalBuildTarget="compile"
+            incrementalBuildTarget="all"
             isAbstract="true"
             isVariableCaseSensitive="false"
-            name="Hades Compile Builder"
+            name="Hades all Builder"
             superClass="org.eclipse.cdt.build.core.settings.default.builder"
             supportsManagedBuild="false">
       </builder>
