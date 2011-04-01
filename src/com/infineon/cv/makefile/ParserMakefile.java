@@ -21,6 +21,7 @@ enum Flag {
 /**
  * ParserMakefile parses a makefile with the given path, users get variables'
  * values by getters and modify them by setters.
+ * TODO this class can be removed
  */
 public class ParserMakefile {
 	File file;
@@ -508,7 +509,6 @@ public class ParserMakefile {
 			dtcm_base_address = getString(makefile.substring(matcher.start(), matcher.end()));
 		}
 		// Search for SRCS
-		// TODO manage += or =
 		pattern = Pattern.compile("\nSRCS.*\n");
 		matcher = pattern.matcher(makefile);
 		while (matcher.find()) {

@@ -11,7 +11,8 @@ import java.net.InetAddress;
 /**
  * ProgressBarToolView run clearcase commands for mapping files on the server to
  * local driver in a snapshot view.
- * **/
+ * TODO could be removed in the future due to sysway
+ */
 
 public class ProgressBarToolView extends JPanel implements ActionListener,
 		PropertyChangeListener {

@@ -19,12 +19,9 @@ public class ARMBuildEnvironmentVariable implements IBuildEnvironmentVariable {
 	/**
 	 * Constructor
 	 * 
-	 * @param name
-	 *            The name of the variable
-	 * @param value
-	 *            The value of the variable
-	 * @param operation
-	 *            Can be IBuildEnvironmentVariable.ENVVAR_REPLACE, ...
+	 * @param name The name of the variable
+	 * @param value The value of the variable
+	 * @param operation Can be IBuildEnvironmentVariable.ENVVAR_REPLACE, ...
 	 */
 	public ARMBuildEnvironmentVariable(String name, String value, int operation) {
 		this.name = name;

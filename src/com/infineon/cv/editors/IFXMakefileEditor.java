@@ -34,6 +34,7 @@ import com.infineon.cv.makefile.parser.VariableManager;
 
 /**
  * @author gautier
+ * TODO: Need to be finished by creating the full GUI
  * 
  */
 @SuppressWarnings("restriction")

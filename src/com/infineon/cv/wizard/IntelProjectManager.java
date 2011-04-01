@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -46,7 +45,11 @@ import org.eclipse.jface.dialogs.MessageDialog;
 
 import com.infineon.cv.ToggleNature;
 import com.infineon.cv.makefile.parser.MakefileData;
-
+/**
+ * 
+ * @author gautier
+ *  
+ */
 @SuppressWarnings("restriction")
 public class IntelProjectManager {
 	/**
@@ -206,7 +209,6 @@ public class IntelProjectManager {
 			output.write(res);
 			output.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -227,7 +229,6 @@ public class IntelProjectManager {
 			output.write(res);
 			output.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

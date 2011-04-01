@@ -8,6 +8,8 @@ import org.eclipse.jface.preference.IPreferenceStore;
  * 
  * @author zhaoxin
  * 
+ * TODO this class can be removed as there is no need any more to select the location of tools
+ * 
  */
 public class AbstractPreferenceInitializer1 extends AbstractPreferenceInitializer {
 
