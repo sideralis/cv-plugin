@@ -83,15 +83,16 @@ public class IntelProjectTemplate {
 			+ "#INCDIR +=\n"
 			+ "\n" 
 			+ "#------------------------------------------------------------------------------\n" 
-			+ "# You can exclude one or more lib from the project\n"
+			+ "# You must list the source folder of the libraries requested for your test\n"
+			+ "# Hades library is included by default\n"
 			+ "#------------------------------------------------------------------------------\n" 
-			+ "#LIBUNWANTED += USIF.lib\n"
+			+ "LIBRARIES= $(ROOTDIR)/_lib/_src/lib_CGU\n"
 			+ "\n"
 			+ "#------------------------------------------------------------------------------\n" 
 			+ "# Call the main makefile\n"
 			+ "#------------------------------------------------------------------------------\n" 
-			+ "include $(ROOTDIR)/_makefile/Makefile.mak\n" 
-			+ "#include $(ROOTDIR)/../../CV_Foundation/_makefile/Makefile.mak\n" 
+			+ "#include $(ROOTDIR)/_makefile/Makefile.mak\n" 
+			+ "include $(ROOTDIR)/../../CV_Foundation/_makefile/Makefile.mak\n" 
 			+ "");
 	
 	

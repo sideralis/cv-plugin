@@ -14,8 +14,7 @@ public class ToggleNature extends Thread {
 	/**
 	 * Constructor
 	 * 
-	 * @param project
-	 *            The project reference
+	 * @param project The project reference
 	 */
 	public ToggleNature(IProject project) {
 		this.project = project;

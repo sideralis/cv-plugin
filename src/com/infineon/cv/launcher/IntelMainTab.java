@@ -220,7 +220,6 @@ class IntelMainTab extends AbstractLaunchConfigurationTab {
 					reportButton.setSelection(true);
 			}
 		} catch (CoreException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println("Tabs: initialize");
@@ -258,7 +257,6 @@ class IntelMainTab extends AbstractLaunchConfigurationTab {
 
 	@Override
 	public boolean canSave() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 	

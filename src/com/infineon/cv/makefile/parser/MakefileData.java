@@ -5,12 +5,11 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.Path;
-
+/**
+ * 
+ * @author gautier
+ * TODO the sourceDir, ... should not be static but created for each project to enable update when makefile is updated
+ */
 public class MakefileData {
 	private static HashSet<String> sourceDir;
 	private static HashSet<String> includeDir;
@@ -18,7 +17,7 @@ public class MakefileData {
 	
 	/**
 	 * Parse a makefile and extract all relevant data
-	 * @param fileLocation the path location of the makefile
+	 * @param makefilePath the path location of the makefile
 	 */
 	public static void parse(File makefilePath) {
 		sourceDir = new HashSet<String>();

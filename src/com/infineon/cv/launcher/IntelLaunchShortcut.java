@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationType;
+import org.eclipse.debug.internal.core.LaunchConfiguration;
 import org.eclipse.debug.ui.ILaunchShortcut;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -105,10 +106,10 @@ public class IntelLaunchShortcut implements ILaunchShortcut {
 		ILaunchConfiguration configuration = null;
 		ILaunchConfigurationType configType = getIntelLaunchConfigType();
 
-		List candidateConfigs = Collections.EMPTY_LIST;
+		ArrayList<LaunchConfiguration> candidateConfigs = (ArrayList<LaunchConfiguration>) Collections.EMPTY_LIST;
 		try {
 			ILaunchConfiguration[] configs = DebugPlugin.getDefault().getLaunchManager().getLaunchConfigurations(configType);
-			candidateConfigs = new ArrayList(configs.length);
+			candidateConfigs = new ArrayList<LaunchConfiguration>(configs.length);
 			for (int i = 0; i < configs.length; i++) {
 				System.out.println("Configuration: "+configs[i]);
 			}

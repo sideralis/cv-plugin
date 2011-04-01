@@ -32,6 +32,7 @@ import org.w3c.dom.NodeList;
 /**
  * MakefilePropertyPage is the 1st version of makefile GUI
  * @author zhaoxi
+ * TODO can be removed
  *
  */
 public class MakefilePropertyPage extends PropertyPage implements

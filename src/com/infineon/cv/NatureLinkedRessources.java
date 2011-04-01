@@ -1,14 +1,8 @@
 package com.infineon.cv;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectNature;
@@ -25,8 +19,6 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 
 import com.infineon.cv.makefile.parser.MakefileData;
-import com.infineon.cv.makefile.parser.MakefileParser;
-import com.infineon.cv.makefile.parser.VariableManager;
 
 /**
  * NatureLinkedRessources implements IProjectNature, it adds linked files

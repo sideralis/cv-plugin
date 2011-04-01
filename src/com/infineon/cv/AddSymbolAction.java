@@ -29,6 +29,8 @@ import org.eclipse.ui.IWorkbenchPart;
  * 
  * @author zhaoxi
  * 
+ * TODO could be removed as this should be done automatically with makefile saving
+ * 
  */
 public class AddSymbolAction implements IObjectActionDelegate {
 	private ISelection selection;

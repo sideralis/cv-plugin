@@ -945,7 +945,7 @@ public class MakefileParser implements Cloneable {
 			}
 			// Search for ARCH (and DEBUG,RELEASE, STD_IO_USIF, ...)
 			if (varName.equals("ARCH")) {
-				// Project TODO could be missing from ARCH define
+				// TODO Project could be missing from ARCH define
 				patArch = "(XGOLD[0-9]+)";
 				pattern = Pattern.compile(patArch);
 				matcher4 = pattern.matcher(value);

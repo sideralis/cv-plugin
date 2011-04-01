@@ -30,6 +30,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
  * InfineonPreferencePage allows to change the tool view drive.
  * 
  * @author zhaoxi
+ * TODO could be removed in the future
  * 
  */
 public class InfineonPreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
