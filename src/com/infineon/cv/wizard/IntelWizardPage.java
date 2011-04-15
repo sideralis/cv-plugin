@@ -19,10 +19,25 @@ import org.eclipse.swt.widgets.Text;
 
 public class IntelWizardPage extends WizardPage {
 
+	/** The different types of project */
 	public static final int TESTCASE = 0;
 	public static final int LIBRARY = 1;
 	public static final int BCO_TESTCASE = 2;
-	private static final String[] PROJECT_TYPE = new String[] {"CV Testcase", "CV Library","BCO Testcase"};
+	public static final int ML_LOADER = 3;
+	
+	/** The ui name of each projects */
+	private static final String[] PROJECT_TYPE = new String[] {"CV Testcase", 
+		"CV Library",
+		"BCO Testcase",
+		"Memloader loader"};
+	
+	/** The starting path where the project should be located */
+	private static final String[] PROJECT_PATH = new String[] {
+		"\\S-Gold\\S-GOLD_Family_Environment\\Testcases",
+		"\\S-Gold\\S-GOLD_Family_Environment\\_lib\\_src",
+		"\\S-Gold-Bootcode\\S-GOLD\\Verification",
+		"\\IFX_Tools\\MemLoader\\C_ASM\\Target\\SG\\NOR Flash\\"};
+		
 
 	private Button browse;
 	private Text testcaseName;
@@ -98,7 +113,7 @@ public class IntelWizardPage extends WizardPage {
 				dirDialog.setText("Select the directory where is/will be located the makefile");
 				String startPath = System.getenv("VIEW_TAG");
 				if (startPath != null) {
-					startPath = "M:\\"+startPath+"\\S-Gold\\S-GOLD_Family_Environment\\Testcases";
+					startPath = "M:\\"+startPath+PROJECT_PATH[getProjectType()];
 					File f = new File(startPath);
 					if (f.exists())
 						dirDialog.setFilterPath(startPath);

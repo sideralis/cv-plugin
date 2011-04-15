@@ -32,6 +32,7 @@ import org.eclipse.cdt.managedbuilder.core.ManagedBuildManager;
 import org.eclipse.cdt.managedbuilder.internal.core.Configuration;
 import org.eclipse.cdt.managedbuilder.internal.core.ManagedBuildInfo;
 import org.eclipse.cdt.managedbuilder.internal.core.ManagedProject;
+import org.eclipse.cdt.managedbuilder.internal.core.ProjectType;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -45,10 +46,11 @@ import org.eclipse.jface.dialogs.MessageDialog;
 
 import com.infineon.cv.ToggleNature;
 import com.infineon.cv.makefile.parser.MakefileData;
+
 /**
  * 
  * @author gautier
- *  
+ * 
  */
 @SuppressWarnings("restriction")
 public class IntelProjectManager {
@@ -63,29 +65,29 @@ public class IntelProjectManager {
 	public void createIntelProject(String name, String path, int projectType, IProgressMonitor monitor) {
 		IProjectType projType = null;
 		IToolChain toolChain = null;
-
+		
 		// First check if makefile exist
 		File makefile = new File(path + "\\makefile");
 		if (!makefile.exists()) {
 			// We need to create the makefile
-			createMakefile(makefile, path);
+			createMakefile(makefile, path, projectType);
 			createCfile(name, path);
 		}
-		
+
 		// Secondly check if eclipse project exist already
-		File eclipse = new File (path + "\\.cproject");
+		File eclipse = new File(path + "\\.cproject");
 		if (eclipse.exists()) {
-			// The project has been created already, let's ask the user if he wants to overwrite it!
-			boolean answer = MessageDialog.openQuestion(null, "Eclipse project already exists", 
-					"Do you want to overwrite the existing eclipse project?\n" +
-					"If not, press no and use the File\\Import... menu, then General\\Existing projects into Workspace to open the existing project");
+			// The project has been created already, let's ask the user if he
+			// wants to overwrite it!
+			boolean answer = MessageDialog.openQuestion(null, "Eclipse project already exists", "Do you want to overwrite the existing eclipse project?\n"
+					+ "If not, press no and use the File\\Import... menu, then General\\Existing projects into Workspace to open the existing project");
 			if (answer == false)
 				return;
 		}
-		
+
 		// Parse makefile
 		MakefileData.parse(makefile);
-		
+
 		// Get workspace in order to create a project
 		IWorkspaceRoot wrkSpaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 		IProject newProjectHandle = wrkSpaceRoot.getProject(name);
@@ -108,15 +110,23 @@ public class IntelProjectManager {
 
 			ManagedBuildInfo info = ManagedBuildManager.createBuildInfo(cdtProj);
 
-			if (projectType == IntelWizardPage.TESTCASE) {
+			switch (projectType) {
+			case IntelWizardPage.TESTCASE:
 				projType = ManagedBuildManager.getExtensionProjectType("com.infineon.cv.projectTypeBHades");
 				toolChain = ManagedBuildManager.getExtensionToolChain("com.infineon.cv.toolChain.hadesCompile");
-			} else if (projectType == IntelWizardPage.LIBRARY) {
+				break;
+			case IntelWizardPage.LIBRARY:
 				projType = ManagedBuildManager.getExtensionProjectType("com.infineon.cv.projectTypeCHadesLib");
 				toolChain = ManagedBuildManager.getExtensionToolChain("com.infineon.cv.toolChain.hadesLibGnumake");
-			} else if (projectType == IntelWizardPage.BCO_TESTCASE) {
+				break;
+			case IntelWizardPage.BCO_TESTCASE:
 				projType = ManagedBuildManager.getExtensionProjectType("com.infineon.cv.projectTypeDHadesBCOTC");
-				toolChain = ManagedBuildManager.getExtensionToolChain("com.infineon.cv.toolChain.hadesBCOGnumake");				
+				toolChain = ManagedBuildManager.getExtensionToolChain("com.infineon.cv.toolChain.hadesBCOGnumake");
+				break;
+			case IntelWizardPage.ML_LOADER:
+				projType = ManagedBuildManager.getExtensionProjectType("com.infineon.cv.projectTypeEHadesMemloader");
+				toolChain = ManagedBuildManager.getExtensionToolChain("com.infineon.cv.toolChain.hadesMemloaderGnumake");
+				break;
 			}
 			if (projType != null && toolChain != null) {
 				ManagedProject mProj = new ManagedProject(cdtProj, projType);
@@ -137,9 +147,9 @@ public class IntelProjectManager {
 					// Add define
 					{
 						int size = MakefileData.getDefines().size();
-						HashMap<String,String> defines = MakefileData.getDefines();
+						HashMap<String, String> defines = MakefileData.getDefines();
 						Set<String> keys = defines.keySet();
-						
+
 						for (ICFolderDescription fileDesc : cfgDes.getFolderDescriptions()) {
 							for (ICLanguageSetting lang : fileDesc.getLanguageSettings())// ;//.getLanguageSettings();
 							{
@@ -154,7 +164,7 @@ public class IntelProjectManager {
 							}
 						}
 					}
-					
+
 					config.setConfigurationDescription(cfgDes);
 					config.exportArtifactInfo();
 
@@ -168,7 +178,7 @@ public class IntelProjectManager {
 
 				}
 				mgr.setProjectDescription(cdtProj, des);
-								
+
 				// Add Intel project nature
 				new ToggleNature(cdtProj).start();
 			}
@@ -179,7 +189,11 @@ public class IntelProjectManager {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * 
+	 * @param name
+	 * @param path
+	 */
 	private void createCfile(String name, String path) {
 		String res;
 		BufferedWriter output;
@@ -212,18 +226,39 @@ public class IntelProjectManager {
 			e.printStackTrace();
 		}
 	}
-
-	private void createMakefile(File makefile, String path) {
+	/**
+	 * @param makefile
+	 * @param path
+	 * @param projectType 
+	 */
+	private void createMakefile(File makefile, String path, int projectType) {
 		String res;
 		BufferedWriter output;
 		IPath myPath;
+		Pattern p;
+		Matcher m;
 
-		Pattern p = Pattern.compile("TESTCASE_NAME");
-		Matcher m = p.matcher(IntelProjectTemplate.makefileTestcase);
+		// Replace Testcase_name
+		p = Pattern.compile("TESTCASE_NAME");
+		m = p.matcher(IntelProjectTemplate.makefileTestcase);
 		myPath = new Path(path);
 		String nameOfFile = myPath.lastSegment();
 		res = m.replaceAll(nameOfFile);
 
+		// Replace ROOT_DIR
+		p = Pattern.compile("ROOT_DIR");
+		m = p.matcher(res);
+		String rootDir = findRootDir(path);
+		res = m.replaceAll(rootDir);
+
+		// Replace REAL
+		p = Pattern.compile("REAL");
+		m = p.matcher(res);
+		if (projectType == IntelWizardPage.BCO_TESTCASE)
+			res = m.replaceAll("BCOTC");
+		else if (projectType == IntelWizardPage.ML_LOADER)
+			res = m.replaceAll("BCOML");
+		
 		try {
 			output = new BufferedWriter(new FileWriter(makefile));
 			output.write(res);
@@ -231,6 +266,38 @@ public class IntelProjectManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+	}
+	/**
+	 * Find the root directory, e.g the base folder, there is nothing interesting below.
+	 * Practically, go down in the folder hierarchy and stop once _makefile folder is found.
+	 * @param path the path of the project location
+	 * @return a relative path from the project location to root dir (ex: ../..), or Root_dir_not_found if the root dir was not found.
+	 */
+	private String findRootDir(String path) {
+		String rootDir = "" ;
+		int level = 0;
+		int pos=0;
+		File makefile;
+		// Depending on the project, find some particular folder
+		// If CV testcase or libraries, must find _makefile
+		// If memloader, must find _makefile
+		// If boot code must find _makefile
+		makefile = new File(path + "\\_makefile");
+		while (!makefile.exists() && pos!=-1) {
+			level += 1;
+			pos = path.lastIndexOf("\\");
+			if (pos != -1) {
+				path = path.substring(0,pos);
+				makefile = new File(path + "\\_makefile");
+			}			
+		}
+		if (makefile.exists()) {
+			for (int i=0;i<level-1;i++)
+				rootDir = rootDir.concat("../");
+			rootDir = rootDir.concat("..");
+		} else {
+			rootDir = "Root_dir_not_found";
+		}
+		return rootDir;
 	}
 }

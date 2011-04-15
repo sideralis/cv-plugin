@@ -37,7 +37,8 @@ public class IntelWizard extends Wizard implements INewWizard, IRunnableWithProg
 
 	@Override
 	public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-		new IntelProjectManager().createIntelProject(wizardPage.getTestcaseName(),wizardPage.getLocation(),wizardPage.getProjectType(),monitor);
+		if (!wizardPage.getTestcaseName().equals("") && !wizardPage.getLocation().equals(""))
+			new IntelProjectManager().createIntelProject(wizardPage.getTestcaseName(),wizardPage.getLocation(),wizardPage.getProjectType(),monitor);
 	}
 
 	@Override
