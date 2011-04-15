@@ -33,32 +33,20 @@ public class NatureLinkedRessources implements IProjectNature {
 
 	private static final Map<String, String[]> libsrcPaths = new HashMap() {
 		{
-			put("CVTC", new String[] { "base S-Gold/S-GOLD_Family_Environment/_base", "lib S-Gold/S-GOLD_Family_Environment/_lib/_src", "halix S-Gold/S-GOLD_Family_Environment/_halix/_src" });
+			put("hadesTC", new String[] { "base S-Gold/S-GOLD_Family_Environment/_base", "lib S-Gold/S-GOLD_Family_Environment/_lib/_src", "halix S-Gold/S-GOLD_Family_Environment/_halix/_src" });
 		}
 		{
-			put("CVLib", new String[] { "lib S-Gold/S-GOLD_Family_Environment/_lib/_src", "halix S-Gold/S-GOLD_Family_Environment/_halix/_src" });
+			put("hadesLib", new String[] { "lib S-Gold/S-GOLD_Family_Environment/_lib/_src", "halix S-Gold/S-GOLD_Family_Environment/_halix/_src" });
 		}
 		{
-			put("CVMem", new String[] { "cgu IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_lld/CGU", "ebu IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_lld/EBU",
-					"emmc IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_lld/eMMC", "pmu IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_lld/PMU",
-					"com IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_lld/SerialInterface", "lld IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_lld",
-					"base IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_base" });
-		}
-		{
-			put("Bootcode", new String[] { "base S-Gold-Bootcode/S-GOLD/Target/base", "bs S-Gold-Bootcode/S-GOLD/Target/bs/src", "drv_mem S-Gold-Bootcode/S-GOLD/Target/drv_mem/src",
+			put("hadesBCOTC", new String[] { "base S-Gold-Bootcode/S-GOLD/Target/base", "bs S-Gold-Bootcode/S-GOLD/Target/bs/src", "drv_mem S-Gold-Bootcode/S-GOLD/Target/drv_mem/src",
 					"hal_src S-Gold-Bootcode/S-GOLD/Target/hal/src", "hal_inc S-Gold-Bootcode/S-GOLD/Target/hal/inc", "sc S-Gold-Bootcode/S-GOLD/Target/sc/src",
 					"brl S-Gold-Bootcode/S-GOLD/Target/brl/src" });
 		}
 		{
-			put("URFET", new String[] { "halix S-Gold/S-GOLD_Family_Environment/_halix/_src", "lib S-Gold/S-GOLD_Family_Environment/_lib/_src", "base S-Gold/S-GOLD_Family_Environment/_base",
-					"fmr_hld fmr_cv/fmr_xg223/FMR_HLD", "fmr_lld fmr_cv/fmr_xg223/FMR_LLD" });
-		}
-		{
-			put("Crypto", new String[] { "base S-Gold/S-GOLD_Family_Environment/_base", "lib S-Gold/S-GOLD_Family_Environment/_lib/_src", "halix S-Gold/S-GOLD_Family_Environment/_halix/_src",
-					"crypto_hal CRYPTO/S-GOLD_Family_Environment/_halix_CV/_src", "crypto_all CRYPTO/S-GOLD_Family_Environment/Testcases/CRYPTO_test/CRYPTO_TC_All" });
-		}
-		{
-			put("hades", new String[] { "base S-Gold/S-GOLD_Family_Environment/_base", "lib S-Gold/S-GOLD_Family_Environment/_lib/_src", "halix S-Gold/S-GOLD_Family_Environment/_halix/_src" });
+			put("hadesMemloader", new String[] { "lld IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_lld", 
+					"inc IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_inc",
+					"base IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_base" });
 		}
 	};
 
@@ -120,6 +108,7 @@ public class NatureLinkedRessources implements IProjectNature {
 						IFolder folder = project.getFolder(name);
 						if (workspace.validateLinkLocation(folder, linkLocation).getSeverity() != IStatus.ERROR) {
 							try {
+								// TODO remove duplicate in link location
 								folder.createLink(linkLocation, IResource.NONE, null);
 							} catch (CoreException e) {
 								e.printStackTrace();

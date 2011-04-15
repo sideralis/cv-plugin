@@ -11,7 +11,7 @@
             name="Testcase"
             projectMacroSupplier="com.infineon.cv.includes.testcaseMacro4include">
          <configuration
-               id="com.infineon.cv.configuration.hadesCompile"
+               id="com.infineon.cv.configuration.hadesTCCompile"
                name="clearmake all"
                parent="com.infineon.cv.configurationHadesCompile">
             <toolChain
@@ -36,7 +36,7 @@
             </toolChain>
          </configuration>
          <configuration
-               id="com.infineon.cv.configuration.hadesRun"
+               id="com.infineon.cv.configuration.hadesTCRun"
                name="clearmake run"
                parent="com.infineon.cv.configurationHadesRun">
             <toolChain
@@ -61,7 +61,7 @@
             </toolChain>
          </configuration>
          <configuration
-               id="com.infineon.cv.configuration.hadesGnumake"
+               id="com.infineon.cv.configuration.hadesTCGnumake"
                name="gnumake all"
                parent="com.infineon.cv.configurationDefault">
             <toolChain
@@ -93,7 +93,7 @@
             projectMacroSupplier="com.infineon.cv.includes.testcaseMacro4include">
          <configuration
                id="com.infineon.cv.configuration.hadesLibGnumake"
-               name="gnuamake lib"
+               name="gnumake lib"
                parent="com.infineon.cv.configurationDefault">
             <toolChain
                   id="com.infineon.cv.toolChain.hadesLibGnumake"
@@ -123,7 +123,7 @@
             name="Testcase Bootcode"
             projectMacroSupplier="com.infineon.cv.includes.bootcodeMacro4include">
          <configuration
-               id="com.infineon.cv.configuration.hadesBCOGnumake"
+               id="com.infineon.cv.configuration.hadesBCOTCGnumake"
                parent="com.infineon.cv.configurationDefault">
             <toolChain
                   id="com.infineon.cv.toolChain.hadesBCOGnumake"
@@ -148,9 +148,41 @@
          </configuration>
       </projectType>
       <projectType
+            id="com.infineon.cv.projectTypeEHadesMemloader"
+            isAbstract="false"
+            name="Memloader"
+            projectMacroSupplier="com.infineon.cv.includes.memloaderMacro4include">
+         <configuration
+               id="com.infineon.cv.configuration.hadesMemloaderGnumake"
+               name="gnumake all"
+               parent="com.infineon.cv.configurationDefault">
+            <toolChain
+                  id="com.infineon.cv.toolChain.hadesMemloaderGnumake"
+                  isAbstract="false"
+                  superClass="com.infineon.cv.toolChainHades">
+               <targetPlatform
+                     id="com.infineon.cv.targetPlatform.hadesMemloaderGnumake"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.targetPlatform">
+               </targetPlatform>
+               <builder
+                     id="com.infineon.cv.builder.hadesMemloaderGnumake"
+                     isAbstract="false"
+                     isVariableCaseSensitive="false"
+                     superClass="com.infineon.cv.builderAll">
+               </builder>
+               <tool
+                     id="com.infineon.cv.tool.hadesMemloaderGnumake"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.toolHadesMemloader">
+               </tool>
+            </toolChain>
+         </configuration>
+      </projectType>
+      <projectType
             id="com.infineon.cv.projectTypeABootcode"
             isAbstract="false"
-            name="Bootcode"
+            name="Bootcode DO NOT USE"
             projectMacroSupplier="com.infineon.cv.includes.bootcodeMacro4include">
          <configuration
                id="com.infineon.cv.configurationBootcode"
@@ -182,7 +214,7 @@
             id="com.infineon.cv.projectTypeDTestcase"
             isAbstract="false"
             isTest="false"
-            name="CV TestCase"
+            name="CV TestCase DO NOT USE"
             projectMacroSupplier="com.infineon.cv.includes.testcaseMacro4include">
          <configuration
                id="com.infineon.cv.configurationCVTC31"
@@ -245,7 +277,7 @@
             id="com.infineon.cv.projectTypeELibrary"
             isAbstract="false"
             isTest="false"
-            name="CV Library"
+            name="CV Library DO NOT USE"
             projectMacroSupplier="com.infineon.cv.includes.testcaseMacro4include">
          <configuration
                id="com.infineon.cv.configurationCVLib31"
@@ -301,7 +333,7 @@
       <projectType
             id="com.infineon.cv.projectTypeFMemloader"
             isAbstract="false"
-            name="CV Memloader"
+            name="CV Memloader DO NOT USE"
             projectMacroSupplier="com.infineon.cv.includes.memloaderMacro4include">
          <configuration
                id="com.infineon.cv.configurationCVMem31"
@@ -325,68 +357,6 @@
                      id="com.infineon.cv.tool_CVMem31"
                      isAbstract="false"
                      superClass="com.infineon.cv.toolCVMem31">
-               </tool>
-            </toolChain>
-         </configuration>
-      </projectType>
-      <projectType
-            id="com.infineon.cv.projectTypeGURFET"
-            isAbstract="false"
-            name="CV URFET"
-            projectMacroSupplier="com.infineon.cv.includes.URFETMacro4include">
-         <configuration
-               id="com.infineon.cv.configurationURFET"
-               parent="com.infineon.cv.configurationDefault">
-            <toolChain
-                  id="com.infineon.cv.toolChainURFET22"
-                  isAbstract="false"
-                  superClass="com.infineon.cv.toolChainRVDS22">
-               <targetPlatform
-                     id="com.infineon.cv.targetPlatformURFET22"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.targetPlatform">
-               </targetPlatform>
-               <builder
-                     id="com.infineon.cv.builderURFET22"
-                     isAbstract="false"
-                     isVariableCaseSensitive="false"
-                     superClass="com.infineon.cv.builderAll">
-               </builder>
-               <tool
-                     id="com.infineon.cv.tool_URFET22"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.toolURFET22">
-               </tool>
-            </toolChain>
-         </configuration>
-      </projectType>
-      <projectType
-            id="com.infineon.cv.projectTypeHCrypto"
-            isAbstract="false"
-            name="CV Crypto"
-            projectMacroSupplier="com.infineon.cv.includes.testcaseMacro4include">
-         <configuration
-               id="com.infineon.cv.configurationCrypto22"
-               parent="com.infineon.cv.configurationDefault">
-            <toolChain
-                  id="com.infineon.cv.toolChainCrypto22"
-                  isAbstract="false"
-                  superClass="com.infineon.cv.toolChainRVDS22">
-               <targetPlatform
-                     id="com.infineon.cv.targetPlatformCrypto22"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.targetPlatform">
-               </targetPlatform>
-               <builder
-                     id="com.infineon.cv.builderCrypto22"
-                     isAbstract="false"
-                     isVariableCaseSensitive="false"
-                     superClass="com.infineon.cv.builderAll">
-               </builder>
-               <tool
-                     id="com.infineon.cv.tool_Crypto22"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.toolCrypto22">
                </tool>
             </toolChain>
          </configuration>
@@ -699,7 +669,7 @@
          </envVarBuildPath>
          <option
                id="com.infineon.cv.optionHades"
-               isAbstract="true"
+               isAbstract="false"
                name="Include paths Hades"
                resourceFilter="all"
                superClass="org.eclipse.cdt.build.core.settings.holder.incpaths"
@@ -904,6 +874,34 @@
          </option>
       </tool>
       <tool
+            id="com.infineon.cv.toolHadesMemloader"
+            isAbstract="true"
+            name="Hades Memloader tool"
+            superClass="org.eclipse.cdt.build.core.settings.holder">
+         <inputType
+               id="com.infineon.cv.inputTypeHadesMemloader"
+               sourceContentType="org.eclipse.cdt.core.cSource"
+               superClass="org.eclipse.cdt.build.core.settings.holder.inType">
+         </inputType>
+         <envVarBuildPath
+               buildPathResolver="com.infineon.cv.misc.testBuildPath"
+               pathType="buildpathInclude"
+               variableList="ARMLIB">
+         </envVarBuildPath>
+         <option
+               id="com.infineon.cv.optionHadesMemloader"
+               isAbstract="false"
+               name="Include paths Hades Memloader"
+               resourceFilter="all"
+               superClass="org.eclipse.cdt.build.core.settings.holder.incpaths"
+               valueType="includePath">
+            <listOptionValue
+                  builtIn="false"
+                  value="${ARMINC}">
+            </listOptionValue>
+         </option>
+      </tool>
+      <tool
             id="com.infineon.cv.tool.hades.compile"
             isAbstract="true"
             name="Hades Compile"
@@ -928,7 +926,7 @@
          name="ARM Error Parser"
          point="org.eclipse.cdt.core.ErrorParser">
       <errorparser
-            class="com.infineon.cv.ARMErrorParser">
+            class="com.infineon.cv.errorParsing.ARMErrorParser">
       </errorparser>
    </extension>
    <extension
@@ -1170,7 +1168,7 @@
             hasPages="true"
             icon="icons/intel.gif"
             id="com.infineon.cv.wizard"
-            name="Intel CV Testcase"
+            name="Intel CV Project"
             project="true">
          <description>
             To create an Intel IMC CV Testcase

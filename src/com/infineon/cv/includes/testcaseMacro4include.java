@@ -55,7 +55,7 @@ public class testcaseMacro4include implements IProjectBuildMacroSupplier {
 		if ( (pos1 != -1) || (pos2 != -1) ) {
 			if (pos1 != -1)
 				root = projLoc.substring(0, pos1);
-			else 
+			else
 				root = projLoc.substring(0, pos2);
 
 			InfineonPreferencePage pref = new InfineonPreferencePage();
