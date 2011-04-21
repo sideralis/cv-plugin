@@ -33,15 +33,20 @@ public class NatureLinkedRessources implements IProjectNature {
 
 	private static final Map<String, String[]> libsrcPaths = new HashMap() {
 		{
-			put("hadesTC", new String[] { "base S-Gold/S-GOLD_Family_Environment/_base", "lib S-Gold/S-GOLD_Family_Environment/_lib/_src", "halix S-Gold/S-GOLD_Family_Environment/_halix/_src" });
+			put("hadesTC", new String[] { "base S-Gold/S-GOLD_Family_Environment/_base", 
+					"lib_src S-Gold/S-GOLD_Family_Environment/_lib/_src", "lib_inc S-Gold/S-GOLD_Family_Environment/_lib/_inc",
+					"halix_src S-Gold/S-GOLD_Family_Environment/_halix/_src", "halix_inc S-Gold/S-GOLD_Family_Environment/_halix/_inc", "halix_common S-Gold/S-GOLD_Family_Environment/_halix/common",
+					"inc S-Gold/S-GOLD_Family_Environment/_inc", });
 		}
-		{
+		{ // TODO to be deleted in future
 			put("hadesLib", new String[] { "lib S-Gold/S-GOLD_Family_Environment/_lib/_src", "halix S-Gold/S-GOLD_Family_Environment/_halix/_src" });
 		}
 		{
-			put("hadesBCOTC", new String[] { "base S-Gold-Bootcode/S-GOLD/Target/base", "bs S-Gold-Bootcode/S-GOLD/Target/bs/src", "drv_mem S-Gold-Bootcode/S-GOLD/Target/drv_mem/src",
-					"hal_src S-Gold-Bootcode/S-GOLD/Target/hal/src", "hal_inc S-Gold-Bootcode/S-GOLD/Target/hal/inc", "sc S-Gold-Bootcode/S-GOLD/Target/sc/src",
-					"brl S-Gold-Bootcode/S-GOLD/Target/brl/src" });
+			put("hadesBCOTC", new String[] { "base S-Gold-Bootcode/S-GOLD/Target/base", "bs S-Gold-Bootcode/S-GOLD/Target/bs/src", 
+					"drv_mem S-Gold-Bootcode/S-GOLD/Target/drv_mem/src",
+					"hal_src S-Gold-Bootcode/S-GOLD/Target/hal/src", "hal_inc S-Gold-Bootcode/S-GOLD/Target/hal/inc", 
+					"sc S-Gold-Bootcode/S-GOLD/Target/sc/src", "brl S-Gold-Bootcode/S-GOLD/Target/brl/src", 
+					"lib S-Gold-Bootcode/S-GOLD/Verification/CV_Testcases/_common/libs"});
 		}
 		{
 			put("hadesMemloader", new String[] { "lld IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_lld", 
