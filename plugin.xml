@@ -142,7 +142,7 @@
                <tool
                      id="com.infineon.cv.tool.hadesBCOGnumake"
                      isAbstract="false"
-                     superClass="com.infineon.cv.toolHades">
+                     superClass="com.infineon.cv.toolHadesBCO">
                </tool>
             </toolChain>
          </configuration>
@@ -483,7 +483,7 @@
       <tool
             id="com.infineon.cv.toolCVTC31"
             isAbstract="true"
-            name="CV Testcase 3.1"
+            name="CV Testcase 3.1 DO NOT USE"
             superClass="org.eclipse.cdt.build.core.settings.holder">
          <inputType
                id="com.infineon.cv.inputTypeCVTC31"
@@ -527,7 +527,7 @@
       <tool
             id="com.infineon.cv.toolCVTC22"
             isAbstract="true"
-            name="CV Testcase 2.2"
+            name="CV Testcase 2.2 DO NOT USE"
             superClass="org.eclipse.cdt.build.core.settings.holder">
          <inputType
                id="com.infineon.cv.inputTypeCVTC22"
@@ -571,7 +571,7 @@
       <tool
             id="com.infineon.cv.toolCVMem31"
             isAbstract="true"
-            name="CV Memloader 3.1"
+            name="CV Memloader 3.1 DO NOT USE"
             superClass="org.eclipse.cdt.build.core.settings.holder">
          <inputType
                id="com.infineon.cv.inputTypeCVMem31"
@@ -706,33 +706,28 @@
                sourceContentType="org.eclipse.cdt.core.cSource"
                superClass="org.eclipse.cdt.build.core.settings.holder.inType">
          </inputType>
-         <envVarBuildPath
-               buildPathResolver="com.infineon.cv.misc.testBuildPath"
-               pathType="buildpathInclude"
-               variableList="ARMLIB">
-         </envVarBuildPath>
          <option
+               browseType="directory"
                id="com.infineon.cv.optionHadesBCO"
                isAbstract="false"
                name="Include paths Hades BCO"
-               resourceFilter="all"
+               resourceFilter="file"
                superClass="org.eclipse.cdt.build.core.settings.holder.incpaths"
-               valueType="string">
+               valueType="includePath">
             <listOptionValue
-                  builtIn="false"
+                  builtIn="true"
                   value="${ARMINC}">
             </listOptionValue>
+            <listOptionValue
+                  builtIn="true"
+                  value="${bcoTcProjectDir}/CV_Testcases/_common/libs/include">
+            </listOptionValue>
          </option>
-         <envVarBuildPath
-               buildPathResolver="com.infineon.cv.misc.testBuildPath"
-               pathType="buildpathInclude"
-               variableList="ARMLIB">
-         </envVarBuildPath>
       </tool>
       <tool
             id="com.infineon.cv.toolURFET22"
             isAbstract="true"
-            name="URFET 2.2"
+            name="URFET 2.2 DO NOT USE"
             superClass="org.eclipse.cdt.build.core.settings.holder">
          <inputType
                id="com.infineon.cv.inputTypeURFET22"
@@ -787,7 +782,7 @@
       <tool
             id="com.infineon.cv.toolCrypto22"
             isAbstract="true"
-            name="Crypto 2.2"
+            name="Crypto 2.2 DO NOT USE"
             superClass="org.eclipse.cdt.build.core.settings.holder">
          <inputType
                id="com.infineon.cv.inputTypeCrypto22"
@@ -838,7 +833,7 @@
       <tool
             id="com.infineon.cv.tool.hades.make"
             isAbstract="true"
-            name="Hades Makefile Converter"
+            name="Hades Makefile Converter DO NOT USE"
             superClass="org.eclipse.cdt.build.core.settings.holder">
          <inputType
                id="com.infineon.cv.inputType.hades.make"

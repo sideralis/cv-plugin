@@ -42,8 +42,8 @@ public class bootcodeMacro4include implements IProjectBuildMacroSupplier {
 
 			InfineonPreferencePage pref = new InfineonPreferencePage();
 
-			macros[0] = new InfineonMacro("bootcodeProjectDir", root.concat("S-Gold-Bootcode/S-GOLD/Target"));
-			macros[1] = new InfineonMacro("toolDir", pref.getPreferenceStore().getString(PreferenceConstants.INFINEON_TOOLVIEW_DRIVE));
+			macros[0] = new InfineonMacro("bcoRomProjectDir", root.concat("S-Gold-Bootcode/S-GOLD/Target/"));
+			macros[1] = new InfineonMacro("bcoTcProjectDir", root.concat("S-Gold-Bootcode/S-GOLD/Verification/"));			
 		}
 		return this.macros;
 	}
