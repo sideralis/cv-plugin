@@ -124,6 +124,7 @@
             projectMacroSupplier="com.infineon.cv.includes.bootcodeMacro4include">
          <configuration
                id="com.infineon.cv.configuration.hadesBCOTCGnumake"
+               name="gnumake all"
                parent="com.infineon.cv.configurationDefault">
             <toolChain
                   id="com.infineon.cv.toolChain.hadesBCOGnumake"
@@ -141,6 +142,54 @@
                </builder>
                <tool
                      id="com.infineon.cv.tool.hadesBCOGnumake"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.toolHadesBCO">
+               </tool>
+            </toolChain>
+         </configuration>
+         <configuration
+               id="com.infineon.cv.configuration.hadesBCOTCClearmakeRun"
+               name="clearmake run">
+            <toolChain
+                  id="com.infineon.cv.toolChain.hadesBCOClearmakeRun"
+                  isAbstract="false"
+                  superClass="com.infineon.cv.toolChainHades">
+               <targetPlatform
+                     id="com.infineon.cv.targetPlatform.hadesBCOClearmakeRun"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.targetPlatform">
+               </targetPlatform>
+               <builder
+                     id="com.infineon.cv.builder.hadesBCOClearmakeRun"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.builderHadesRun">
+               </builder>
+               <tool
+                     id="com.infineon.cv.tool.hadesBCOClearmakeRun"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.toolHadesBCO">
+               </tool>
+            </toolChain>
+         </configuration>
+         <configuration
+               id="com.infineon.cv.configuration.hadesBCOTCClearmake"
+               name="clearmake all">
+            <toolChain
+                  id="com.infineon.cv.toolChain.hadesBCOClearmake"
+                  isAbstract="false"
+                  superClass="com.infineon.cv.toolChainHades">
+               <targetPlatform
+                     id="com.infineon.cv.targetPlatform.hadesBCOClearmake"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.targetPlatform">
+               </targetPlatform>
+               <builder
+                     id="com.infineon.cv.builder.hadesBCOClearmake"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.builderHadesCompile">
+               </builder>
+               <tool
+                     id="com.infineon.cv.tool.hadesBCOClearmake"
                      isAbstract="false"
                      superClass="com.infineon.cv.toolHadesBCO">
                </tool>

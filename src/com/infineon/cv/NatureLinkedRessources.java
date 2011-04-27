@@ -33,8 +33,7 @@ public class NatureLinkedRessources implements IProjectNature {
 
 	private static final Map<String, String[]> libsrcPaths = new HashMap() {
 		{
-			put("hadesTC", new String[] { "base S-Gold/S-GOLD_Family_Environment/_base", 
-					"lib_src S-Gold/S-GOLD_Family_Environment/_lib/_src", "lib_inc S-Gold/S-GOLD_Family_Environment/_lib/_inc",
+			put("hadesTC", new String[] { "base S-Gold/S-GOLD_Family_Environment/_base", "lib_src S-Gold/S-GOLD_Family_Environment/_lib/_src", "lib_inc S-Gold/S-GOLD_Family_Environment/_lib/_inc",
 					"halix_src S-Gold/S-GOLD_Family_Environment/_halix/_src", "halix_inc S-Gold/S-GOLD_Family_Environment/_halix/_inc", "halix_common S-Gold/S-GOLD_Family_Environment/_halix/common",
 					"inc S-Gold/S-GOLD_Family_Environment/_inc", });
 		}
@@ -42,15 +41,12 @@ public class NatureLinkedRessources implements IProjectNature {
 			put("hadesLib", new String[] { "lib S-Gold/S-GOLD_Family_Environment/_lib/_src", "halix S-Gold/S-GOLD_Family_Environment/_halix/_src" });
 		}
 		{
-			put("hadesBCOTC", new String[] { "base S-Gold-Bootcode/S-GOLD/Target/base", "bs S-Gold-Bootcode/S-GOLD/Target/bs/src", 
-					"drv_mem S-Gold-Bootcode/S-GOLD/Target/drv_mem/src",
-					"hal_src S-Gold-Bootcode/S-GOLD/Target/hal/src", "hal_inc S-Gold-Bootcode/S-GOLD/Target/hal/inc", 
-					"sc S-Gold-Bootcode/S-GOLD/Target/sc/src", "brl S-Gold-Bootcode/S-GOLD/Target/brl/src", 
-					"lib S-Gold-Bootcode/S-GOLD/Verification/CV_Testcases/_common/libs"});
+			put("hadesBCOTC", new String[] { "base S-Gold-Bootcode/S-GOLD/Target/base", "bs S-Gold-Bootcode/S-GOLD/Target/bs/src", "drv_mem S-Gold-Bootcode/S-GOLD/Target/drv_mem/src",
+					"hal_src S-Gold-Bootcode/S-GOLD/Target/hal/src", "hal_inc S-Gold-Bootcode/S-GOLD/Target/hal/inc", "sc S-Gold-Bootcode/S-GOLD/Target/sc/src",
+					"brl S-Gold-Bootcode/S-GOLD/Target/brl/src", "lib S-Gold-Bootcode/S-GOLD/Verification/CV_Testcases/_common/libs" });
 		}
 		{
-			put("hadesMemloader", new String[] { "lld IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_lld", 
-					"inc IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_inc",
+			put("hadesMemloader", new String[] { "lld IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_lld", "inc IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_inc",
 					"base IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_base" });
 		}
 	};
@@ -68,7 +64,7 @@ public class NatureLinkedRessources implements IProjectNature {
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
 				monitor.beginTask("Adding libraries and include links...", 100);
-				
+
 				// Add default links depending on project type
 				try {
 					java.util.Map<QualifiedName, String> properties = project.getPersistentProperties();
@@ -102,67 +98,66 @@ public class NatureLinkedRessources implements IProjectNature {
 				}
 				// Add include folder links extracted from makefile
 				for (String s : MakefileData.getIncludeDir()) {
-					String name;
-					IPath linkLocation;
-					IPath projectLocation = getProject().getLocation();
-					linkLocation = projectLocation.append(s);
+					if (!MakefileData.getSourceDir().contains(s)) {	// To avoid to add already existing links
+						String name;
+						IPath linkLocation;
+						IPath projectLocation = getProject().getLocation();
+						linkLocation = projectLocation.append(s);
 
-					if (!linkLocation.toString().equals(projectLocation.toString())) {
-						name = linkLocation.lastSegment();
-						IWorkspace workspace = ResourcesPlugin.getWorkspace();
-						IFolder folder = project.getFolder(name);
-						if (workspace.validateLinkLocation(folder, linkLocation).getSeverity() != IStatus.ERROR) {
-							try {
-								// TODO remove duplicate in link location
-								folder.createLink(linkLocation, IResource.NONE, null);
-							} catch (CoreException e) {
-								e.printStackTrace();
+						if (!linkLocation.toString().equals(projectLocation.toString())) {
+							name = linkLocation.lastSegment();
+							IWorkspace workspace = ResourcesPlugin.getWorkspace();
+							IFolder folder = project.getFolder(name);
+							if (workspace.validateLinkLocation(folder, linkLocation).getSeverity() != IStatus.ERROR) {
+								try {
+									folder.createLink(linkLocation, IResource.NONE, null);
+								} catch (CoreException e) {
+									e.printStackTrace();
+								}
+							} else {
+								System.out.println(workspace.validateLinkLocation(folder, linkLocation).toString());
 							}
-						} else {
-							System.out.println(workspace.validateLinkLocation(folder, linkLocation).toString());
 						}
 					}
 				}
-				
+
 				// Adding includes extracted from makefile
 				// TODO: this code below is not working
 				/*
-				ICProjectDescription prjDesc = CoreModel.getDefault().getProjectDescription(project);
-				ICConfigurationDescription desc = prjDesc.getActiveConfiguration();
-
-				ICFolderDescription filedes = desc.getRootFolderDescription(); 
-				for (ICLanguageSetting lang : filedes.getLanguageSettings())// ;//.getLanguageSettings();
-				{
-					int nbDefaultEntries = 0;
-					ICLanguageSettingEntry[] entries = lang.getSettingEntries(ICSettingEntry.INCLUDE_PATH);
-					// Count how many default entries
-					for (ICLanguageSettingEntry entry : entries) {
-						if (entry.getName().indexOf("${") != -1)
-							nbDefaultEntries++;
-					}
-					ICLanguageSettingEntry[] newEntries = new ICLanguageSettingEntry[includeDir.size()+nbDefaultEntries];
-					// Create new entries by copying default entry
-					int nbNewEntries = 0;
-					for (ICLanguageSettingEntry entry : entries) {
-						if (entry.getName().indexOf("${") != -1) {
-							newEntries[nbNewEntries++] = entry;
-						}
-					}
-					// Create new entries by adding new entries found in makefile
-					for (String s : includeDir) {
-						ICIncludePathEntry entry = (ICIncludePathEntry)CDataUtil.createEntry(ICLanguageSettingEntry.INCLUDE_PATH, s, s, null, 0);
-						newEntries[nbNewEntries++] = entry;
-					}
-					
-					lang.setSettingEntries(ICSettingEntry.INCLUDE_PATH, newEntries);
-				}
-				*/
+				 * ICProjectDescription prjDesc =
+				 * CoreModel.getDefault().getProjectDescription(project);
+				 * ICConfigurationDescription desc =
+				 * prjDesc.getActiveConfiguration();
+				 * 
+				 * ICFolderDescription filedes =
+				 * desc.getRootFolderDescription(); for (ICLanguageSetting lang
+				 * : filedes.getLanguageSettings())// ;//.getLanguageSettings();
+				 * { int nbDefaultEntries = 0; ICLanguageSettingEntry[] entries
+				 * = lang.getSettingEntries(ICSettingEntry.INCLUDE_PATH); //
+				 * Count how many default entries for (ICLanguageSettingEntry
+				 * entry : entries) { if (entry.getName().indexOf("${") != -1)
+				 * nbDefaultEntries++; } ICLanguageSettingEntry[] newEntries =
+				 * new
+				 * ICLanguageSettingEntry[includeDir.size()+nbDefaultEntries];
+				 * // Create new entries by copying default entry int
+				 * nbNewEntries = 0; for (ICLanguageSettingEntry entry :
+				 * entries) { if (entry.getName().indexOf("${") != -1) {
+				 * newEntries[nbNewEntries++] = entry; } } // Create new entries
+				 * by adding new entries found in makefile for (String s :
+				 * includeDir) { ICIncludePathEntry entry =
+				 * (ICIncludePathEntry)CDataUtil
+				 * .createEntry(ICLanguageSettingEntry.INCLUDE_PATH, s, s, null,
+				 * 0); newEntries[nbNewEntries++] = entry; }
+				 * 
+				 * lang.setSettingEntries(ICSettingEntry.INCLUDE_PATH,
+				 * newEntries); }
+				 */
 
 				monitor.done();
 				return Status.OK_STATUS;
 			}
 		};
-		
+
 		jobLinks.schedule();
 	}
 
