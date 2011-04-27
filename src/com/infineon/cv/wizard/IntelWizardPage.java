@@ -57,18 +57,21 @@ public class IntelWizardPage extends WizardPage {
 		Composite container = new Composite(parent, SWT.NULL);
 		container.setLayout(new GridLayout(3, false));
 		
-		Label name = new Label(container, SWT.NONE);
-		name.setText("Enter the testcase name:");
+		Label prjTypeLabel = new Label(container, SWT.NONE);
+		prjTypeLabel.setText("1- Select the project type");
 		gd = new GridData();
-		name.setLayoutData(gd);
+		prjTypeLabel.setLayoutData(gd);
 		
-		testcaseName = new Text(container, SWT.BOLD | SWT.BORDER);
+		projectType = new List(container, SWT.SINGLE | SWT.BOLD | SWT.BORDER);
+		for (String e:PROJECT_TYPE)
+			projectType.add(e);
+		projectType.setSelection(0);
 		gd = new GridData(GridData.FILL_HORIZONTAL);
 		gd.horizontalSpan = 2;
-		testcaseName.setLayoutData(gd);
+		projectType.setLayoutData(gd);
 
 		Label loc = new Label(container, SWT.NONE);
-		loc.setText("Enter the location:");
+		loc.setText("2- Browse for the project's location:");
 		gd = new GridData();
 		loc.setLayoutData(gd);
 
@@ -81,18 +84,15 @@ public class IntelWizardPage extends WizardPage {
 		gd = new GridData();
 		browse.setLayoutData(gd);
 		
-		Label prjTypeLabel = new Label(container, SWT.NONE);
-		prjTypeLabel.setText("Select the project type");
+		Label name = new Label(container, SWT.NONE);
+		name.setText("3- Enter the testcase name:");
 		gd = new GridData();
-		prjTypeLabel.setLayoutData(gd);
+		name.setLayoutData(gd);
 		
-		projectType = new List(container, SWT.SINGLE | SWT.BOLD | SWT.BORDER);
-		for (String e:PROJECT_TYPE)
-			projectType.add(e);
-		projectType.setSelection(0);
+		testcaseName = new Text(container, SWT.BOLD | SWT.BORDER);
 		gd = new GridData(GridData.FILL_HORIZONTAL);
 		gd.horizontalSpan = 2;
-		projectType.setLayoutData(gd);
+		testcaseName.setLayoutData(gd);
 
 		addListeners();
 
