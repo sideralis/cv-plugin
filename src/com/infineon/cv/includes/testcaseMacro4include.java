@@ -58,9 +58,8 @@ public class testcaseMacro4include implements IProjectBuildMacroSupplier {
 			else
 				root = projLoc.substring(0, pos2);
 
-			InfineonPreferencePage pref = new InfineonPreferencePage();
 			macros[0] = new InfineonMacro("testcaseProjectDir", root.concat("S-Gold/S-GOLD_Family_Environment/"));
-			macros[1] = new InfineonMacro("toolDir", pref.getPreferenceStore().getString(PreferenceConstants.INFINEON_TOOLVIEW_DRIVE));
+			macros[1] = new InfineonMacro("CV_FoundationDir", root.concat("CV_Foundation/"));
 			macros[2] = new InfineonMacro("cryptoProjectDir", root.concat("CRYPTO/S-GOLD_Family_Environment/"));
 		}
 		return this.macros;

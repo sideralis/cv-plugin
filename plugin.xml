@@ -468,19 +468,7 @@
             </listOptionValue>
             <listOptionValue
                   builtIn="false"
-                  value="${testcaseProjectDir}/_inc">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${testcaseProjectDir}/_lib/_inc">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${testcaseProjectDir}/_halix/common">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${testcaseProjectDir}/_halix/_inc">
+                  value="${CV_FoundationDir}/lib/arm/inc">
             </listOptionValue>
          </option>
       </tool>
@@ -516,27 +504,32 @@
             id="com.infineon.cv.toolHadesBCO"
             isAbstract="true"
             name="Hades BCO tool"
-            superClass="org.eclipse.cdt.build.core.settings.holder">
+            superClass="org.eclipse.cdt.build.core.settings.holder"
+            supportsManagedBuild="false">
          <inputType
                id="com.infineon.cv.inputTypeHadesBCO"
                sourceContentType="org.eclipse.cdt.core.cSource"
                superClass="org.eclipse.cdt.build.core.settings.holder.inType">
          </inputType>
+         <envVarBuildPath
+               buildPathResolver="com.infineon.cv.misc.testBuildPath"
+               pathType="buildpathInclude"
+               variableList="ARMLIB">
+         </envVarBuildPath>
          <option
-               browseType="directory"
                id="com.infineon.cv.optionHadesBCO"
                isAbstract="false"
                name="Include paths Hades BCO"
-               resourceFilter="file"
+               resourceFilter="all"
                superClass="org.eclipse.cdt.build.core.settings.holder.incpaths"
                valueType="includePath">
             <listOptionValue
-                  builtIn="true"
+                  builtIn="false"
                   value="${ARMINC}">
             </listOptionValue>
             <listOptionValue
-                  builtIn="true"
-                  value="${bcoTcProjectDir}/CV_Testcases/_common/libs/include">
+                  builtIn="false"
+                  value="${CV_FoundationDir}/lib/arm/inc">
             </listOptionValue>
          </option>
       </tool>
@@ -550,6 +543,11 @@
                sourceContentType="org.eclipse.cdt.core.cSource"
                superClass="org.eclipse.cdt.build.core.settings.holder.inType">
          </inputType>
+         <envVarBuildPath
+               buildPathResolver="com.infineon.cv.misc.testBuildPath"
+               pathType="buildpathInclude"
+               variableList="ARMLIB">
+         </envVarBuildPath>
          <option
                id="com.infineon.cv.optionMemloader"
                isAbstract="false"
