@@ -32,6 +32,8 @@ public class NatureLinkedRessources implements IProjectNature {
 	private IProject project;
 
 	private static final Map<String, String[]> libsrcPaths = new HashMap() {
+		// The name of the first string is an extract of the configurations of
+		// one project type.
 		{
 			put("hadesTC", new String[] { "base S-Gold/S-GOLD_Family_Environment/_base", "lib_src S-Gold/S-GOLD_Family_Environment/_lib/_src", "lib_inc S-Gold/S-GOLD_Family_Environment/_lib/_inc",
 					"halix_src S-Gold/S-GOLD_Family_Environment/_halix/_src", "halix_inc S-Gold/S-GOLD_Family_Environment/_halix/_inc", "halix_common S-Gold/S-GOLD_Family_Environment/_halix/common",
@@ -49,6 +51,12 @@ public class NatureLinkedRessources implements IProjectNature {
 			put("hadesMemloader", new String[] { "lld IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_lld", "inc IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_inc",
 					"base IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_base" });
 		}
+		{
+			put("Bootcode", new String[] { "base S-Gold-Bootcode/S-GOLD/Target/base", "bs S-Gold-Bootcode/S-GOLD/Target/bs/src", "drv_mem S-Gold-Bootcode/S-GOLD/Target/drv_mem/src",
+					"hal_src S-Gold-Bootcode/S-GOLD/Target/hal/src", "sc S-Gold-Bootcode/S-GOLD/Target/sc/src", "rom S-Gold-Bootcode/S-GOLD/Target/rom",
+					"brl S-Gold-Bootcode/S-GOLD/Target/brl/src", "mk_scf S-Gold-Bootcode/S-GOLD/Target/etc"});
+		}
+
 	};
 
 	/**
@@ -75,30 +83,8 @@ public class NatureLinkedRessources implements IProjectNature {
 					e1.printStackTrace();
 				}
 				// Add source folder links extracted from makefile
-				for (String s : MakefileData.getSourceDir()) {
-					String name;
-					IPath linkLocation;
-					IPath projectLocation = getProject().getLocation();
-					linkLocation = projectLocation.append(s);
-
-					if (!linkLocation.toString().equals(projectLocation.toString())) {
-						name = linkLocation.lastSegment();
-						IWorkspace workspace = ResourcesPlugin.getWorkspace();
-						IFolder folder = project.getFolder(name);
-						if (workspace.validateLinkLocation(folder, linkLocation).getSeverity() != IStatus.ERROR) {
-							try {
-								folder.createLink(linkLocation, IResource.NONE, null);
-							} catch (CoreException e) {
-								e.printStackTrace();
-							}
-						} else {
-							System.out.println(workspace.validateLinkLocation(folder, linkLocation).toString());
-						}
-					}
-				}
-				// Add include folder links extracted from makefile
-				for (String s : MakefileData.getIncludeDir()) {
-					if (!MakefileData.getSourceDir().contains(s)) {	// To avoid to add already existing links
+				if (MakefileData.getSourceDir() != null) {
+					for (String s : MakefileData.getSourceDir()) {
 						String name;
 						IPath linkLocation;
 						IPath projectLocation = getProject().getLocation();
@@ -119,8 +105,32 @@ public class NatureLinkedRessources implements IProjectNature {
 							}
 						}
 					}
-				}
+					// Add include folder links extracted from makefile
+					for (String s : MakefileData.getIncludeDir()) {
+						if (!MakefileData.getSourceDir().contains(s)) {
+							// To avoid to add already existing links
+							String name;
+							IPath linkLocation;
+							IPath projectLocation = getProject().getLocation();
+							linkLocation = projectLocation.append(s);
 
+							if (!linkLocation.toString().equals(projectLocation.toString())) {
+								name = linkLocation.lastSegment();
+								IWorkspace workspace = ResourcesPlugin.getWorkspace();
+								IFolder folder = project.getFolder(name);
+								if (workspace.validateLinkLocation(folder, linkLocation).getSeverity() != IStatus.ERROR) {
+									try {
+										folder.createLink(linkLocation, IResource.NONE, null);
+									} catch (CoreException e) {
+										e.printStackTrace();
+									}
+								} else {
+									System.out.println(workspace.validateLinkLocation(folder, linkLocation).toString());
+								}
+							}
+						}
+					}
+				}
 				// Adding includes extracted from makefile
 				// TODO: this code below is not working
 				/*

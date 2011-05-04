@@ -9,11 +9,11 @@ import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 
-public class IntelWizard extends Wizard implements INewWizard, IRunnableWithProgress {
+public class IntelBCOWizard extends Wizard implements INewWizard, IRunnableWithProgress {
 
-	private IntelWizardPage wizardPage;
-
-	public IntelWizard() {
+	private IntelBCOWizardPage wizardPage;
+	
+	public IntelBCOWizard() {
 		super();
 	}
 
@@ -31,19 +31,17 @@ public class IntelWizard extends Wizard implements INewWizard, IRunnableWithProg
 
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
-
 	}
 
 	@Override
 	public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 		if (!wizardPage.getTestcaseName().equals("") && !wizardPage.getLocation().equals(""))
-			new IntelProjectManager().createIntelProject(wizardPage.getTestcaseName(),wizardPage.getLocation(),wizardPage.getProjectType(),monitor);
+			new IntelBCOProjectManager().createIntelProject(wizardPage.getTestcaseName(), wizardPage.getLocation(), monitor);
 	}
-
 	@Override
 	public void addPages() {
 		super.addPages();
-		wizardPage = new IntelWizardPage("New Intel CV testcase");
+		wizardPage = new IntelBCOWizardPage("New Intel Bootcode project");
 		addPage(wizardPage);
 	}
 
