@@ -15,7 +15,7 @@ import com.infineon.cv.PreferenceConstants;
  * */
 public class bootcodeMacro4include implements IProjectBuildMacroSupplier {
 
-	private InfineonMacro[] macros = new InfineonMacro[2];
+	private InfineonMacro[] macros = new InfineonMacro[3];
 
 	public IBuildMacro getMacro(final String macroName, final IManagedProject project, IBuildMacroProvider provider) {
 		initializeMacros(project, provider);
@@ -44,6 +44,7 @@ public class bootcodeMacro4include implements IProjectBuildMacroSupplier {
 
 			macros[0] = new InfineonMacro("bcoRomProjectDir", root.concat("S-Gold-Bootcode/S-GOLD/Target/"));
 			macros[1] = new InfineonMacro("bcoTcProjectDir", root.concat("S-Gold-Bootcode/S-GOLD/Verification/"));			
+			macros[2] = new InfineonMacro("CV_FoundationDir", root.concat("CV_Foundation/"));
 		}
 		return this.macros;
 	}
