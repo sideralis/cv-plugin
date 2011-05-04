@@ -17,39 +17,19 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Text;
 
-public class IntelWizardPage extends WizardPage {
-
-	/** The different types of project */
-	public static final int TESTCASE = 0;
-	public static final int LIBRARY = 1;
-	public static final int BCO_TESTCASE = 2;
-	public static final int ML_LOADER = 3;
-	
-	/** The ui name of each projects */
-	private static final String[] PROJECT_TYPE = new String[] {"CV Testcase", 
-		"CV Library",
-		"BCO Testcase",
-		"Memloader loader"};
-	
-	/** The starting path where the project should be located */
-	private static final String[] PROJECT_PATH = new String[] {
-		"\\S-Gold\\S-GOLD_Family_Environment\\Testcases",
-		"\\S-Gold\\S-GOLD_Family_Environment\\_lib\\_src",
-		"\\S-Gold-Bootcode\\S-GOLD\\Verification",
-		"\\IFX_Tools\\MemLoader\\C_ASM\\Target\\SG\\NOR Flash\\"};
-		
+public class IntelBCOWizardPage extends WizardPage {
 
 	private Button browse;
 	private Text testcaseName;
 	private Text locText;
 	private List projectType;
-	
-	protected IntelWizardPage(String pageName) {
+
+	protected IntelBCOWizardPage(String pageName) {
 		super(pageName);
 		setTitle(pageName);
-		setDescription("Creates a new Intel CV Testcase");
+		setDescription("Creates a new Intel bootcode project");
 	}
-
+	
 	@Override
 	public void createControl(Composite parent) {
 		GridData gd;
@@ -57,21 +37,8 @@ public class IntelWizardPage extends WizardPage {
 		Composite container = new Composite(parent, SWT.NULL);
 		container.setLayout(new GridLayout(3, false));
 		
-		Label prjTypeLabel = new Label(container, SWT.NONE);
-		prjTypeLabel.setText("1- Select the project type");
-		gd = new GridData();
-		prjTypeLabel.setLayoutData(gd);
-		
-		projectType = new List(container, SWT.SINGLE | SWT.BOLD | SWT.BORDER);
-		for (String e:PROJECT_TYPE)
-			projectType.add(e);
-		projectType.setSelection(0);
-		gd = new GridData(GridData.FILL_HORIZONTAL);
-		gd.horizontalSpan = 2;
-		projectType.setLayoutData(gd);
-
 		Label loc = new Label(container, SWT.NONE);
-		loc.setText("2- Browse for the project's location:");
+		loc.setText("1- Browse for the project's location:");
 		gd = new GridData();
 		loc.setLayoutData(gd);
 
@@ -85,7 +52,7 @@ public class IntelWizardPage extends WizardPage {
 		browse.setLayoutData(gd);
 		
 		Label name = new Label(container, SWT.NONE);
-		name.setText("3- Enter the testcase name:");
+		name.setText("2- Enter the project name:");
 		gd = new GridData();
 		name.setLayoutData(gd);
 		
@@ -97,9 +64,10 @@ public class IntelWizardPage extends WizardPage {
 		addListeners();
 
 		setControl(container);
-
 	}
-
+	/**
+	 * 
+	 */
 	private void addListeners() {
 		browse.addMouseListener(new MouseListener() {
 			
@@ -113,15 +81,14 @@ public class IntelWizardPage extends WizardPage {
 				dirDialog.setText("Select the directory where is/will be located the makefile");
 				String startPath = System.getenv("VIEW_TAG");
 				if (startPath != null) {
-					startPath = "M:\\"+startPath+PROJECT_PATH[getProjectType()];
+					startPath = "M:\\"+startPath+"\\S-Gold-Bootcode\\S-GOLD\\Target\\src";
 					File f = new File(startPath);
 					if (f.exists())
 						dirDialog.setFilterPath(startPath);
 				}
 				String path = dirDialog.open();
 				locText.setText(path);
-				IPath iPath = new Path(path);
-				testcaseName.setText(iPath.lastSegment());
+				testcaseName.setText("Bootcode XGxxx");
 			}
 			
 			@Override
@@ -129,7 +96,6 @@ public class IntelWizardPage extends WizardPage {
 			}
 		});	
 	}
-
 	public String getLocation() {
 		return locText.getText();
 	}
@@ -138,8 +104,5 @@ public class IntelWizardPage extends WizardPage {
 	public String getTestcaseName() {
 		return testcaseName.getText();
 	}
-	
-	public int getProjectType() {
-		return projectType.getSelectionIndex();
-	}
+
 }

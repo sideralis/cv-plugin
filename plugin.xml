@@ -85,6 +85,57 @@
                </tool>
             </toolChain>
          </configuration>
+         <configuration
+               id="com.infineon.cv.configuration.hadesTCLegRun"
+               name="clearmake -f hades.mk run"
+               parent="com.infineon.cv.configurationHadesRun">
+            <toolChain
+                  id="com.infineon.cv.toolChain.hadesLegRun"
+                  isAbstract="false"
+                  superClass="com.infineon.cv.toolChainHades">
+               <targetPlatform
+                     id="com.infineon.cv.targetPlatform.hadesLegRun"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.targetPlatform">
+               </targetPlatform>
+               <builder
+                     id="com.infineon.cv.builder.hadesLegRun"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.builder.hadesLegRunA">
+               </builder>
+               <tool
+                     id="com.infineon.cv.tool.hadesLegRun"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.toolHades">
+               </tool>
+            </toolChain>
+         </configuration>
+         <configuration
+               id="com.infineon.cv.configuration.hadesTCLegCompile"
+               name="clearmake -f hades.mk compile"
+               parent="com.infineon.cv.configurationHadesCompile">
+            <toolChain
+                  id="com.infineon.cv.toolChain.hadesLegCompile"
+                  isAbstract="false"
+                  superClass="com.infineon.cv.toolChainHades">
+               <targetPlatform
+                     id="com.infineon.cv.targetPlatform.hadesLegCompile"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.targetPlatform">
+               </targetPlatform>
+               <builder
+                     id="com.infineon.cv.builder.hadesLegCompile"
+                     isAbstract="false"
+                     isVariableCaseSensitive="false"
+                     superClass="com.infineon.cv.builder.hadesLegCompileA">
+               </builder>
+               <tool
+                     id="com.infineon.cv.tool.hadesLegCompile"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.toolHades">
+               </tool>
+            </toolChain>
+         </configuration>
       </projectType>
       <projectType
             id="com.infineon.cv.projectTypeCHadesLib"
@@ -149,7 +200,8 @@
          </configuration>
          <configuration
                id="com.infineon.cv.configuration.hadesBCOTCClearmakeRun"
-               name="clearmake run">
+               name="clearmake run"
+               parent="com.infineon.cv.configurationHadesRun">
             <toolChain
                   id="com.infineon.cv.toolChain.hadesBCOClearmakeRun"
                   isAbstract="false"
@@ -173,7 +225,8 @@
          </configuration>
          <configuration
                id="com.infineon.cv.configuration.hadesBCOTCClearmake"
-               name="clearmake all">
+               name="clearmake all"
+               parent="com.infineon.cv.configurationHadesCompile">
             <toolChain
                   id="com.infineon.cv.toolChain.hadesBCOClearmake"
                   isAbstract="false"
@@ -229,183 +282,32 @@
          </configuration>
       </projectType>
       <projectType
-            id="com.infineon.cv.projectTypeABootcode"
+            id="com.infineon.cv.projectTypeBootcodeProject"
             isAbstract="false"
-            name="Bootcode DO NOT USE"
+            name="Bootcode"
             projectMacroSupplier="com.infineon.cv.includes.bootcodeMacro4include">
          <configuration
                id="com.infineon.cv.configurationBootcode"
+               name="gnumake all"
                parent="com.infineon.cv.configurationDefault">
             <toolChain
-                  id="com.infineon.cv.toolChainBootcode31"
+                  id="com.infineon.cv.toolChainBootcode"
                   isAbstract="false"
-                  superClass="com.infineon.cv.toolChainRVDS31">
+                  superClass="com.infineon.cv.toolChainHades">
                <targetPlatform
-                     id="com.infineon.cv.targetPlatformBootcode31"
+                     id="com.infineon.cv.targetPlatformBootcode"
                      isAbstract="false"
                      superClass="com.infineon.cv.targetPlatform">
                </targetPlatform>
                <builder
-                     id="com.infineon.cv.builderBootcode31"
-                     isAbstract="false"
-                     isVariableCaseSensitive="false"
-                     superClass="com.infineon.cv.builderAll">
-               </builder>
-               <tool
-                     id="com.infineon.cv.tool_Bootcode31"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.toolBootcode31">
-               </tool>
-            </toolChain>
-         </configuration>
-      </projectType>
-      <projectType
-            id="com.infineon.cv.projectTypeDTestcase"
-            isAbstract="false"
-            isTest="false"
-            name="CV TestCase DO NOT USE"
-            projectMacroSupplier="com.infineon.cv.includes.testcaseMacro4include">
-         <configuration
-               id="com.infineon.cv.configurationCVTC31"
-               parent="com.infineon.cv.configurationDefault">
-            <toolChain
-                  id="com.infineon.cv.toolChainCVTC31"
-                  isAbstract="false"
-                  superClass="com.infineon.cv.toolChainRVDS31">
-				<targetPlatform
-          id="com.infineon.cv.targetplatformCVTC31"
-          isAbstract="false"
-          superClass="com.infineon.cv.targetPlatform">
-				</targetPlatform>
-				<builder
-          id="com.infineon.cv.builderCVTC31"
-          isAbstract="false"
-          superClass="com.infineon.cv.builderAll">
-				</builder>
-				<tool
-          id="com.infineon.cv.tool_CVTC31"
-          isAbstract="false"
-          superClass="com.infineon.cv.toolCVTC31">
-					<inputType
-           id="com.infineon.cv.inputType_CVTC31"
-           superClass="com.infineon.cv.inputTypeCVTC31"/>
-     
-				</tool>
-            </toolChain>
-         </configuration>
-         <configuration
-               id="com.infineon.cv.configurationCVTC22"
-               parent="com.infineon.cv.configurationDefault">
-            <toolChain
-                  id="com.infineon.cv.toolChainCVTC22"
-                  isAbstract="false"
-                  superClass="com.infineon.cv.toolChainRVDS22">
-               <targetPlatform
-                     id="com.infineon.cv.targetplatformCVTC22"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.targetPlatform">
-               </targetPlatform>
-               <builder
-                     id="com.infineon.cv.builderCVTC22"
+                     id="com.infineon.cv.builderBootcode"
                      isAbstract="false"
                      superClass="com.infineon.cv.builderAll">
                </builder>
                <tool
-                     id="com.infineon.cv.tool_CVTC22"
+                     id="com.infineon.cv.tool_Bootcode"
                      isAbstract="false"
-                     superClass="com.infineon.cv.toolCVTC22">
-                  <inputType
-                        id="com.infineon.cv.inputType_CVTC22"
-                        superClass="com.infineon.cv.inputTypeCVTC22">
-                  </inputType>
-               </tool>
-            </toolChain>
-         </configuration>
-      </projectType>
-      <projectType
-            id="com.infineon.cv.projectTypeELibrary"
-            isAbstract="false"
-            isTest="false"
-            name="CV Library DO NOT USE"
-            projectMacroSupplier="com.infineon.cv.includes.testcaseMacro4include">
-         <configuration
-               id="com.infineon.cv.configurationCVLib31"
-               parent="com.infineon.cv.configurationDefault">
-            <toolChain
-                  id="com.infineon.cv.toolChainCVLib31"
-                  isAbstract="false"
-                  superClass="com.infineon.cv.toolChainRVDS31">
-               <targetPlatform
-                     id="com.infineon.cv.targetPlatformCVLib31"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.targetPlatform">
-               </targetPlatform>
-               <builder
-                     id="com.infineon.cv.builderCVLib31"
-                     isAbstract="false"
-                     isVariableCaseSensitive="false"
-                     superClass="com.infineon.cv.builderLib">
-               </builder>
-               <tool
-                     id="com.infineon.cv.tool_CVLib31"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.toolCVTC31">
-               </tool>
-            </toolChain>
-         </configuration>
-         <configuration
-               id="com.infineon.cv.configurationCVLib22"
-               parent="com.infineon.cv.configurationDefault">
-            <toolChain
-                  id="com.infineon.cv.toolChainCVLib22"
-                  isAbstract="false"
-                  superClass="com.infineon.cv.toolChainRVDS22">
-               <targetPlatform
-                     id="com.infineon.cv.targetPlatformCVLib22"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.targetPlatform">
-               </targetPlatform>
-               <builder
-                     id="com.infineon.cv.builderCVLib22"
-                     isAbstract="false"
-                     isVariableCaseSensitive="false"
-                     superClass="com.infineon.cv.builderLib">
-               </builder>
-               <tool
-                     id="com.infineon.cv.tool_CVLib22"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.toolCVTC22">
-               </tool>
-            </toolChain>
-         </configuration>
-      </projectType>
-      <projectType
-            id="com.infineon.cv.projectTypeFMemloader"
-            isAbstract="false"
-            name="CV Memloader DO NOT USE"
-            projectMacroSupplier="com.infineon.cv.includes.memloaderMacro4include">
-         <configuration
-               id="com.infineon.cv.configurationCVMem31"
-               parent="com.infineon.cv.configurationDefault">
-            <toolChain
-                  id="com.infineon.cv.toolChainCVMem31"
-                  isAbstract="false"
-                  superClass="com.infineon.cv.toolChainRVDS31">
-               <targetPlatform
-                     id="com.infineon.cv.targetPlatformCVMem31"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.targetPlatform">
-               </targetPlatform>
-               <builder
-                     id="com.infineon.cv.builderCVMem31"
-                     isAbstract="false"
-                     isVariableCaseSensitive="false"
-                     superClass="com.infineon.cv.builderAll">
-               </builder>
-               <tool
-                     id="com.infineon.cv.tool_CVMem31"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.toolCVMem31">
+                     superClass="com.infineon.cv.toolBootcode">
                </tool>
             </toolChain>
          </configuration>
@@ -415,47 +317,28 @@
             cleanCommand="cleanall"
             errorParsers="com.infineon.cv.ARMErrorParser;"
             id="com.infineon.cv.configurationDefault"
-            name="Default"
+            name="gnumake all abstract"
             parent="org.eclipse.cdt.build.core.prefbase.cfg">
-      </configuration>
-      <configuration
-            artifactExtension="mk"
-            id="com.infineon.cv.configurationIFXMake2Hades"
-            name="Hades Makefile Converter">
       </configuration>
       <configuration
             artifactExtension="axf"
             cleanCommand="clean"
             errorParsers="com.infineon.cv.ARMErrorParser;"
             id="com.infineon.cv.configurationHadesCompile"
-            name="Hades all">
+            name="clearmake all abstract">
       </configuration>
       <configuration
             artifactExtension="axf"
             cleanCommand="clean"
             errorParsers="com.infineon.cv.ARMErrorParser;"
             id="com.infineon.cv.configurationHadesRun"
-            name="Hades Run">
+            name="clearmake run abstract">
       </configuration>
-      <toolChain
-            configurationEnvironmentSupplier="com.infineon.cv.env.EnvVar3_1"
-            id="com.infineon.cv.toolChainRVDS31"
-            isAbstract="true"
-            isToolChainSupported="com.infineon.cv.toolchainsupport.RVDSToolChainSupport"
-            name="RVDS 3.1">
-      </toolChain>
-      <toolChain
-            configurationEnvironmentSupplier="com.infineon.cv.env.EnvVar2_2"
-            id="com.infineon.cv.toolChainRVDS22"
-            isAbstract="true"
-            isToolChainSupported="com.infineon.cv.toolchainsupport.RVDSToolChainSupport"
-            name="RVDS 2.2">
-      </toolChain>
       <toolChain
             id="com.infineon.cv.toolChainHades"
             isAbstract="true"
             isToolChainSupported="com.infineon.cv.toolchainsupport.HadesToolChainSupport"
-            name="Hades tool chain">
+            name="toolchain Hades Sysway">
       </toolChain>
       <targetPlatform
             id="com.infineon.cv.targetPlatform"
@@ -472,7 +355,7 @@
             incrementalBuildTarget="all"
             isAbstract="true"
             isVariableCaseSensitive="false"
-            name="Infineon all Builder"
+            name="gnumake all Builder"
             superClass="org.eclipse.cdt.build.core.settings.default.builder"
             supportsManagedBuild="false">
       </builder>
@@ -486,7 +369,7 @@
             incrementalBuildTarget="lib"
             isAbstract="true"
             isVariableCaseSensitive="false"
-            name="Infineon Lib Builder"
+            name="gnumake lib Builder"
             superClass="org.eclipse.cdt.build.core.settings.default.builder"
             supportsManagedBuild="false">
       </builder>
@@ -511,7 +394,7 @@
             incrementalBuildTarget="run"
             isAbstract="true"
             isVariableCaseSensitive="false"
-            name="Hades Run Builder"
+            name="clearmake run Builder"
             superClass="org.eclipse.cdt.build.core.settings.default.builder"
             supportsManagedBuild="false">
       </builder>
@@ -525,182 +408,38 @@
             incrementalBuildTarget="all"
             isAbstract="true"
             isVariableCaseSensitive="false"
-            name="Hades all Builder"
+            name="clearmake all Builder"
             superClass="org.eclipse.cdt.build.core.settings.default.builder"
             supportsManagedBuild="false">
       </builder>
-      <tool
-            id="com.infineon.cv.toolCVTC31"
+      <builder
+            arguments="-V -r -f hades.mk"
+            autoBuildTarget="compile"
+            cleanBuildTarget="clean"
+            command="clearmake"
+            errorParsers="com.infineon.cv.ARMErrorParser"
+            id="com.infineon.cv.builder.hadesLegCompileA"
+            incrementalBuildTarget="compile"
             isAbstract="true"
-            name="CV Testcase 3.1 DO NOT USE"
-            superClass="org.eclipse.cdt.build.core.settings.holder">
-         <inputType
-               id="com.infineon.cv.inputTypeCVTC31"
-               sourceContentType="org.eclipse.cdt.core.cSource"
-               superClass="org.eclipse.cdt.build.core.settings.holder.inType">
-         </inputType>
-         <envVarBuildPath
-               buildPathResolver="com.infineon.cv.misc.testBuildPath"
-               pathType="buildpathInclude"
-               variableList="ARMLIB">
-         </envVarBuildPath>
-         <option
-               id="com.infineon.cv.optionCVTC31"
-               isAbstract="true"
-               name="Include paths CV TC RVDS3.1"
-               resourceFilter="all"
-               superClass="org.eclipse.cdt.build.core.settings.holder.incpaths"
-               valueType="includePath">
-            <listOptionValue
-                  builtIn="false"
-                  value="${toolDir}/IFX_Tools/ARM/RVDS/RVCT/Data/2.2/349/include/windows">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${testcaseProjectDir}/_inc">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${testcaseProjectDir}/_lib/_inc">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${testcaseProjectDir}/_halix/common">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${testcaseProjectDir}/_halix/_inc">
-            </listOptionValue>
-         </option>
-      </tool>
-      <tool
-            id="com.infineon.cv.toolCVTC22"
+            isVariableCaseSensitive="false"
+            name="clearmake -f hades.mk compile Builder"
+            superClass="org.eclipse.cdt.build.core.settings.default.builder"
+            supportsManagedBuild="false">
+      </builder>
+      <builder
+            arguments="-V -r -f hades.mk"
+            autoBuildTarget="run"
+            cleanBuildTarget="clean"
+            command="clearmake"
+            errorParsers="com.infineon.cv.ARMErrorParser"
+            id="com.infineon.cv.builder.hadesLegRunA"
+            incrementalBuildTarget="run"
             isAbstract="true"
-            name="CV Testcase 2.2 DO NOT USE"
-            superClass="org.eclipse.cdt.build.core.settings.holder">
-         <inputType
-               id="com.infineon.cv.inputTypeCVTC22"
-               sourceContentType="org.eclipse.cdt.core.cSource"
-               superClass="org.eclipse.cdt.build.core.settings.holder.inType">
-         </inputType>
-         <envVarBuildPath
-               buildPathResolver="com.infineon.cv.misc.testBuildPath"
-               pathType="buildpathInclude"
-               variableList="ARMLIB">
-         </envVarBuildPath>
-         <option
-               id="com.infineon.cv.optionCVTC22"
-               isAbstract="true"
-               name="Include paths CV TC RVDS2.2"
-               resourceFilter="all"
-               superClass="org.eclipse.cdt.build.core.settings.holder.incpaths"
-               valueType="includePath">
-            <listOptionValue
-                  builtIn="false"
-                  value="${toolDir}/IFX_Tools/ARM/RVDS/RVCT/Data/2.2/349/include/windows">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${testcaseProjectDir}/_inc">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${testcaseProjectDir}/_lib/_inc">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${testcaseProjectDir}/_halix/common">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${testcaseProjectDir}/_halix/_inc">
-            </listOptionValue>
-         </option>
-      </tool>
-      <tool
-            id="com.infineon.cv.toolCVMem31"
-            isAbstract="true"
-            name="CV Memloader 3.1 DO NOT USE"
-            superClass="org.eclipse.cdt.build.core.settings.holder">
-         <inputType
-               id="com.infineon.cv.inputTypeCVMem31"
-               sourceContentType="org.eclipse.cdt.core.cSource"
-               superClass="org.eclipse.cdt.build.core.settings.holder.inType">
-         </inputType>
-         <envVarBuildPath
-               buildPathResolver="com.infineon.cv.misc.testBuildPath"
-               pathType="buildpathInclude"
-               variableList="ARMLIB">
-         </envVarBuildPath>
-         <option
-               id="com.infineon.cv.optionCVMem31"
-               isAbstract="true"
-               name="Include paths CV Memloader RVDS3.1"
-               resourceFilter="all"
-               superClass="org.eclipse.cdt.build.core.settings.holder.incpaths"
-               valueType="includePath">
-            <listOptionValue
-                  builtIn="true"
-                  value="${toolDir}\IFX_Tools\ARM\RVDS\RVCT\Data\3.1\862\include\windows">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${testcaseProjectDir}\_inc">
-            </listOptionValue>
-         </option>
-      </tool>
-      <tool
-            id="com.infineon.cv.toolBootcode31"
-            isAbstract="true"
-            name="Bootcode 3.1"
-            superClass="org.eclipse.cdt.build.core.settings.holder">
-         <inputType
-               id="com.infineon.cv.inputTypeBootcode31"
-               sourceContentType="org.eclipse.cdt.core.cSource"
-               superClass="org.eclipse.cdt.build.core.settings.holder.inType">
-         </inputType>
-         <envVarBuildPath
-               buildPathResolver="com.infineon.cv.misc.testBuildPath"
-               pathType="buildpathInclude"
-               variableList="ARMLIB">
-         </envVarBuildPath>
-         <option
-               id="com.infineon.cv.optionMemloader31"
-               isAbstract="true"
-               name="Include paths Bootcode RVDS3.1"
-               resourceFilter="all"
-               superClass="org.eclipse.cdt.build.core.settings.holder.incpaths"
-               valueType="includePath">
-            <listOptionValue
-                  builtIn="false"
-                  value="${toolDir}\IFX_Tools\ARM\RVDS\RVCT\Data\3.1\862\include\windows">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${bootcodeProjectDir}/hal/inc">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${bootcodeProjectDir}/inc">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${bootcodeProjectDir}/drv_mem/inc">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${bootcodeProjectDir}/bs/inc">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${bootcodeProjectDir}/sc/inc">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${bootcodeProjectDir}/brl/inc">
-            </listOptionValue>
-         </option>
-      </tool>
+            isVariableCaseSensitive="false"
+            name="clearmake -f hades.mk run Builder"
+            superClass="org.eclipse.cdt.build.core.settings.default.builder"
+            supportsManagedBuild="false">
+      </builder>
       <tool
             id="com.infineon.cv.toolHades"
             isAbstract="true"
@@ -746,178 +485,6 @@
          </option>
       </tool>
       <tool
-            id="com.infineon.cv.toolHadesBCO"
-            isAbstract="false"
-            name="Hades BCO tool"
-            superClass="org.eclipse.cdt.build.core.settings.holder">
-         <inputType
-               id="com.infineon.cv.inputTypeHadesBCO"
-               sourceContentType="org.eclipse.cdt.core.cSource"
-               superClass="org.eclipse.cdt.build.core.settings.holder.inType">
-         </inputType>
-         <option
-               browseType="directory"
-               id="com.infineon.cv.optionHadesBCO"
-               isAbstract="false"
-               name="Include paths Hades BCO"
-               resourceFilter="file"
-               superClass="org.eclipse.cdt.build.core.settings.holder.incpaths"
-               valueType="includePath">
-            <listOptionValue
-                  builtIn="true"
-                  value="${ARMINC}">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="true"
-                  value="${bcoTcProjectDir}/CV_Testcases/_common/libs/include">
-            </listOptionValue>
-         </option>
-      </tool>
-      <tool
-            id="com.infineon.cv.toolURFET22"
-            isAbstract="true"
-            name="URFET 2.2 DO NOT USE"
-            superClass="org.eclipse.cdt.build.core.settings.holder">
-         <inputType
-               id="com.infineon.cv.inputTypeURFET22"
-               sourceContentType="org.eclipse.cdt.core.cSource"
-               superClass="org.eclipse.cdt.build.core.settings.holder.inType">
-         </inputType>
-         <option
-               id="com.infineon.cv.optionURFET22"
-               isAbstract="false"
-               name="Include paths URFET RVDS 2.2"
-               resourceFilter="all"
-               superClass="org.eclipse.cdt.build.core.settings.holder.incpaths"
-               valueType="includePath">
-            <listOptionValue
-                  builtIn="false"
-                  value="${toolDir}\IFX_Tools\ARM\RVDS\RVCT\Data\2.2\349\include\windows">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${URFETProjectDir}\S-Gold\S-GOLD_Family_Environment\_inc">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${URFETProjectDir}\S-Gold\S-GOLD_Family_Environment\_lib\_inc">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${URFETProjectDir}\S-Gold\S-GOLD_Family_Environment\_halix\common">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${URFETProjectDir}\S-Gold\S-GOLD_Family_Environment\_halix\_inc">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${URFETProjectDir}\fmr_cv\fmr_xg223\FMR_HLD\api_sys_interface">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${URFETProjectDir}\fmr_cv\fmr_xg223\FMR_HLD">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${URFETProjectDir}\fmr_cv\fmr_xg223\FMR_LLD">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${URFETProjectDir}\fmr_cv\fmr_xg223\FMR_FW">
-            </listOptionValue>
-         </option>
-      </tool>
-      <tool
-            id="com.infineon.cv.toolCrypto22"
-            isAbstract="true"
-            name="Crypto 2.2 DO NOT USE"
-            superClass="org.eclipse.cdt.build.core.settings.holder">
-         <inputType
-               id="com.infineon.cv.inputTypeCrypto22"
-               sourceContentType="org.eclipse.cdt.core.cSource"
-               superClass="org.eclipse.cdt.build.core.settings.holder.inType">
-         </inputType>
-         <option
-               id="com.infineon.cv.optionCrypto22"
-               isAbstract="false"
-               name="Include paths Crypto RVDS 2.2"
-               resourceFilter="all"
-               superClass="org.eclipse.cdt.build.core.settings.holder.incpaths"
-               valueType="includePath">
-            <listOptionValue
-                  builtIn="false"
-                  value="${toolDir}/IFX_Tools/ARM/RVDS/RVCT/Data/2.2/349/include/windows">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${testcaseProjectDir}/_inc">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${testcaseProjectDir}/_lib/_inc">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${testcaseProjectDir}/_halix/common">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${testcaseProjectDir}/_halix/_inc">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${cryptoProjectDir}/_halix_CV/_inc">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${cryptoProjectDir}/Testcases/CRYPTO_test/common">
-            </listOptionValue>
-            <listOptionValue
-                  builtIn="false"
-                  value="${cryptoProjectDir}/Testcases/CRYPTO_test/CRYPTO_TC_All">
-            </listOptionValue>
-         </option>
-      </tool>
-      <tool
-            id="com.infineon.cv.tool.hades.make"
-            isAbstract="true"
-            name="Hades Makefile Converter DO NOT USE"
-            superClass="org.eclipse.cdt.build.core.settings.holder">
-         <inputType
-               id="com.infineon.cv.inputType.hades.make"
-               sourceContentType="org.eclipse.cdt.core.cSource"
-               superClass="org.eclipse.cdt.build.core.settings.holder.inType">
-         </inputType>
-         <option
-               id="com.infineon.cv.option.hades.make"
-               isAbstract="true"
-               name="Include paths Hades make"
-               resourceFilter="all"
-               superClass="org.eclipse.cdt.build.core.settings.holder.incpaths"
-               valueType="includePath">
-         </option>
-      </tool>
-      <tool
-            id="com.infineon.cv.tool.hades.run"
-            isAbstract="true"
-            name="Hades Run"
-            superClass="org.eclipse.cdt.build.core.settings.holder">
-         <inputType
-               id="com.infineon.cv.inputType.hades.run"
-               sourceContentType="org.eclipse.cdt.core.cSource"
-               superClass="org.eclipse.cdt.build.core.settings.holder.inType">
-         </inputType>
-         <option
-               id="com.infineon.cv.option.hades.run"
-               isAbstract="true"
-               name="Include paths Hades run"
-               resourceFilter="all"
-               superClass="org.eclipse.cdt.build.core.settings.holder.incpaths"
-               valueType="includePath">
-         </option>
-      </tool>
-      <tool
             id="com.infineon.cv.toolHadesMemloader"
             isAbstract="true"
             name="Hades Memloader tool"
@@ -946,19 +513,94 @@
          </option>
       </tool>
       <tool
-            id="com.infineon.cv.tool.hades.compile"
+            id="com.infineon.cv.toolHadesBCO"
             isAbstract="true"
-            name="Hades Compile"
+            name="Hades BCO tool"
             superClass="org.eclipse.cdt.build.core.settings.holder">
          <inputType
-               id="com.infineon.cv.inputType.hades.compile"
+               id="com.infineon.cv.inputTypeHadesBCO"
                sourceContentType="org.eclipse.cdt.core.cSource"
                superClass="org.eclipse.cdt.build.core.settings.holder.inType">
          </inputType>
          <option
-               id="com.infineon.cv.option.hades.compile"
+               browseType="directory"
+               id="com.infineon.cv.optionHadesBCO"
+               isAbstract="false"
+               name="Include paths Hades BCO"
+               resourceFilter="file"
+               superClass="org.eclipse.cdt.build.core.settings.holder.incpaths"
+               valueType="includePath">
+            <listOptionValue
+                  builtIn="true"
+                  value="${ARMINC}">
+            </listOptionValue>
+            <listOptionValue
+                  builtIn="true"
+                  value="${bcoTcProjectDir}/CV_Testcases/_common/libs/include">
+            </listOptionValue>
+         </option>
+      </tool>
+      <tool
+            id="com.infineon.cv.toolBootcode"
+            isAbstract="true"
+            name="Bootcode tool"
+            superClass="org.eclipse.cdt.build.core.settings.holder">
+         <inputType
+               id="com.infineon.cv.inputTypeBootcode"
+               sourceContentType="org.eclipse.cdt.core.cSource"
+               superClass="org.eclipse.cdt.build.core.settings.holder.inType">
+         </inputType>
+         <option
+               id="com.infineon.cv.optionMemloader"
+               isAbstract="false"
+               name="Include paths Bootcode"
+               resourceFilter="all"
+               superClass="org.eclipse.cdt.build.core.settings.holder.incpaths"
+               valueType="includePath">
+            <listOptionValue
+                  builtIn="false"
+                  value="${ARMINC}">
+            </listOptionValue>
+            <listOptionValue
+                  builtIn="false"
+                  value="${bcoRomProjectDir}/hal/inc">
+            </listOptionValue>
+            <listOptionValue
+                  builtIn="false"
+                  value="${bcoRomProjectDir}/inc">
+            </listOptionValue>
+            <listOptionValue
+                  builtIn="false"
+                  value="${bcoRomProjectDir}/drv_mem/inc">
+            </listOptionValue>
+            <listOptionValue
+                  builtIn="false"
+                  value="${bcoRomProjectDir}/bs/inc">
+            </listOptionValue>
+            <listOptionValue
+                  builtIn="false"
+                  value="${bcoRomProjectDir}/sc/inc">
+            </listOptionValue>
+            <listOptionValue
+                  builtIn="false"
+                  value="${bcoRomProjectDir}/brl/inc">
+            </listOptionValue>
+         </option>
+      </tool>
+      <tool
+            id="com.infineon.cv.tool.hades.make"
+            isAbstract="true"
+            name="Hades Makefile Converter DO NOT USE"
+            superClass="org.eclipse.cdt.build.core.settings.holder">
+         <inputType
+               id="com.infineon.cv.inputType.hades.make"
+               sourceContentType="org.eclipse.cdt.core.cSource"
+               superClass="org.eclipse.cdt.build.core.settings.holder.inType">
+         </inputType>
+         <option
+               id="com.infineon.cv.option.hades.make"
                isAbstract="true"
-               name="Include paths Hades compile"
+               name="Include paths Hades make"
                resourceFilter="all"
                superClass="org.eclipse.cdt.build.core.settings.holder.incpaths"
                valueType="includePath">
@@ -1215,7 +857,21 @@
             name="Intel CV Project"
             project="true">
          <description>
-            To create an Intel IMC CV Testcase
+            To create an Intel IMC CV testcase.
+         </description>
+      </wizard>
+      <wizard
+            canFinishEarly="false"
+            category="com.infineon.cv.category"
+            class="com.infineon.cv.wizard.IntelBCOWizard"
+            finalPerspective="org.eclipse.cdt.ui.CPerspective"
+            hasPages="true"
+            icon="icons/intel.gif"
+            id="com.infineon.cv.wizard.bootcode"
+            name="Intel Bootcode Project"
+            project="true">
+         <description>
+            To create an Intel IMC bootcode project.
          </description>
       </wizard>
    </extension>
