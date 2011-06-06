@@ -100,7 +100,7 @@ public class IntelProjectManager {
 
 		try {
 			IProject cdtProj = CCorePlugin.getDefault().createCDTProject(projDesc, newProjectHandle, monitor);
-
+			
 			CProjectNature.addCNature(cdtProj, monitor);
 			ICProjectDescriptionManager mgr = CoreModel.getDefault().getProjectDescriptionManager();
 			ICProjectDescription des = mgr.getProjectDescription(cdtProj, true);
