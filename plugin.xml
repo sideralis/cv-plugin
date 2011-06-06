@@ -759,6 +759,13 @@
             id="cvmakefileeditor"
             name="Makefile">
       </editor>
+      <editor
+            class="com.infineon.cv.editors.ScatterEditor"
+            default="true"
+            filenames="*.scf"
+            id="com.infineon.cv.editor.scatter"
+            name="Scatter file">
+      </editor>
    </extension>
    <extension
          point="org.eclipse.debug.ui.launchConfigurationTypeImages">
