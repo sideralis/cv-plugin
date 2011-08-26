@@ -44,8 +44,8 @@ import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.MessageDialog;
 
-import com.infineon.cv.ToggleNature;
 import com.infineon.cv.makefile.parser.MakefileData;
+import com.infineon.cv.nature.ToggleNature;
 
 /**
  * 
@@ -79,6 +79,7 @@ public class IntelProjectManager {
 		if (eclipse.exists()) {
 			// The project has been created already, let's ask the user if he
 			// wants to overwrite it!
+			// TODO: this does not work correctly as some linked folders are not added if we say yes.
 			boolean answer = MessageDialog.openQuestion(null, "Eclipse project already exists", "Do you want to overwrite the existing eclipse project?\n"
 					+ "If not, press no and use the File\\Import... menu, then General\\Existing projects into Workspace to open the existing project");
 			if (answer == false)

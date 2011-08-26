@@ -36,7 +36,7 @@ public class IntelWizardPage extends WizardPage {
 		"\\S-Gold\\S-GOLD_Family_Environment\\Testcases",
 		"\\S-Gold\\S-GOLD_Family_Environment\\_lib\\_src",
 		"\\S-Gold-Bootcode\\S-GOLD\\Verification",
-		"\\IFX_Tools\\MemLoader\\C_ASM\\Target\\SG\\NOR Flash\\"};
+		"\\IFX_Tools\\MemLoader\\C_ASM\\Target\\SG\\NOR_Flash\\"};
 		
 
 	private Button browse;

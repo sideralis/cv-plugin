@@ -21,9 +21,12 @@ public class ARMErrorParser extends AbstractErrorParser {
 		// Warning during linking
 		new ARMErrorPattern("(.*?)\\(line ([0-9]+), col [0-9]+\\) Warning: (.*)",1,2,3,0, IMarkerGenerator.SEVERITY_WARNING),
 		
+		// Error during assembly
+		new ARMErrorPattern("\"(.+)\", line ([\\d]+)(.+): Error: (.*)", 1, 2, 4, 0, IMarkerGenerator.SEVERITY_ERROR_BUILD),
+		
 		// For this type of linking error: "Error: L6218E: Undefined symbol udelay (referred from xgold_mmc.o)"
 		// FIXME does not work
-		new ARMErrorPattern("Error: ((.*) (.+?)) \\(referred from (.*)\\)",4,0,1,0,IMarkerGenerator.SEVERITY_ERROR_BUILD),
+		new ARMErrorPattern("Error: ((.*) (.+?)) .referred from (.*).",4,0,1,0,IMarkerGenerator.SEVERITY_ERROR_BUILD),
 	};
 
 	/**

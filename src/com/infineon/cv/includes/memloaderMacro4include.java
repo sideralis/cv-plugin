@@ -37,7 +37,7 @@ public class memloaderMacro4include implements IProjectBuildMacroSupplier {
 			root = projLoc.substring(0, pos);
 
 			InfineonPreferencePage pref = new InfineonPreferencePage();
-			macros[0] = new InfineonMacro("testcaseProjectDir", root.concat("IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash"));
+			macros[0] = new InfineonMacro("testcaseProjectDir", root.concat("IFX_Tools/MemLoader/C_ASM/Target/SG/NOR_Flash"));
 			macros[1] = new InfineonMacro("CV_FoundationDir", root.concat("CV_Foundation/"));
 		}
 		return this.macros;

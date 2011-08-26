@@ -622,7 +622,7 @@
       </requires-nature>
       <runtime>
          <run
-               class="com.infineon.cv.NatureLinkedRessources">
+               class="com.infineon.cv.nature.NatureLinkedRessources">
          </run>
       </runtime>
       <options
@@ -646,7 +646,7 @@
             </separator>
          </menu>
          <action
-               class="com.infineon.cv.ToggleNatureAction"
+               class="com.infineon.cv.nature.ToggleNatureAction"
                enablesFor="10"
                id="com.infineon.cv.addRemoveNatureAction"
                label="Add libraries and include links"

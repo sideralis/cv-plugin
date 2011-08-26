@@ -1,8 +1,9 @@
-package com.infineon.cv;
+package com.infineon.cv.nature;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.runtime.CoreException;
+
 
 /**
  * ToggleNature extends Thread class, it sets LinkedRessources Nature to the

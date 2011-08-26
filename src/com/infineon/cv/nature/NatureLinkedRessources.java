@@ -1,4 +1,4 @@
-package com.infineon.cv;
+package com.infineon.cv.nature;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +18,7 @@ import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 
+import com.infineon.cv.InfineonActivator;
 import com.infineon.cv.makefile.parser.MakefileData;
 
 /**
@@ -48,8 +49,8 @@ public class NatureLinkedRessources implements IProjectNature {
 					"brl S-Gold-Bootcode/S-GOLD/Target/brl/src", "lib S-Gold-Bootcode/S-GOLD/Verification/CV_Testcases/_common/libs" });
 		}
 		{
-			put("hadesMemloader", new String[] { "lld IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_lld", "inc IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_inc",
-					"base IFX_Tools/MemLoader/C_ASM/Target/SG/NOR Flash/_base" });
+			put("hadesMemloader", new String[] { "lld IFX_Tools/MemLoader/C_ASM/Target/SG/NOR_Flash/_lld", "inc IFX_Tools/MemLoader/C_ASM/Target/SG/NOR_Flash/_inc",
+					"base IFX_Tools/MemLoader/C_ASM/Target/SG/NOR_Flash/_base" });
 		}
 		{
 			put("Bootcode", new String[] { "base S-Gold-Bootcode/S-GOLD/Target/base", "bs S-Gold-Bootcode/S-GOLD/Target/bs/src", "drv_mem S-Gold-Bootcode/S-GOLD/Target/drv_mem/src",
