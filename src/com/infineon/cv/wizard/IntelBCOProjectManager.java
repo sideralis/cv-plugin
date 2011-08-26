@@ -26,7 +26,7 @@ import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.MessageDialog;
 
-import com.infineon.cv.ToggleNature;
+import com.infineon.cv.nature.ToggleNature;
 
 @SuppressWarnings("restriction")
 public class IntelBCOProjectManager {

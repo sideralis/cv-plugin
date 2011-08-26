@@ -1,4 +1,4 @@
-package com.infineon.cv;
+package com.infineon.cv.nature;
 
 import java.util.Iterator;
 
@@ -9,6 +9,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
+
 
 /**
  * ToggleNatureAction implements IObjectActionDelegate interface, which run an
