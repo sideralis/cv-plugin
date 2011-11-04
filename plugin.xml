@@ -12,7 +12,7 @@
             projectMacroSupplier="com.infineon.cv.includes.testcaseMacro4include">
          <configuration
                id="com.infineon.cv.configuration.hadesTCCompile"
-               name="clearmake all"
+               name="cm compile"
                parent="com.infineon.cv.configurationHadesCompile">
             <toolChain
                   id="com.infineon.cv.toolChain.hadesCompile"
@@ -37,7 +37,7 @@
          </configuration>
          <configuration
                id="com.infineon.cv.configuration.hadesTCRun"
-               name="clearmake run"
+               name="cm run"
                parent="com.infineon.cv.configurationHadesRun">
             <toolChain
                   id="com.infineon.cv.toolChain.HadesRun"
@@ -80,57 +80,6 @@
                </builder>
                <tool
                      id="com.infineon.cv.tool.hadesGnumake"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.toolHades">
-               </tool>
-            </toolChain>
-         </configuration>
-         <configuration
-               id="com.infineon.cv.configuration.hadesTCLegRun"
-               name="clearmake -f hades.mk run"
-               parent="com.infineon.cv.configurationHadesRun">
-            <toolChain
-                  id="com.infineon.cv.toolChain.hadesLegRun"
-                  isAbstract="false"
-                  superClass="com.infineon.cv.toolChainHades">
-               <targetPlatform
-                     id="com.infineon.cv.targetPlatform.hadesLegRun"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.targetPlatform">
-               </targetPlatform>
-               <builder
-                     id="com.infineon.cv.builder.hadesLegRun"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.builder.hadesLegRunA">
-               </builder>
-               <tool
-                     id="com.infineon.cv.tool.hadesLegRun"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.toolHades">
-               </tool>
-            </toolChain>
-         </configuration>
-         <configuration
-               id="com.infineon.cv.configuration.hadesTCLegCompile"
-               name="clearmake -f hades.mk compile"
-               parent="com.infineon.cv.configurationHadesCompile">
-            <toolChain
-                  id="com.infineon.cv.toolChain.hadesLegCompile"
-                  isAbstract="false"
-                  superClass="com.infineon.cv.toolChainHades">
-               <targetPlatform
-                     id="com.infineon.cv.targetPlatform.hadesLegCompile"
-                     isAbstract="false"
-                     superClass="com.infineon.cv.targetPlatform">
-               </targetPlatform>
-               <builder
-                     id="com.infineon.cv.builder.hadesLegCompile"
-                     isAbstract="false"
-                     isVariableCaseSensitive="false"
-                     superClass="com.infineon.cv.builder.hadesLegCompileA">
-               </builder>
-               <tool
-                     id="com.infineon.cv.tool.hadesLegCompile"
                      isAbstract="false"
                      superClass="com.infineon.cv.toolHades">
                </tool>
@@ -199,8 +148,33 @@
             </toolChain>
          </configuration>
          <configuration
+               id="com.infineon.cv.configuration.hadesBCOTCGnumakeImage"
+               name="gnumake image"
+               parent="com.infineon.cv.configurationImage">
+            <toolChain
+                  id="com.infineon.cv.toolChain.hadesBCOGnumakeImage"
+                  isAbstract="false"
+                  superClass="com.infineon.cv.toolChainHades">
+               <targetPlatform
+                     id="com.infineon.cv.targetPlatform.hadesBCOGnumakeImage"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.targetPlatform">
+               </targetPlatform>
+               <builder
+                     id="com.infineon.cv.builder.hadesBCOGnumakeImage"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.builderImage">
+               </builder>
+               <tool
+                     id="com.infineon.cv.tool.hadesBCOGnumakeImage"
+                     isAbstract="false"
+                     superClass="com.infineon.cv.toolHadesBCO">
+               </tool>
+            </toolChain>
+         </configuration>
+         <configuration
                id="com.infineon.cv.configuration.hadesBCOTCClearmakeRun"
-               name="clearmake run"
+               name="cm run"
                parent="com.infineon.cv.configurationHadesRun">
             <toolChain
                   id="com.infineon.cv.toolChain.hadesBCOClearmakeRun"
@@ -225,7 +199,7 @@
          </configuration>
          <configuration
                id="com.infineon.cv.configuration.hadesBCOTCClearmake"
-               name="clearmake all"
+               name="cm all"
                parent="com.infineon.cv.configurationHadesCompile">
             <toolChain
                   id="com.infineon.cv.toolChain.hadesBCOClearmake"
@@ -322,6 +296,14 @@
       </configuration>
       <configuration
             artifactExtension="axf"
+            cleanCommand="cleanall"
+            errorParsers="com.infineon.cv.ARMErrorParser;"
+            id="com.infineon.cv.configuration2"
+            name="gnumake image abstract"
+            parent="org.eclipse.cdt.build.core.prefbase.cfg">
+      </configuration>
+      <configuration
+            artifactExtension="axf"
             cleanCommand="clean"
             errorParsers="com.infineon.cv.ARMErrorParser;"
             id="com.infineon.cv.configurationHadesCompile"
@@ -356,6 +338,20 @@
             isAbstract="true"
             isVariableCaseSensitive="false"
             name="gnumake all Builder"
+            superClass="org.eclipse.cdt.build.core.settings.default.builder"
+            supportsManagedBuild="false">
+      </builder>
+      <builder
+            arguments="-R --jobs=2"
+            autoBuildTarget="image"
+            cleanBuildTarget="cleanall"
+            command="gnumake"
+            errorParsers="com.infineon.cv.ARMErrorParser"
+            id="com.infineon.cv.builderImage"
+            incrementalBuildTarget="image"
+            isAbstract="true"
+            isVariableCaseSensitive="false"
+            name="gnumake image Builder"
             superClass="org.eclipse.cdt.build.core.settings.default.builder"
             supportsManagedBuild="false">
       </builder>
@@ -408,35 +404,7 @@
             incrementalBuildTarget="all"
             isAbstract="true"
             isVariableCaseSensitive="false"
-            name="clearmake all Builder"
-            superClass="org.eclipse.cdt.build.core.settings.default.builder"
-            supportsManagedBuild="false">
-      </builder>
-      <builder
-            arguments="-V -r -f hades.mk"
-            autoBuildTarget="compile"
-            cleanBuildTarget="clean"
-            command="clearmake"
-            errorParsers="com.infineon.cv.ARMErrorParser"
-            id="com.infineon.cv.builder.hadesLegCompileA"
-            incrementalBuildTarget="compile"
-            isAbstract="true"
-            isVariableCaseSensitive="false"
-            name="clearmake -f hades.mk compile Builder"
-            superClass="org.eclipse.cdt.build.core.settings.default.builder"
-            supportsManagedBuild="false">
-      </builder>
-      <builder
-            arguments="-V -r -f hades.mk"
-            autoBuildTarget="run"
-            cleanBuildTarget="clean"
-            command="clearmake"
-            errorParsers="com.infineon.cv.ARMErrorParser"
-            id="com.infineon.cv.builder.hadesLegRunA"
-            incrementalBuildTarget="run"
-            isAbstract="true"
-            isVariableCaseSensitive="false"
-            name="clearmake -f hades.mk run Builder"
+            name="clearmake compile Builder"
             superClass="org.eclipse.cdt.build.core.settings.default.builder"
             supportsManagedBuild="false">
       </builder>

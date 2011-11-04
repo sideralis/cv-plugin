@@ -3,7 +3,6 @@ package com.infineon.cv.launcher;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 
 import org.eclipse.cdt.core.model.CoreModel;
 import org.eclipse.cdt.core.model.IBinary;
@@ -60,11 +59,11 @@ public class IntelLaunchShortcut implements ILaunchShortcut {
 		try {
 			System.out.println("---");
 			ICommand[] cmd = myProj.getDescription().getBuildSpec();
-			for (ICommand element : cmd) {
+//			for (ICommand element : cmd) {
 //				System.out.println(element.getBuilderName());
 //				System.out.println(element.getArguments());
 //				System.out.println(element);
-			}
+//			}
 			System.out.println("---");
 			IManagedBuildInfo buildInfo = ManagedBuildManager.getBuildInfo(myProj);
 			IConfiguration myConf = buildInfo.getDefaultConfiguration();

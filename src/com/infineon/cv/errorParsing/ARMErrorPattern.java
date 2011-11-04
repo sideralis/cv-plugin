@@ -1,6 +1,5 @@
 package com.infineon.cv.errorParsing;
 
-import java.io.File;
 import java.util.regex.Matcher;
 
 import org.eclipse.cdt.core.ErrorParserManager;
@@ -8,7 +7,6 @@ import org.eclipse.cdt.core.IMarkerGenerator;
 import org.eclipse.cdt.core.errorparsers.ErrorPattern;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.swt.graphics.Path;
 
 public class ARMErrorPattern extends ErrorPattern {
 	/** 

@@ -51,7 +51,7 @@ public class InfineonActivator extends AbstractUIPlugin {
 	 */
 	public Preferences getConfigPrefs() {
 		if (configPrefs == null) {
-			configPrefs = new ConfigurationScope().getNode(PLUGIN_ID);
+			configPrefs = ConfigurationScope.INSTANCE.getNode(PLUGIN_ID);
 		}
 		return (Preferences) configPrefs;
 	}
