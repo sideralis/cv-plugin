@@ -27,7 +27,6 @@ import org.eclipse.ui.dialogs.PropertyPage;
  * which integrates a property page in the project properties. Via this page, users can 
  * configure several defined variables required in the makefile.
  * */
-@SuppressWarnings("unchecked")
 public class NewMakefilePropertyPage extends PropertyPage implements IWorkbenchPropertyPage {
 
 	private IProject project;
@@ -49,7 +48,7 @@ public class NewMakefilePropertyPage extends PropertyPage implements IWorkbenchP
 	private ArrayList<DropDown> dropDowns;
 	private LinkingTab tab3;
 	private TabAdvanced tab4;
-	private static HashMap<String, String> liens = new HashMap() {
+	private static HashMap<String, String> liens = new HashMap<String,String>() {
 
 		private static final long serialVersionUID = 9075004251281770798L;
 		{

@@ -5,9 +5,6 @@ import org.eclipse.cdt.managedbuilder.macros.IBuildMacro;
 import org.eclipse.cdt.managedbuilder.macros.IBuildMacroProvider;
 import org.eclipse.cdt.managedbuilder.macros.IProjectBuildMacroSupplier;
 
-import com.infineon.cv.InfineonPreferencePage;
-import com.infineon.cv.PreferenceConstants;
-
 /**
  * testcaseMacro4include implements IProjectBuildMacroSupplier interface. Add
  * build variables(project Location) for resolving relative include path of

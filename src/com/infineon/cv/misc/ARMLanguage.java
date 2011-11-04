@@ -29,7 +29,6 @@ public class ARMLanguage extends GCCLanguage {// AbstractCLikeLanguage{
 	}
 
 	@Override
-	@SuppressWarnings({ "unchecked" })
 	public Object getAdapter(Class adapter) {
 		if (adapter == IPDOMLinkageFactory.class) {
 			return new PDOMCLinkageFactory();

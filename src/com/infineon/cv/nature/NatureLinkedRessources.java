@@ -25,14 +25,14 @@ import com.infineon.cv.makefile.parser.MakefileData;
  * NatureLinkedRessources implements IProjectNature, it adds linked files
  * according to the project type.
  **/
-@SuppressWarnings( { "unchecked", "serial" })
+@SuppressWarnings(  "serial" )
 public class NatureLinkedRessources implements IProjectNature {
 	/** The ID of this project nature */
 	public static final String NATURE_ID = InfineonActivator.PLUGIN_ID + ".NatureLinkedRessources";
 
 	private IProject project;
 
-	private static final Map<String, String[]> libsrcPaths = new HashMap() {
+	private static final Map<String, String[]> libsrcPaths = new HashMap<String, String[]>() {
 		// The name of the first string is an extract of the configurations of
 		// one project type.
 		{

@@ -6,7 +6,6 @@ import org.eclipse.cdt.managedbuilder.macros.IBuildMacroProvider;
 import org.eclipse.cdt.managedbuilder.macros.IProjectBuildMacroSupplier;
 
 import com.infineon.cv.InfineonPreferencePage;
-import com.infineon.cv.PreferenceConstants;
 
 /**
  * memloaderMacro4include implements IProjectBuildMacroSupplier. Add build
