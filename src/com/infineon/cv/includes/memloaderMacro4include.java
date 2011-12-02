@@ -14,7 +14,7 @@ import com.infineon.cv.InfineonPreferencePage;
  * */
 public class memloaderMacro4include implements IProjectBuildMacroSupplier {
 
-	private InfineonMacro[] macros = new InfineonMacro[2];
+	private InfineonMacro[] macros = new InfineonMacro[1];
 
 	public IBuildMacro getMacro(final String macroName, final IManagedProject project, IBuildMacroProvider provider) {
 		initializeMacros(project, provider);
@@ -31,13 +31,13 @@ public class memloaderMacro4include implements IProjectBuildMacroSupplier {
 		int pos;
 
 		projLoc = project.getOwner().getLocation().toString();
-		pos = projLoc.indexOf("IFX_Tools");
+		pos = projLoc.indexOf("MemLoader");
 		if (pos != -1) {
 			root = projLoc.substring(0, pos);
 
 			InfineonPreferencePage pref = new InfineonPreferencePage();
-			macros[0] = new InfineonMacro("testcaseProjectDir", root.concat("IFX_Tools/MemLoader/C_ASM/Target/SG/NOR_Flash"));
-			macros[1] = new InfineonMacro("CV_FoundationDir", root.concat("CV_Foundation/"));
+			macros[0] = new InfineonMacro("testcaseProjectDir", root.concat("MemLoader/C_ASM/Target/SG/NOR_Flash"));
+//			macros[1] = new InfineonMacro("CV_FoundationDir", root.concat("CV_Foundation/"));
 		}
 		return this.macros;
 	}

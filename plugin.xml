@@ -12,7 +12,7 @@
             projectMacroSupplier="com.infineon.cv.includes.testcaseMacro4include">
          <configuration
                id="com.infineon.cv.configuration.hadesTCCompile"
-               name="cm compile"
+               name="cm all"
                parent="com.infineon.cv.configurationHadesCompile">
             <toolChain
                   id="com.infineon.cv.toolChain.hadesCompile"
@@ -382,12 +382,12 @@
       </builder>
       <builder
             arguments="-V -r"
-            autoBuildTarget="run"
+            autoBuildTarget="run REPORTFILE=report\my.rpt"
             cleanBuildTarget="cleanall"
             command="clearmake"
             errorParsers="com.infineon.cv.ARMErrorParser"
             id="com.infineon.cv.builderHadesRun"
-            incrementalBuildTarget="run"
+            incrementalBuildTarget="run REPORTFILE=report\my.rpt"
             isAbstract="true"
             isVariableCaseSensitive="false"
             name="clearmake run Builder"
@@ -868,6 +868,14 @@
                value="Bernard Toto">
          </property>
       </product>
+   </extension>
+   <extension
+         point="org.eclipse.ui.intro">
+      <intro
+            class="com.infineon.cv.intro.IntroPart"
+            icon="icons/intel.gif"
+            id="com.infineon.cv.intro">
+      </intro>
    </extension>
 </plugin>
 
