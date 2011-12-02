@@ -33,8 +33,7 @@ public class NatureLinkedRessources implements IProjectNature {
 	private IProject project;
 
 	private static final Map<String, String[]> libsrcPaths = new HashMap<String, String[]>() {
-		// The name of the first string is an extract of the configurations of
-		// one project type.
+		// The name of the first string is an extract of the id of the configurations of one project type.
 		{
 			put("hadesTC", new String[] { "base S-Gold/S-GOLD_Family_Environment/_base", "lib_src S-Gold/S-GOLD_Family_Environment/_lib/_src", "lib_inc S-Gold/S-GOLD_Family_Environment/_lib/_inc",
 					"halix_src S-Gold/S-GOLD_Family_Environment/_halix/_src", "halix_inc S-Gold/S-GOLD_Family_Environment/_halix/_inc", "halix_common S-Gold/S-GOLD_Family_Environment/_halix/common",
@@ -49,8 +48,8 @@ public class NatureLinkedRessources implements IProjectNature {
 					"brl S-Gold-Bootcode/S-GOLD/Target/brl/src", "lib S-Gold-Bootcode/S-GOLD/Verification/CV_Testcases/_common/libs" });
 		}
 		{
-			put("hadesMemloader", new String[] { "lld IFX_Tools/MemLoader/C_ASM/Target/SG/NOR_Flash/_lld", "inc IFX_Tools/MemLoader/C_ASM/Target/SG/NOR_Flash/_inc",
-					"base IFX_Tools/MemLoader/C_ASM/Target/SG/NOR_Flash/_base" });
+			put("hadesMemloader", new String[] { "lld MemLoader/C_ASM/Target/SG/NOR_Flash/_lld", "inc MemLoader/C_ASM/Target/SG/NOR_Flash/_inc",
+					"base MemLoader/C_ASM/Target/SG/NOR_Flash/_base"});
 		}
 		{
 			put("Bootcode", new String[] { "base S-Gold-Bootcode/S-GOLD/Target/base", "bs S-Gold-Bootcode/S-GOLD/Target/bs/src", "drv_mem S-Gold-Bootcode/S-GOLD/Target/drv_mem/src",
@@ -224,7 +223,7 @@ public class NatureLinkedRessources implements IProjectNature {
 	 */
 	private void addLink(String linkfile, String linkPath) {
 		String projLoc, root;
-		int pos1, pos2, pos3;
+		int pos1, pos2, pos3, pos4, pos5;
 
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		IFolder folder = project.getFolder(linkfile);
@@ -234,14 +233,17 @@ public class NatureLinkedRessources implements IProjectNature {
 		projLoc = project.getLocation().toString();
 		pos1 = projLoc.indexOf("S-Gold");
 		pos2 = projLoc.indexOf("CRYPTO");
-		pos3 = projLoc.indexOf("IFX_Tools");
-		if ((pos1 != -1) || (pos2 != -1) || (pos3 != -1)) {
+		pos3 = projLoc.indexOf("S-Gold-Bootcode");
+		pos4 = projLoc.indexOf("MemLoader");
+		if ((pos1 != -1) || (pos2 != -1) || (pos3 != -1) || (pos4 != -1)) {
 			if (pos1 != -1)
 				root = projLoc.substring(0, pos1);
 			else if (pos2 != -1)
 				root = projLoc.substring(0, pos2);
-			else
+			else if (pos3 != -1)
 				root = projLoc.substring(0, pos3);
+			else
+				root = projLoc.substring(0, pos4);
 			// Create the full path of the link
 			linkPath = root.concat(linkPath);
 			IPath location = new Path(linkPath);
@@ -255,6 +257,8 @@ public class NatureLinkedRessources implements IProjectNature {
 			} else {
 				System.out.println(workspace.validateLinkLocation(folder, location).toString());
 			}
+		} else {
+			System.out.println("Error: could not retrieve a valid project path in order to add links!!!");
 		}
 	}
 }

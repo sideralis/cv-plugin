@@ -3,9 +3,7 @@
 
 <toc label="Intel CV Testcase Development Guide" topic="html/toc.html">
    <topic label="Getting Started">
-      <topic href="html/gettingstarted/sysway/createprojectSysway.html" label="With Sysway/Hades">
-      </topic>
-      <topic href="html/gettingstarted/manual/createprojectManual.html" label="Manual - Without Sysway/Hades">
+      <topic href="html/gettingstarted/createproject.html" label="Create a project">
       </topic>
    </topic>
    <topic label="Reference">
