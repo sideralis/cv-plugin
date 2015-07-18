@@ -1,0 +1,1 @@
+This is the code source of a plugin used to develop company testcases.
